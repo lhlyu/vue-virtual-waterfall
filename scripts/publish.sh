@@ -25,7 +25,7 @@ function pub(){
         ;;
     esac
     echo $version, $tag
-    pnpm publish --no-git-checks --tag $tag
+    pnpm publish --no-git-checks --tag $tag --access=public
 }
 
 pub
