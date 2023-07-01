@@ -37,7 +37,7 @@ jobs:
           NODE_AUTH_TOKEN: '${{secrets.NPM_AUTH_TOKEN}}'
 
       - run: |
-          echo "version=$(grep 'version:' pubspec.yaml | cut -d ' ' -f 2 | sed 's/\+.*//')" >> "$GITHUB_ENV"
+          echo "version=$(grep -o '"version": *"[^"]*"' package.json | awk -F'"' '{print $4}')" >> "$GITHUB_ENV"
 
       - run: |
           echo "version: ${{ env.version }}"
