@@ -20,7 +20,7 @@ import { VueVirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 
 ## 示例 | Demo
 
-- [demo](https://lhlyu.github.io/vue-virtual-waterfall/docs)
+- [demo](https://lhlyu.github.io/vue-virtual-waterfall)
 
 
 ## 参考 | References

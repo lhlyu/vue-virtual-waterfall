@@ -7,7 +7,7 @@ import dts from 'vite-plugin-dts'
 export default defineConfig(({ mode }) => {
     const plugins = [vue(), vueJsx()]
     let build: Record<string, any> = {
-        base: '/docs/',
+        base: '/',
         outDir: 'docs'
     }
 
