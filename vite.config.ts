@@ -16,9 +16,11 @@ export default defineConfig(({ mode }) => {
     }
 
     if (mode === 'npm') {
-        plugins.push(dts({
-            entryRoot: 'src/vue-virtual-waterfall'
-        }))
+        plugins.push(
+            dts({
+                entryRoot: 'src/vue-virtual-waterfall'
+            })
+        )
         build = {
             target: 'es2015',
             cssTarget: 'chrome61',

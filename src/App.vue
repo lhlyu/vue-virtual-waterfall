@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { faker } from '@faker-js/faker'
-import { VueVirtualWaterfall } from './vue-virtual-waterfall/index.ts'
+import { VueVirtualWaterfall } from './vue-virtual-waterfall'
 
 interface ItemOption {
     id: string
