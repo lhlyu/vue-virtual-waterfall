@@ -1,7 +1,6 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
-  "private": false,
   "version": "0.0.1-beta.0",
   "author": "lhlyu",
   "repository": {
