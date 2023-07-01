@@ -5,14 +5,17 @@ import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-    let base = '/vue-virtual-waterfall/'
+    let base = '/'
     const plugins = [vue(), vueJsx()]
     let build: Record<string, any> = {
         outDir: 'docs'
     }
 
+    if (mode === 'github') {
+        base = '/vue-virtual-waterfall/'
+    }
+
     if (mode === 'npm') {
-        base = '/'
         plugins.push(dts({
             entryRoot: 'src/vue-virtual-waterfall'
         }))

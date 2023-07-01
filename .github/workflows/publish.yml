@@ -1,0 +1,49 @@
+name: Publish Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: Release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Install deps
+        run: pnpm i --no-frozen-lockfile --shamefully-hoist
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: 'https://registry.npmjs.org/'
+          cache: 'pnpm'
+
+      - name: Build
+        run: pnpm build:npm
+
+      - name: publish
+        run: pnpm pub
+        env:
+          NODE_AUTH_TOKEN: '${{secrets.NPM_AUTH_TOKEN}}'
+
+      - run: |
+          echo "version=$(grep 'version:' pubspec.yaml | cut -d ' ' -f 2 | sed 's/\+.*//')" >> "$GITHUB_ENV"
+
+      - run: |
+          echo "version: ${{ env.version }}"
+
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: "v${{ env.version }}"
+          draft: true
+          token: ${{ secrets.TOKEN }}

@@ -40,7 +40,7 @@ const loadMoreData = () => {
     for (let i = 0; i < 40; i++) {
         const width = widths[i % 4]
         const height = width * heights[faker.number.int({ min: 0, max: 2 })]
-        const img = faker.image.urlLoremFlickr({ width, height })
+        const img = faker.image.urlLoremFlickr({ width, height, category: 'nature' })
         list.push({
             id: faker.string.nanoid(10),
             image: img,

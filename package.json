@@ -2,7 +2,7 @@
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.1-beta.0",
   "author": "lhlyu",
   "repository": {
     "type": "git",
@@ -12,9 +12,10 @@
   "scripts": {
     "fmt": "prettier --write .",
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build --mode github",
     "build:npm": "vue-tsc && vite build --mode npm",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pub": "bash scripts/publish.sh"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
