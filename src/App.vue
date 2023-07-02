@@ -2,9 +2,7 @@
     <main>
         <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }">
-                <div class="card">
-                    <img :src="item?.img" loading="lazy" />
-                </div>
+                <Card :id="item.id" :img="item.img"></Card>
             </template>
         </VirtualWaterfall>
     </main>
@@ -14,6 +12,7 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive } from 'vue'
 import { VirtualWaterfall } from './vue-virtual-waterfall'
+import Card from './card.vue'
 
 interface ItemOption {
     id: string
@@ -75,6 +74,9 @@ body {
 
     #app {
         main {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
             height: v-bind(appHeight);
         }
 
@@ -101,21 +103,6 @@ body {
                 background: rgba(#fd79a8, 0.9);
             }
         }
-    }
-}
-
-.card {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-
-    img {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        border-radius: 10px;
     }
 }
 </style>

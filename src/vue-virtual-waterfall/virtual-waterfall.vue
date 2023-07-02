@@ -116,6 +116,7 @@ const columnsTop = ref(new Array(columnCount.value).fill(0))
 
 // 计算每个item占据的宽度: (容器宽度 - 间隔) / 列数
 const itemWidth = computed(() => {
+    console.log('itemWidth')
     if (!contentWidth.value || columnCount.value <= 0) {
         return 0
     }
