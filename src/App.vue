@@ -3,7 +3,7 @@
         <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }">
                 <div class="card">
-                    <img :src="item?.img" />
+                    <img :src="item?.img" loading="lazy" />
                 </div>
             </template>
         </VirtualWaterfall>

@@ -21,7 +21,7 @@
                     transform: `translate(${data.left}px, ${data.top}px)`,
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     contentVisibility: 'auto',
-                    containIntrinsicSize: `${data.height}px`
+                    containIntrinsicSize: `${itemWidth}px ${data.height}px`
                 }"
             >
                 <slot :item="data.item" :index="index"></slot>
