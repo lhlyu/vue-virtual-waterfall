@@ -1,9 +1,9 @@
 <template>
     <main>
-        <VueVirtualWaterfall :items="items" :calcItemHeight="calcItemHeight" :loading="loading" ref="vw" @load-more="loadMoreData">
+        <VueVirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }">
                 <div class="card">
-                    <img :src="item.image" />
+                    <img :src="item.img" />
                 </div>
             </template>
         </VueVirtualWaterfall>
@@ -14,43 +14,44 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { faker } from '@faker-js/faker'
+import { onBeforeMount, ref, reactive } from 'vue'
 import { VueVirtualWaterfall } from './vue-virtual-waterfall'
+
 
 interface ItemOption {
     id: string
-    image: string
     height: number
     width: number
+    img: string
 }
 
-const loading = ref(false)
-const items = ref<ItemOption[]>([])
+const data = reactive({
+    items: [],
+    page: 1,
+    size: 40,
+    loading: false
+})
 
-const loadMoreData = () => {
-    console.log('items.length:', items.value.length)
-    if (items.value.length === 400) {
+
+const loadMoreData = async () => {
+    if (data.loading) {
         return
     }
-    loading.value = true
-    const list: ItemOption[] = []
-    const widths = [100, 200, 300, 400]
-    const heights = [1, 1.5, 2]
-    for (let i = 0; i < 40; i++) {
-        const width = widths[i % 4]
-        const height = width * heights[faker.number.int({ min: 0, max: 2 })]
-        const img = faker.image.urlLoremFlickr({ width, height, category: 'nature' })
-        list.push({
-            id: faker.string.nanoid(10),
-            image: img,
-            height: height,
-            width: width
-        })
+    data.loading = true
+    const resp = await fetch(`https://far-chicken-71.deno.dev/image/${data.page}/${data.size}`)
+    const list = await resp.json()
+    data.page += 1
+    data.items.push(...list)
+    if (list.length < data.size) {
+        return
     }
-    items.value.push(...list)
-    loading.value = false
+    data.loading = false
 }
+
+onBeforeMount(async () => {
+    await loadMoreData()
+})
+
 
 // 计算高度的方法
 const calcItemHeight = (item: ItemOption, itemWidth: number): number => {
@@ -64,10 +65,6 @@ const vw = ref()
 const backTop = () => {
     vw.value?.backTop()
 }
-
-onMounted(() => {
-    loadMoreData()
-})
 </script>
 
 <style lang="scss">
@@ -95,15 +92,14 @@ body {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 10px;
     border-radius: 10px;
+    overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 
     img {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        border-radius: 10px;
     }
 }
 </style>

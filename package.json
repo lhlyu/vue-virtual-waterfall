@@ -11,7 +11,8 @@
   "scripts": {
     "fmt": "prettier --write .",
     "dev": "vite",
-    "build": "vue-tsc && vite build --mode github",
+    "build": "vue-tsc && vite build",
+    "build:github": "vue-tsc && vite build --mode github",
     "build:npm": "vue-tsc && vite build --mode npm",
     "preview": "vite preview",
     "pub": "bash scripts/publish.sh"

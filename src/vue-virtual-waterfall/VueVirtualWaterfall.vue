@@ -7,7 +7,8 @@
                 height: `${Math.max(...columnsTop) + props.gap}px`,
                 padding: `${gap}px`,
                 boxSizing: 'border-box',
-                width: '100%'
+                width: '100%',
+                willChange: 'height'
             }"
         >
             <div
@@ -52,8 +53,8 @@ const props = withDefaults(
     {
         key: 'id',
         gap: 15,
-        preloadScreenCount: 3,
-        bottomDistance: 1000,
+        preloadScreenCount: 4,
+        bottomDistance: 1400,
         itemMinWidth: 240,
         loading: false,
         items: () => [],
