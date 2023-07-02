@@ -35,7 +35,7 @@ jobs:
         run: mv ./src/vue-virtual-waterfall/global.d.ts ./dist/global.d.ts
 
       - name: ll
-        run: ls -l
+        run: ls -l ./dist
 
       - name: publish
         run: pnpm pub

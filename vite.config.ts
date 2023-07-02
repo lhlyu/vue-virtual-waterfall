@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
             cssTarget: 'chrome61',
             copyPublicDir: false,
             lib: {
-                entry: ['src/vue-virtual-waterfall/index.ts'],
+                entry: 'src/vue-virtual-waterfall/index.ts',
                 formats: ['cjs', 'es', 'umd'],
                 name: 'VueVirtualWaterfall',
                 fileName: 'index'
