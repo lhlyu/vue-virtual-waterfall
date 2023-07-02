@@ -29,14 +29,14 @@ const loaded = ref(false)
     height: 100%;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
+    overflow: hidden;
 
     img {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        border-radius: 10px;
         filter: blur(100px);
-        transition: all 1s ease-in;
+        transition: all 0.6s ease-in;
     }
 
     .img-loaded {
