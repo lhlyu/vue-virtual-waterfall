@@ -14,7 +14,7 @@
 - 局部引用
 
 ```vue
-import { VueVirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
+import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - 全局使用

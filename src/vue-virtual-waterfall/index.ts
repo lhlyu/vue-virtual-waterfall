@@ -1,10 +1,10 @@
-import VueVirtualWaterfall from './VueVirtualWaterfall.vue'
+import VirtualWaterfall from './VirtualWaterfall.vue'
 
 //实现按需引入
-export { VueVirtualWaterfall }
+export { VirtualWaterfall }
 
 const install = function (App) {
-    App.component('VueVirtualWaterfall', VueVirtualWaterfall)
+    App.component('VirtualWaterfall', VirtualWaterfall)
 }
 
 export default { install }

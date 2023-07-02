@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive } from 'vue'
-import { VueVirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
+// import { VueVirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 
 interface ItemOption {
     id: string

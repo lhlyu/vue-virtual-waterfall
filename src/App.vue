@@ -1,19 +1,19 @@
 <template>
     <main>
-        <VueVirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" ref="vw" @load-more="loadMoreData">
+        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }">
                 <div class="card">
-                    <img :src="item.img" />
+                    <img :src="item?.img" />
                 </div>
             </template>
-        </VueVirtualWaterfall>
+        </VirtualWaterfall>
     </main>
     <div class="backtop" @click="backTop">▲</div>
 </template>
 
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive } from 'vue'
-import { VueVirtualWaterfall } from './vue-virtual-waterfall'
+import { VirtualWaterfall } from './vue-virtual-waterfall'
 
 interface ItemOption {
     id: string
