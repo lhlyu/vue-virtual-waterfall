@@ -1,7 +1,7 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1-beta.7",
   "author": "lhlyu",
   "repository": {
     "type": "git",
@@ -16,8 +16,8 @@
     "preview": "vite preview",
     "pub": "bash scripts/publish.sh"
   },
-  "main": "example/src/dist/index.cjs",
-  "module": "example/src/dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
     "vue3",
@@ -25,7 +25,7 @@
     "virtual-list"
   ],
   "files": [
-    "example/src/dist",
+    "dist",
     "README.md",
     "LICENSE",
     "package.json"
