@@ -34,35 +34,38 @@
 import { computed, onMounted, ref } from 'vue'
 import { useElementBounding, useDebounce, useElementSize, useScroll, useDebounceFn } from '@vueuse/core'
 
-const props = withDefaults(
-    defineProps<{
-        key?: string
-        // item间隔
-        gap?: number
-        // 预加载屏数量
-        preloadScreenCount?: number
-        // 距离底部多少时触发加载更多的事件
-        bottomDistance?: number
-        // item最小宽度
-        itemMinWidth?: number
-        // 是否正在加载数据
-        loading?: boolean
-        // 数据
-        items?: any[]
-        // 计算单个item高度的方法
-        calcItemHeight?: (item: any, itemWidth: number) => number
-    }>(),
-    {
-        key: 'id',
-        gap: 15,
-        preloadScreenCount: 1,
-        bottomDistance: 2000,
-        itemMinWidth: 240,
-        loading: false,
-        items: () => [],
-        calcItemHeight: (item: any, itemWidth: number) => 0
-    }
-)
+defineOptions({
+    name: 'VirtualWaterfall'
+})
+
+interface VirtualWaterfallOption {
+    key?: string
+    // item间隔
+    gap?: number
+    // 预加载屏数量
+    preloadScreenCount?: number
+    // 距离底部多少时触发加载更多的事件
+    bottomDistance?: number
+    // item最小宽度
+    itemMinWidth?: number
+    // 是否正在加载数据
+    loading?: boolean
+    // 数据
+    items?: any[]
+    // 计算单个item高度的方法
+    calcItemHeight?: (item: any, itemWidth: number) => number
+}
+
+const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
+    key: 'id',
+    gap: 15,
+    preloadScreenCount: 1,
+    bottomDistance: 2000,
+    itemMinWidth: 240,
+    loading: false,
+    items: () => [],
+    calcItemHeight: (item: any, itemWidth: number) => 0
+})
 
 const slot = defineSlots<{
     default(props: { item: any; index: number }): any
