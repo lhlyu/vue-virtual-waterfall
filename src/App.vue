@@ -113,12 +113,12 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border: 1px solid #e5e5e5;
 
     img {
         width: 100%;
         height: 100%;
+        border-radius: 10px;
         overflow: hidden;
     }
 }
