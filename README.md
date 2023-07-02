@@ -17,12 +17,31 @@
 import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 ```
 
-- 全局使用
+- 全局引用
 
 ```vue
 import VueVirtualWaterfall from '@lhlyu/vue-virtual-waterfall'
 
 app.use(VueVirtualWaterfall)
+```
+
+- 使用
+
+```vue
+<template>
+    <VirtualWaterfall 
+        :items="items" 
+        :calcItemHeight="calcItemHeight" 
+        :loading="loading" 
+        @load-more="loadMoreData"
+    >
+        <template #default="{ item }: { item: ItemOption }">
+          <div class="card">
+            <img :src="item.img" />
+          </div>
+        </template>
+    </VirtualWaterfall>
+</template>
 ```
 
 ## 文档
