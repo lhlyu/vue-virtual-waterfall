@@ -28,7 +28,7 @@ interface ItemOption {
 const data = reactive({
     items: [],
     page: 1,
-    size: 40,
+    size: 80,
     loading: false
 })
 
