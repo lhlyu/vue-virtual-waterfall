@@ -15,7 +15,6 @@
 import { onBeforeMount, onMounted, ref, reactive } from 'vue'
 import { VueVirtualWaterfall } from './vue-virtual-waterfall'
 
-
 interface ItemOption {
     id: string
     height: number
@@ -29,7 +28,6 @@ const data = reactive({
     size: 80,
     loading: false
 })
-
 
 const loadMoreData = async () => {
     if (data.loading) {
@@ -50,7 +48,6 @@ onBeforeMount(async () => {
     await loadMoreData()
 })
 
-
 // 计算高度的方法
 const calcItemHeight = (item: ItemOption, itemWidth: number): number => {
     // 按比例
@@ -69,7 +66,6 @@ const appHeight = ref('100vh')
 onMounted(() => {
     appHeight.value = window.innerHeight + 'px'
 })
-
 </script>
 
 <style lang="scss">
@@ -83,26 +79,26 @@ body {
         }
 
         .backtop {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: fixed;
             right: 40px;
+            bottom: 40px;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
             width: 40px;
             height: 40px;
-            border-radius: 50px;
-            background: rgba(#fd79a8, 0.4);
             color: rgba(#e84393, 0.4);
             font-size: 1.4rem;
+            background: rgba(#fd79a8, 0.4);
+            border-radius: 50px;
             cursor: pointer;
-            z-index: 99;
-            box-sizing: border-box;
-            bottom: 40px;
             transition: all 0.3s linear;
 
             &:hover {
-                background: rgba(#fd79a8, 0.9);
                 color: rgba(#e84393, 1);
+                background: rgba(#fd79a8, 0.9);
             }
         }
     }
@@ -112,14 +108,14 @@ body {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
     border: 1px solid #e5e5e5;
+    border-radius: 10px;
 
     img {
         width: 100%;
         height: 100%;
-        border-radius: 10px;
         overflow: hidden;
+        border-radius: 10px;
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div ref="container" style="width: 100%; height: 100%; overflow: auto; scroll-behavior: smooth;">
+    <div ref="container" style="width: 100%; height: 100%; overflow: auto; scroll-behavior: smooth">
         <div
             ref="content"
             :style="{
@@ -8,7 +8,7 @@
                 padding: `${gap}px`,
                 boxSizing: 'border-box',
                 width: '100%',
-                willChange: 'height',
+                willChange: 'height'
             }"
         >
             <div
@@ -21,7 +21,7 @@
                     transform: `translate(${data.left}px, ${data.top}px)`,
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     contentVisibility: 'auto',
-                    containIntrinsicSize: `${data.height}px`,
+                    containIntrinsicSize: `${data.height}px`
                 }"
             >
                 <slot :item="data.item" :index="index"></slot>

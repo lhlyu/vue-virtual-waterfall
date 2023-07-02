@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     const plugins = [vue(), vueJsx()]
     let build: Record<string, any> = {
         target: 'es2015',
-        cssTarget: 'chrome61',
+        cssTarget: 'chrome61'
     }
 
     if (mode === 'npm') {

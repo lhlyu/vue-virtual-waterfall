@@ -4,14 +4,14 @@
 
 ## 示例
 
-- [demo](https://vue-virtual-waterfall.vercel.app/)
-- [demo的源码](./src/App.vue)
+- [例子](https://vue-virtual-waterfall.vercel.app/)
+- [例子源码](./example)
 
 ## 使用
 
 > pnpm add @lhlyu/vue-virtual-waterfall
 
-- 局部使用
+- 局部引用
 
 ```vue
 import { VueVirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
