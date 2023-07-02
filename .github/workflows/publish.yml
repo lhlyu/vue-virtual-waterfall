@@ -31,12 +31,6 @@ jobs:
       - name: Build
         run: pnpm build:npm
 
-      - name: Move global
-        run: mv ./src/vue-virtual-waterfall/global.d.ts ./dist/global.d.ts
-
-      - name: ll
-        run: ls -l ./dist
-
       - name: publish
         run: pnpm pub
         env:

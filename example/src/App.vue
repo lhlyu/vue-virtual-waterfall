@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive } from 'vue'
+import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 
 interface ItemOption {
     id: string
@@ -22,7 +23,7 @@ interface ItemOption {
 }
 
 const data = reactive({
-    items: [],
+    items: [] as ItemOption[],
     page: 1,
     size: 80,
     loading: false
