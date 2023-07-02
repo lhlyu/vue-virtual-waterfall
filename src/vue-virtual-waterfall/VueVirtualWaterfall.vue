@@ -30,7 +30,7 @@
     </div>
 </template>
 
-<script setup lang="ts" generic="T = any">
+<script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useElementBounding, useDebounce, useElementSize, useScroll, useDebounceFn } from '@vueuse/core'
 
@@ -48,9 +48,9 @@ const props = withDefaults(
         // 是否正在加载数据
         loading?: boolean
         // 数据
-        items?: T[]
+        items?: any[]
         // 计算单个item高度的方法
-        calcItemHeight?: (item: T, itemWidth: number) => number
+        calcItemHeight?: (item: any, itemWidth: number) => number
     }>(),
     {
         key: 'id',
@@ -60,12 +60,12 @@ const props = withDefaults(
         itemMinWidth: 240,
         loading: false,
         items: () => [],
-        calcItemHeight: (item: T, itemWidth: number) => 0
+        calcItemHeight: (item: any, itemWidth: number) => 0
     }
 )
 
 const slot = defineSlots<{
-    default(props: { item: T; index: number }): any
+    default(props: { item: any; index: number }): any
 }>()
 
 const emit = defineEmits(['load-more'])

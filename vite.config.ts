@@ -8,13 +8,8 @@ export default defineConfig(({ mode }) => {
     let base = '/'
     const plugins = [vue(), vueJsx()]
     let build: Record<string, any> = {
-    }
-
-    if (mode === 'github') {
-        base = '/vue-virtual-waterfall/'
-        build = {
-            outDir: 'docs'
-        }
+        target: 'es2015',
+        cssTarget: 'chrome61',
     }
 
     if (mode === 'npm') {

@@ -8,13 +8,11 @@
             </template>
         </VueVirtualWaterfall>
     </main>
-    <footer>
-        <button @click="backTop">滚动到顶部</button>
-    </footer>
+    <div class="backtop" @click="backTop">▲</div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, reactive } from 'vue'
+import { onBeforeMount, onMounted, ref, reactive } from 'vue'
 import { VueVirtualWaterfall } from './vue-virtual-waterfall'
 
 
@@ -65,6 +63,13 @@ const vw = ref()
 const backTop = () => {
     vw.value?.backTop()
 }
+
+const appHeight = ref('100vh')
+
+onMounted(() => {
+    appHeight.value = window.innerHeight + 'px'
+})
+
 </script>
 
 <style lang="scss">
@@ -73,17 +78,32 @@ body {
     padding: 0;
 
     #app {
-        height: 100vh;
-
         main {
-            height: calc(100vh - 60px);
+            height: v-bind(appHeight);
         }
-        footer {
+
+        .backtop {
             display: flex;
-            align-items: center;
             justify-content: center;
-            height: 60px;
-            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            align-items: center;
+            position: fixed;
+            right: 40px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50px;
+            background: rgba(#fd79a8, 0.4);
+            color: rgba(#e84393, 0.4);
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 99;
+            box-sizing: border-box;
+            bottom: 40px;
+            transition: all 0.3s linear;
+
+            &:hover {
+                background: rgba(#fd79a8, 0.9);
+                color: rgba(#e84393, 1);
+            }
         }
     }
 }

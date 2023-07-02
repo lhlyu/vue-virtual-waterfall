@@ -4,7 +4,7 @@
 
 ## 示例
 
-- [demo](https://lhlyu.github.io/vue-virtual-waterfall)
+- [demo](https://vue-virtual-waterfall.vercel.app/)
 - [demo的源码](./src/App.vue)
 
 ## 使用
@@ -33,8 +33,8 @@ app.use(VueVirtualWaterfall)
 |--------------------|-----------------------------------------|-------------------------------------|-----------------|
 | key                | string                                  | 'id'                                | v-for需要用到key    |
 | gap                | number                                  | 15                                  | 每个item之间的间隔     |
-| preloadScreenCount | number                                  | 3                                   | 预加载屏数量          |
-| bottomDistance     | number                                  | 1000                                | 距离底部多少时触发加载更多事件 |
+| preloadScreenCount | number                                  | 1                                   | 预加载屏数量          |
+| bottomDistance     | number                                  | 2000                                | 距离底部多少时触发加载更多事件 |
 | itemMinWidth       | number                                  | 240                                 | 每个item最小宽度      |
 | loading            | boolean                                 | false                               | 是否正在加载数据        |
 | items              | any[]                                   | []                                  | 数据              |
