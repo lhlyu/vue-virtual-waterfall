@@ -1,5 +1,5 @@
 <template>
-    <div ref="container" style="width: 100%; height: 100%; overflow: auto">
+    <div ref="container" style="width: 100%; height: 100%; overflow: auto; scroll-behavior: smooth;">
         <div
             ref="content"
             :style="{
@@ -19,7 +19,9 @@
                     width: `${itemWidth}px`,
                     height: `${data.height}px`,
                     transform: `translate3d(${data.left}px, ${data.top}px, 0)`,
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    contentVisibility: 'auto',
+                    containIntrinsicSize: `${data.height}px`,
                 }"
             >
                 <slot :item="data.item" :index="index"></slot>
