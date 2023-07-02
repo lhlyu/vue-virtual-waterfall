@@ -8,7 +8,7 @@
                 padding: `${gap}px`,
                 boxSizing: 'border-box',
                 width: '100%',
-                willChange: 'height'
+                willChange: 'height',
             }"
         >
             <div
@@ -18,7 +18,7 @@
                     position: 'absolute',
                     width: `${itemWidth}px`,
                     height: `${data.height}px`,
-                    transform: `translate3d(${data.left}px, ${data.top}px, 0)`,
+                    transform: `translate(${data.left}px, ${data.top}px)`,
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     contentVisibility: 'auto',
                     containIntrinsicSize: `${data.height}px`,
