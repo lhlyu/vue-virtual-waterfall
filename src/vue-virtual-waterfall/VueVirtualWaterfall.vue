@@ -54,7 +54,7 @@ const props = withDefaults(
         key: 'id',
         gap: 15,
         preloadScreenCount: 1,
-        bottomDistance: 1400,
+        bottomDistance: 2000,
         itemMinWidth: 240,
         loading: false,
         items: () => [],
