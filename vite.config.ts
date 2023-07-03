@@ -2,11 +2,12 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from 'vite-plugin-dts'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
     let base = '/'
-    const plugins = [vue(), vueJsx()]
+    const plugins = [vue(), vueJsx(), cssInjectedByJsPlugin()]
     let build: Record<string, any> = {
         target: 'es2015',
         cssTarget: 'chrome61'

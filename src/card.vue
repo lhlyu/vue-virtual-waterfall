@@ -1,11 +1,11 @@
 <template>
     <div class="card">
-        <img :class="{'img-loaded': loaded}" :src="img" :alt="id" loading="lazy" @load="loaded = true" />
+        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" loading="lazy" @load="loaded = true" />
     </div>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from 'vue'
 
 const props = defineProps({
     id: {
@@ -15,7 +15,7 @@ const props = defineProps({
     img: {
         type: String,
         default: ''
-    },
+    }
 })
 
 const loaded = ref(false)
@@ -27,16 +27,16 @@ const loaded = ref(false)
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
-    overflow: hidden;
 
     img {
         width: 100%;
         height: 100%;
         overflow: hidden;
         filter: blur(100px);
-        transition: all 0.6s ease-in;
+        transition: all 0.4s ease-in;
     }
 
     .img-loaded {

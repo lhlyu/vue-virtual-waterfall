@@ -74,10 +74,10 @@ body {
 
     #app {
         main {
-            max-width: 1000px;
             width: 100%;
-            margin: 0 auto;
+            max-width: 1000px;
             height: v-bind(appHeight);
+            margin: 0 auto;
         }
 
         .backtop {

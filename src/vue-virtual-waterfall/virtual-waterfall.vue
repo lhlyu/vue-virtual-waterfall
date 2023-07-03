@@ -1,26 +1,21 @@
 <template>
-    <div ref="container" style="width: 100%; height: 100%; overflow: auto; scroll-behavior: smooth">
+    <div ref="container" class="container">
         <div
             ref="content"
+            class="content"
             :style="{
-                position: 'relative',
                 height: `${Math.max(...columnsTop) + props.gap}px`,
-                padding: `${gap}px`,
-                boxSizing: 'border-box',
-                width: '100%',
-                willChange: 'height'
+                padding: `${gap}px`
             }"
         >
             <div
+                class="box"
                 v-for="(data, index) in itemRenderList"
                 :key="data.item[key] ?? index"
                 :style="{
-                    position: 'absolute',
                     width: `${itemWidth}px`,
                     height: `${data.height}px`,
                     transform: `translate(${data.left}px, ${data.top}px)`,
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    contentVisibility: 'auto',
                     containIntrinsicSize: `${itemWidth}px ${data.height}px`
                 }"
             >
@@ -186,3 +181,31 @@ defineExpose({
     }
 })
 </script>
+
+<style lang="scss" scoped>
+.container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .content {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        will-change: height;
+
+        .box {
+            position: absolute;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            content-visibility: auto;
+        }
+    }
+}
+</style>
