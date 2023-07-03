@@ -55,7 +55,7 @@ app.use(VueVirtualWaterfall)
 | contentMaxWidth    | string or number                         | '100%'                              | 内容最大宽度            |
 | preloadScreenCount | number                                   | 1                                   | 预加载屏数量          |
 | bottomDistance     | number                                   | 2000                                | 距离底部多少时触发加载更多事件 |
-| itemMinWidth       | number                                   | 320                                 | 每个item最小宽度      |
+| itemMinWidth       | number                                   | 280                                 | 每个item最小宽度      |
 | loading            | boolean                                  | false                               | 是否正在加载数据        |
 | items              | any[]                                    | []                                  | 数据              |
 | calcItemHeight     | (item: any, itemWidth: number) => number | (item: any, itemWidth: number) => 0 | 计算item高度的方法     |

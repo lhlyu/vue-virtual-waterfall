@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" loading="lazy" @load="loaded = true" />
+        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" loading="lazy" @load="handlerLoad" />
     </div>
 </template>
 
@@ -15,10 +15,24 @@ const props = defineProps({
     img: {
         type: String,
         default: ''
+    },
+    has: {
+        type: Boolean,
+        default: false
     }
 })
 
-const loaded = ref(false)
+const loaded = ref(props.has)
+
+const emit = defineEmits(['loaded'])
+
+const handlerLoad = () => {
+    if (props.has) {
+        return
+    }
+    loaded.value = true
+    emit('loaded', props.id)
+}
 </script>
 
 <style scoped lang="scss">

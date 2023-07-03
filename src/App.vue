@@ -2,7 +2,7 @@
     <main>
         <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" contentMaxWidth="1000px" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }">
-                <Card :id="item.id" :img="item.img"></Card>
+                <Card :id="item.id" :img="item.img" :has="loadedItemIds.has(item.id)" @loaded="loaded"></Card>
             </template>
         </VirtualWaterfall>
     </main>
@@ -22,11 +22,18 @@ interface ItemOption {
 }
 
 const data = reactive({
-    items: [],
+    items: [] as ItemOption[],
     page: 1,
     size: 80,
     loading: false
 })
+
+const loadedItemIds = new Set<string>()
+
+const loaded = (id: string) => {
+    loadedItemIds.add(id)
+}
+
 
 const loadMoreData = async () => {
     if (data.loading) {
