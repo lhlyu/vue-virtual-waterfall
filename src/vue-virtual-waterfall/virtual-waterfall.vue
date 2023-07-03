@@ -4,6 +4,7 @@
             ref="content"
             class="content"
             :style="{
+                maxWidth: `${getValue(contentMaxWidth, '100%')}`,
                 height: `${Math.max(...columnsTop) + props.gap}px`,
                 padding: `${gap}px`
             }"
@@ -41,6 +42,8 @@ interface VirtualWaterfallOption {
     preloadScreenCount?: number
     // 距离底部多少时触发加载更多的事件
     bottomDistance?: number
+    // 内容区域最宽
+    contentMaxWidth?: string | number
     // item最小宽度
     itemMinWidth?: number
     // 是否正在加载数据
@@ -56,6 +59,7 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     gap: 15,
     preloadScreenCount: 1,
     bottomDistance: 2000,
+    contentMaxWidth: '100%',
     itemMinWidth: 240,
     loading: false,
     items: () => [],
@@ -67,6 +71,17 @@ const slot = defineSlots<{
 }>()
 
 const emit = defineEmits(['load-more'])
+
+function getValue(value?: string | number, defaultValue: string = ''): string {
+    if (typeof value === 'string') {
+        return value
+    }
+
+    if (typeof value === 'number') {
+        return value + 'px'
+    }
+    return defaultValue
+}
 
 // 容器
 const container = ref<HTMLDivElement>()
@@ -111,7 +126,6 @@ const columnsTop = ref(new Array(columnCount.value).fill(0))
 
 // 计算每个item占据的宽度: (容器宽度 - 间隔) / 列数
 const itemWidth = computed(() => {
-    console.log('itemWidth')
     if (!contentWidth.value || columnCount.value <= 0) {
         return 0
     }
@@ -199,6 +213,7 @@ defineExpose({
         position: relative;
         box-sizing: border-box;
         width: 100%;
+        margin: 0 auto;
         will-change: height;
 
         .box {

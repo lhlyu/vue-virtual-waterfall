@@ -48,15 +48,16 @@ app.use(VueVirtualWaterfall)
 
 - 属性
 
-| 字段                 | 类型                                    | 默认值                                 | 说明              |
-|--------------------|-----------------------------------------|-------------------------------------|-----------------|
-| key                | string                                  | 'id'                                | v-for需要用到key    |
-| gap                | number                                  | 15                                  | 每个item之间的间隔     |
-| preloadScreenCount | number                                  | 1                                   | 预加载屏数量          |
-| bottomDistance     | number                                  | 2000                                | 距离底部多少时触发加载更多事件 |
-| itemMinWidth       | number                                  | 240                                 | 每个item最小宽度      |
-| loading            | boolean                                 | false                               | 是否正在加载数据        |
-| items              | any[]                                   | []                                  | 数据              |
+| 字段                 | 类型                                       | 默认值                                 | 说明              |
+|--------------------|------------------------------------------|-------------------------------------|-----------------|
+| key                | string                                   | 'id'                                | v-for需要用到key    |
+| gap                | number                                   | 15                                  | 每个item之间的间隔     |
+| contentMaxWidth    | string or number                         | '100%'                              | 内容最大宽度            |
+| preloadScreenCount | number                                   | 1                                   | 预加载屏数量          |
+| bottomDistance     | number                                   | 2000                                | 距离底部多少时触发加载更多事件 |
+| itemMinWidth       | number                                   | 240                                 | 每个item最小宽度      |
+| loading            | boolean                                  | false                               | 是否正在加载数据        |
+| items              | any[]                                    | []                                  | 数据              |
 | calcItemHeight     | (item: any, itemWidth: number) => number | (item: any, itemWidth: number) => 0 | 计算item高度的方法     |
 
 - 事件

@@ -1,6 +1,6 @@
 <template>
     <main>
-        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" ref="vw" @load-more="loadMoreData">
+        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" contentMaxWidth="1000px" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }">
                 <Card :id="item.id" :img="item.img"></Card>
             </template>
@@ -75,9 +75,7 @@ body {
     #app {
         main {
             width: 100%;
-            max-width: 1000px;
             height: v-bind(appHeight);
-            margin: 0 auto;
         }
 
         .backtop {
