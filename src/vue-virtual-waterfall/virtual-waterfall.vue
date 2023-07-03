@@ -60,7 +60,7 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     preloadScreenCount: 1,
     bottomDistance: 2000,
     contentMaxWidth: '100%',
-    itemMinWidth: 240,
+    itemMinWidth: 320,
     loading: false,
     items: () => [],
     calcItemHeight: (item: any, itemWidth: number) => 0
