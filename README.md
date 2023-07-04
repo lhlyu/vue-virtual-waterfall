@@ -73,6 +73,11 @@ app.use(VueVirtualWaterfall)
 | backTop | 滚动到顶部 |
 
 
+## 性能
+
+- [链接](https://pagespeed.web.dev/analysis/https-waterfall-uvu-pub/mfjk2i0nxd?form_factor=desktop)
+
+
 ## 参考
 
 - [vue-waterfall-easy](https://github.com/lfyfly/vue-waterfall-easy)
@@ -82,3 +87,5 @@ app.use(VueVirtualWaterfall)
 - [vue-masonry-css](https://github.com/paulcollett/vue-masonry-css)
 - [瀑布流虚拟列表优化](https://juejin.cn/post/7166071557284954142)
 - [PixivCollection](https://github.com/orilights/PixivCollection)
+
+- [缓存设置](https://developer.chrome.com/docs/lighthouse/performance/uses-long-cache-ttl/?utm_source=lighthouse&utm_medium=lr)

@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" loading="lazy" @load="handlerLoad" />
+        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" :loading="lazy" @load="handlerLoad" />
     </div>
 </template>
 
@@ -19,6 +19,10 @@ const props = defineProps({
     has: {
         type: Boolean,
         default: false
+    },
+    lazy: {
+        type: String,
+        default: 'lazy'
     }
 })
 
