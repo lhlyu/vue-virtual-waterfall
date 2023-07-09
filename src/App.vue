@@ -1,8 +1,8 @@
 <template>
     <main>
         <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" contentMaxWidth="1000px" ref="vw" @load-more="loadMoreData">
-            <template #default="{ item }: {item: ItemOption}">
-                <Card :id="item.id" :img="item.img" :has="loadedItemIds.has(item.id)" :lazy="item.lazy" @loaded="loaded"></Card>
+            <template #default="{ item }: { item: ItemOption }">
+                <Card :id="item.id" :img="item.img" :color="item.dominant" :has="loadedItemIds.has(item.id)" :lazy="item.lazy" @loaded="loaded"></Card>
             </template>
         </VirtualWaterfall>
     </main>
@@ -19,6 +19,8 @@ interface ItemOption {
     height: number
     width: number
     img: string
+    dominant: number[]
+    palette: number[][]
     lazy?: string
 }
 
@@ -34,7 +36,6 @@ const loadedItemIds = new Set<string>()
 const loaded = (id: string) => {
     loadedItemIds.add(id)
 }
-
 
 const loadMoreData = async () => {
     if (data.loading) {
