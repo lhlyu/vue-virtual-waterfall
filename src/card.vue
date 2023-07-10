@@ -58,7 +58,7 @@ const handlerLoad = () => {
         height: 100%;
         overflow: hidden;
         filter: blur(100px);
-        transition: all 0.4s ease-in;
+        transition: all 0.6s ease-in;
     }
 
     .img-loaded {
