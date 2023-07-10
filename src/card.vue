@@ -1,6 +1,6 @@
 <template>
     <div class="card" :style="`background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});`">
-        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" :loading="lazy" @load="handlerLoad" />
+        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" @load="handlerLoad" />
     </div>
 </template>
 
@@ -20,6 +20,7 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    // safari / firefox支持很差
     lazy: {
         type: String,
         default: 'lazy'
