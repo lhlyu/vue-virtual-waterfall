@@ -1,11 +1,12 @@
 <template>
-    <div class="card" :style="`background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});`">
-        <img :class="{ 'img-loaded': loaded }" :src="img" :alt="id" @load="handlerLoad" />
+    <div ref="dom" class="card" :style="`background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});`">
+        <img v-if="loaded" class="img-loaded" :src="img" :alt="id" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useIntersectionObserver } from '@vueuse/core'
 
 const props = defineProps({
     id: {
@@ -34,6 +35,27 @@ const props = defineProps({
 const loaded = ref(props.has)
 
 const emit = defineEmits(['loaded'])
+
+const dom = ref<HTMLDivElement>()
+
+const { stop } = useIntersectionObserver(dom, ([{ isIntersecting }], observerElement) => {
+    if (props.has) {
+        stop()
+        return
+    }
+    if (isIntersecting) {
+        stop()
+
+        // 加载图片
+        const img = new Image()
+
+        img.onload = () => {
+            handlerLoad()
+        }
+
+        img.src = props.img
+    }
+})
 
 const handlerLoad = () => {
     if (props.has) {

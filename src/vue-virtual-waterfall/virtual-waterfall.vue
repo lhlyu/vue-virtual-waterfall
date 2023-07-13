@@ -27,8 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { useElementBounding, useDebounce, useElementSize, useScroll, useDebounceFn } from '@vueuse/core'
+import { computed, ref } from 'vue'
+import { useElementBounding, useThrottle, useElementSize, useInfiniteScroll } from '@vueuse/core'
 
 defineOptions({
     name: 'VirtualWaterfall'
@@ -85,32 +85,25 @@ function getValue(value?: string | number, defaultValue: string = ''): string {
 
 // 容器
 const container = ref<HTMLDivElement>()
-const { y } = useScroll(container)
 
-const loadMore = useDebounceFn(
+useInfiniteScroll(
+    container,
     () => {
         if (props.loading) {
             return
         }
-        if (content.value.offsetHeight - y.value - container.value.clientHeight < props.bottomDistance) {
-            emit('load-more')
-        }
+        emit('load-more')
     },
-    100,
-    { maxWait: 500 }
+    { distance: props.bottomDistance }
 )
-
-onMounted(() => {
-    container.value?.addEventListener('scroll', loadMore)
-})
 
 const content = ref<HTMLDivElement>()
 const { width } = useElementSize(content)
 const { top } = useElementBounding(content)
-const contentWidth = useDebounce(width, 200, { maxWait: 400 })
-const contentTop = useDebounce(top, 200, { maxWait: 400 })
+const contentWidth = useThrottle(width, 200, { maxWait: 400 })
+const contentTop = useThrottle(top, 200, { maxWait: 400 })
 // 计算列数
-const columnCount = computed(() => {
+const columnCount = computed<number>(() => {
     if (!contentWidth.value) {
         return 0
     }
@@ -125,15 +118,23 @@ const columnCount = computed(() => {
 const columnsTop = ref(new Array(columnCount.value).fill(0))
 
 // 计算每个item占据的宽度: (容器宽度 - 间隔) / 列数
-const itemWidth = computed(() => {
+const itemWidth = computed<number>(() => {
     if (!contentWidth.value || columnCount.value <= 0) {
         return 0
     }
     return (contentWidth.value - (columnCount.value - 1) * props.gap) / columnCount.value
 })
 
+interface SpaceOption {
+    item: any
+    column: number
+    top: number
+    left: number
+    height: number
+}
+
 // 计算每个item占据的空间
-const itemSpaces = computed(() => {
+const itemSpaces = computed<SpaceOption[]>(() => {
     if (!contentWidth.value) {
         return []
     }
@@ -143,7 +144,7 @@ const itemSpaces = computed(() => {
     // 为了高性能采用for-i
     for (let i = 0; i < length; i++) {
         const columnIndex = getColumnIndex()
-        const space = {
+        const space: SpaceOption = {
             item: props.items[i],
             column: columnIndex,
             top: columnsTop.value[columnIndex],
@@ -160,7 +161,7 @@ const itemSpaces = computed(() => {
 })
 
 // 需要渲染的items
-const itemRenderList = computed(() => {
+const itemRenderList = computed<SpaceOption[]>(() => {
     const length = itemSpaces.value.length
     if (!length) {
         return []
