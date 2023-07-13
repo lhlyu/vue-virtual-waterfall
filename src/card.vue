@@ -89,12 +89,12 @@ const handlerLoad = () => {
 }
 .v-enter-active,
 .v-leave-active {
-    filter: blur(0);
-    transition: all 0.6s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out;
 }
 
 .v-enter-from,
 .v-leave-to {
-    filter: blur(100px);
+    opacity: 0;
 }
 </style>
