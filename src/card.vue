@@ -1,6 +1,10 @@
 <template>
-    <div ref="dom" class="card" :style="`background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});`">
-        <img v-if="loaded" class="img-loaded" :src="img" :alt="id" />
+    <div class="card" :style="`background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});`">
+        <div class="img" ref="dom">
+            <Transition>
+                <img v-if="loaded" :src="img" :alt="id" />
+            </Transition>
+        </div>
     </div>
 </template>
 
@@ -20,11 +24,6 @@ const props = defineProps({
     has: {
         type: Boolean,
         default: false
-    },
-    // safari / firefox支持很差
-    lazy: {
-        type: String,
-        default: 'lazy'
     },
     color: {
         type: Array,
@@ -76,16 +75,26 @@ const handlerLoad = () => {
     border: 1px solid #e5e5e5;
     border-radius: 10px;
 
+    .img {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+    }
+
     img {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        filter: blur(100px);
-        transition: all 0.6s linear;
     }
+}
+.v-enter-active,
+.v-leave-active {
+    filter: blur(0);
+    transition: all 0.6s ease-in-out;
+}
 
-    .img-loaded {
-        filter: blur(0);
-    }
+.v-enter-from,
+.v-leave-to {
+    filter: blur(100px);
 }
 </style>

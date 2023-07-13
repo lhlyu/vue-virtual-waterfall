@@ -100,8 +100,8 @@ useInfiniteScroll(
 const content = ref<HTMLDivElement>()
 const { width } = useElementSize(content)
 const { top } = useElementBounding(content)
-const contentWidth = useThrottle(width, 200, { maxWait: 400 })
-const contentTop = useThrottle(top, 200, { maxWait: 400 })
+const contentWidth = useThrottle(width, 200)
+const contentTop = useThrottle(top, 200)
 // 计算列数
 const columnCount = computed<number>(() => {
     if (!contentWidth.value) {

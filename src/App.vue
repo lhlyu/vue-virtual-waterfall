@@ -2,7 +2,7 @@
     <main>
         <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" contentMaxWidth="1000px" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }: { item: ItemOption }">
-                <Card :id="item.id" :img="item.img" :color="item.dominant" :has="loadedItemIds.has(item.id)" :lazy="item.lazy" @loaded="loaded"></Card>
+                <Card :id="item.id" :img="item.img" :color="item.dominant" :has="loadedItemIds.has(item.id)" @loaded="loaded"></Card>
             </template>
         </VirtualWaterfall>
     </main>
@@ -21,7 +21,6 @@ interface ItemOption {
     img: string
     dominant: number[]
     palette: number[][]
-    lazy?: string
 }
 
 const data = reactive({
@@ -44,12 +43,6 @@ const loadMoreData = async () => {
     data.loading = true
     const resp = await fetch(`https://far-chicken-71.deno.dev/image/${data.page}/${data.size}`)
     const list = await resp.json()
-    if (data.page === 1) {
-        // 首屏不延迟加载
-        for (let i = 0; i < list.length; i++) {
-            list[i].lazy = 'eager'
-        }
-    }
     data.items.push(...list)
     data.page += 1
     if (list.length < data.size) {
