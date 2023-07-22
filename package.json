@@ -1,7 +1,7 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
-  "version": "0.0.4",
+  "version": "0.0.5-beta.0",
   "author": "lhlyu",
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   ],
   "files": [
     "dist",
+    "global.d.ts",
     "README.md",
     "LICENSE",
     "package.json"
@@ -41,14 +42,14 @@
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "autoprefixer": "^10.4.14",
     "cssnano": "^6.0.1",
-    "postcss": "^8.4.25",
+    "postcss": "^8.4.27",
     "prettier": "^3.0.0",
     "prettier-plugin-rational-order": "^1.0.3",
-    "sass": "^1.63.6",
+    "sass": "^1.64.1",
     "typescript": "^5.1.6",
-    "vite": "^4.4.3",
-    "vite-plugin-css-injected-by-js": "^3.2.0",
-    "vite-plugin-dts": "^3.2.0",
-    "vue-tsc": "^1.8.4"
+    "vite": "^4.4.6",
+    "vite-plugin-css-injected-by-js": "^3.2.1",
+    "vite-plugin-dts": "^3.3.1",
+    "vue-tsc": "^1.8.6"
   }
 }
