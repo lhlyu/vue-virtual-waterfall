@@ -4,3 +4,5 @@ declare module '@vue/runtime-core' {
         VirtualWaterfall: typeof import('@lhlyu/vue-virtual-waterfall')['VirtualWaterfall']
     }
 }
+
+export {}
