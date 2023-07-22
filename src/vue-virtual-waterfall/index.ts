@@ -1,4 +1,4 @@
-import type { App } from 'vue'
+import { App } from '@vue/runtime-core';
 import VirtualWaterfall from './virtual-waterfall.vue'
 
 export { VirtualWaterfall }
