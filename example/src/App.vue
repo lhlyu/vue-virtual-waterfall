@@ -1,10 +1,8 @@
 <template>
     <main>
-        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" ref="vw" @load-more="loadMoreData">
+        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" contentMaxWidth="1000px" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }: { item: ItemOption }">
-                <div class="card">
-                    <img :src="item.img" />
-                </div>
+                <Card :id="item.id" :img="item.img" :color="item.dominant" :has="loadedItemIds.has(item.id)" @loaded="loaded"></Card>
             </template>
         </VirtualWaterfall>
     </main>
@@ -13,13 +11,15 @@
 
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive } from 'vue'
-import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
+import Card from './card.vue'
 
 interface ItemOption {
     id: string
     height: number
     width: number
     img: string
+    dominant: number[]
+    palette: number[][]
 }
 
 const data = reactive({
@@ -29,7 +29,12 @@ const data = reactive({
     loading: false
 })
 
-// 加载数据的逻辑
+const loadedItemIds = new Set<string>()
+
+const loaded = (id: string) => {
+    loadedItemIds.add(id)
+}
+
 const loadMoreData = async () => {
     if (data.loading) {
         return
@@ -39,7 +44,6 @@ const loadMoreData = async () => {
     const list = await resp.json()
     data.items.push(...list)
     data.page += 1
-    // 返回的列表小于size表示加载完了
     if (list.length < data.size) {
         return
     }
@@ -75,47 +79,35 @@ body {
     margin: 0;
     padding: 0;
 
-    main {
-        height: v-bind(appHeight);
-    }
-
-    .backtop {
-        position: fixed;
-        right: 40px;
-        bottom: 40px;
-        z-index: 99;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        width: 40px;
-        height: 40px;
-        color: rgba(#e84393, 0.4);
-        font-size: 1.4rem;
-        background: rgba(#fd79a8, 0.4);
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s linear;
-
-        &:hover {
-            color: rgba(#e84393, 1);
-            background: rgba(#fd79a8, 0.9);
+    #app {
+        main {
+            width: 100%;
+            height: v-bind(appHeight);
         }
-    }
-}
 
-.card {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
+        .backtop {
+            position: fixed;
+            right: 40px;
+            bottom: 40px;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            width: 40px;
+            height: 40px;
+            color: rgba(#e84393, 0.4);
+            font-size: 1.4rem;
+            background: rgba(#fd79a8, 0.4);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s linear;
 
-    img {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        border-radius: 10px;
+            &:hover {
+                color: rgba(#e84393, 1);
+                background: rgba(#fd79a8, 0.9);
+            }
+        }
     }
 }
 </style>
