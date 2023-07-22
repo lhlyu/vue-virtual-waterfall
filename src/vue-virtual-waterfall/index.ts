@@ -1,12 +1,7 @@
-// import { withInstall } from './install.ts'
+import { App } from 'vue'
 import VirtualWaterfall from './virtual-waterfall.vue'
-import { App } from "vue"
 
 export { VirtualWaterfall }
-
-// export const VueVirtualWaterfall = withInstall(VirtualWaterfall)
-//
-// export default VueVirtualWaterfall.install
 
 export default {
     install(app: App) {
@@ -19,6 +14,3 @@ declare module 'vue' {
         VirtualWaterfall: typeof VirtualWaterfall
     }
 }
-
-
-

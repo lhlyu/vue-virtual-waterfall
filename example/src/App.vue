@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive } from 'vue'
 import Card from './card.vue'
+import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 
 interface ItemOption {
     id: string

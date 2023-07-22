@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@lhlyu/vue-virtual-waterfall": "0.0.5-beta.4",
+    "@lhlyu/vue-virtual-waterfall": "0.0.5-beta.6",
     "@vueuse/core": "^10.2.1",
     "vue": "^3.2.47"
   },
