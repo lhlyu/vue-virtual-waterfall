@@ -1,6 +1,6 @@
-declare module 'vue' {
-    export interface GlobalComponents {
-        VirtualWaterfall: typeof import('@lhlyu/vue-virtual-waterfall')['VirtualWaterfall']
-    }
-}
+// declare module 'vue' {
+//     export interface GlobalComponents {
+//         VirtualWaterfall: typeof import('@lhlyu/vue-virtual-waterfall')['VirtualWaterfall']
+//     }
+// }
 export {}

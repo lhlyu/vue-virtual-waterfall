@@ -8,4 +8,8 @@ export const VueVirtualWaterfall = withInstall(VirtualWaterfall)
 export default VueVirtualWaterfall.install
 
 
-
+declare module 'vue' {
+    export interface GlobalComponents {
+        VirtualWaterfall: typeof VirtualWaterfall
+    }
+}
