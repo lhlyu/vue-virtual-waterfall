@@ -1,6 +1,6 @@
 import type { App, Component, Plugin } from 'vue'
 
-export type SFCWithInstall<T> = T & Plugin;
+export type SFCWithInstall<T> = T & Plugin
 
 // 组件
 export const withInstall = <T extends Component>(comp: T) => {
