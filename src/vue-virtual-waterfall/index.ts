@@ -1,10 +1,11 @@
-import { App } from '@vue/runtime-core';
+import { withInstall } from "./install.ts";
 import VirtualWaterfall from './virtual-waterfall.vue'
 
 export { VirtualWaterfall }
 
-export default {
-    install(Vue: App) {
-        Vue.component(VirtualWaterfall.name, VirtualWaterfall)
-    }
-}
+export const VueVirtualWaterfall = withInstall(VirtualWaterfall)
+
+export default VueVirtualWaterfall.install
+
+
+

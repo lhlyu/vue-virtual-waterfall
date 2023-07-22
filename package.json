@@ -1,7 +1,7 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
-  "version": "0.0.5-beta.2",
+  "version": "0.0.5-beta.3",
   "author": "lhlyu",
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
     "package.json"
   ],
   "dependencies": {
-    "@faker-js/faker": "^8.0.2",
     "@vue/runtime-core": "^3.3.4",
     "@vueuse/core": "^10.2.1",
     "vue": "^3.3.4"
