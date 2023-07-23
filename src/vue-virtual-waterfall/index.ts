@@ -1,4 +1,4 @@
-import { App } from 'vue'
+import type { App } from 'vue'
 import VirtualWaterfall from './virtual-waterfall.vue'
 
 export { VirtualWaterfall }

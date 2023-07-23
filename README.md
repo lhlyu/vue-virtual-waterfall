@@ -13,14 +13,14 @@
 
 - 局部引用
 
-```vue
+```ts
 import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - 全局引用
 
-```vue
-import VueVirtualWaterfall from '@lhlyu/vue-virtual-waterfall'
+```ts
+import VueVirtualWaterfall from '@lhlyu/vue-virtual-waterfall' 
 
 app.use(VueVirtualWaterfall)
 ```
@@ -29,18 +29,13 @@ app.use(VueVirtualWaterfall)
 
 ```vue
 <template>
-    <VirtualWaterfall 
-        :items="items" 
-        :calcItemHeight="calcItemHeight" 
-        :loading="loading" 
-        @load-more="loadMoreData"
-    >
-        <template #default="{ item }: { item: ItemOption }">
-          <div class="card">
-            <img :src="item.img" />
-          </div>
-        </template>
-    </VirtualWaterfall>
+  <VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight" :loading="loading" @load-more="loadMoreData">
+    <template #default="{ item }: { item: ItemOption }">
+      <div class="card">
+        <img :src="item.img"/>
+      </div>
+    </template>
+  </VirtualWaterfall>
 </template>
 ```
 
@@ -52,7 +47,7 @@ app.use(VueVirtualWaterfall)
 |--------------------|------------------------------------------|-------------------------------------|-----------------|
 | key                | string                                   | 'id'                                | v-for需要用到key    |
 | gap                | number                                   | 15                                  | 每个item之间的间隔     |
-| contentMaxWidth    | string or number                         | '100%'                              | 内容最大宽度            |
+| contentMaxWidth    | string or number                         | '100%'                              | 内容最大宽度          |
 | preloadScreenCount | number                                   | 1                                   | 预加载屏数量          |
 | bottomDistance     | number                                   | 2000                                | 距离底部多少时触发加载更多事件 |
 | itemMinWidth       | number                                   | 250                                 | 每个item最小宽度      |
@@ -60,23 +55,27 @@ app.use(VueVirtualWaterfall)
 | items              | any[]                                    | []                                  | 数据              |
 | calcItemHeight     | (item: any, itemWidth: number) => number | (item: any, itemWidth: number) => 0 | 计算item高度的方法     |
 
+- 插槽
+
+| 事件      | 类型                           | 说明      |
+|---------|------------------------------|---------|
+| default | { item: any, index: number } | 自定义默认内容 |
+
 - 事件
 
-| 事件  | 说明   |
-|-----|------|
-| load-more | 加载更多 |
+| 事件        | 类型         | 说明   |
+|-----------|------------|------|
+| load-more | () => void | 加载更多 |
 
-- 方法
+- 暴露的方法
 
-| 方法        | 说明    |
-|-----------|-------|
-| backTop | 滚动到顶部 |
-
+| 方法      | 类型         | 说明    |
+|---------|------------|-------|
+| backTop | () => void | 滚动到顶部 |
 
 ## 性能
 
 - [链接](https://pagespeed.web.dev/analysis/https-waterfall-uvu-pub/pfifhaxdaa?form_factor=desktop)
-
 
 ## 参考
 

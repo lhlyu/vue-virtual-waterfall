@@ -141,19 +141,23 @@ const itemSpaces = computed<SpaceOption[]>(() => {
     columnsTop.value = new Array(columnCount.value).fill(0)
     const length = props.items.length
     const spaces = []
+    const iw = itemWidth.value
     // 为了高性能采用for-i
     for (let i = 0; i < length; i++) {
         const columnIndex = getColumnIndex()
+
+        const height = props.calcItemHeight(props.items[i], iw)
+
         const space: SpaceOption = {
             item: props.items[i],
             column: columnIndex,
             top: columnsTop.value[columnIndex],
-            left: (itemWidth.value + props.gap) * columnIndex,
-            height: props.calcItemHeight(props.items[i], itemWidth.value)
+            left: (iw + props.gap) * columnIndex,
+            height: height
         }
 
         // 累加当前列的高度
-        columnsTop.value[columnIndex] += props.calcItemHeight(props.items[i], itemWidth.value) + props.gap
+        columnsTop.value[columnIndex] += height + props.gap
 
         spaces.push(space)
     }
@@ -219,7 +223,7 @@ defineExpose({
 
         .box {
             position: absolute;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             content-visibility: auto;
         }
     }
