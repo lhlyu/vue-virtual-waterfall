@@ -141,18 +141,17 @@ const itemSpaces = computed<SpaceOption[]>(() => {
     columnsTop.value = new Array(columnCount.value).fill(0)
     const length = props.items.length
     const spaces = []
-    const iw = itemWidth.value
     // 为了高性能采用for-i
     for (let i = 0; i < length; i++) {
         const columnIndex = getColumnIndex()
 
-        const height = props.calcItemHeight(props.items[i], iw)
+        const height = props.calcItemHeight(props.items[i], itemWidth.value)
 
         const space: SpaceOption = {
             item: props.items[i],
             column: columnIndex,
             top: columnsTop.value[columnIndex],
-            left: (iw + props.gap) * columnIndex,
+            left: (itemWidth.value + props.gap) * columnIndex,
             height: height
         }
 
