@@ -1,6 +1,6 @@
 <template>
     <main>
-        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" contentMaxWidth="1000px" ref="vw" @load-more="loadMoreData">
+        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" :content-max-width="1000" ref="vw" @load-more="loadMoreData">
             <template #default="{ item }: { item: ItemOption }">
                 <Card :id="item.id" :img="item.img" :color="item.dominant" :has="loadedItemIds.has(item.id)" @loaded="loaded"></Card>
             </template>

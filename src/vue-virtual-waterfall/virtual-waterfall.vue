@@ -46,6 +46,10 @@ interface VirtualWaterfallOption {
     contentMaxWidth?: string | number
     // item最小宽度
     itemMinWidth?: number
+    // 最大列数
+    maxColumnCount?: number
+    // 最小列数
+    minColumnCount?: number
     // 是否正在加载数据
     loading?: boolean
     // 数据
@@ -61,6 +65,7 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     bottomDistance: 2000,
     contentMaxWidth: '100%',
     itemMinWidth: 250,
+    minColumnCount: 2,
     loading: false,
     items: () => [],
     calcItemHeight: (item: any, itemWidth: number) => 0
@@ -109,9 +114,13 @@ const columnCount = computed<number>(() => {
     }
     const cWidth = contentWidth.value + props.gap * 2
     if (cWidth >= props.itemMinWidth * 2) {
-        return Math.ceil(cWidth / props.itemMinWidth)
+        const count = Math.ceil(cWidth / props.itemMinWidth)
+        if (props.maxColumnCount && count > props.maxColumnCount) {
+            return props.maxColumnCount
+        }
+        return count
     }
-    return 2
+    return props.minColumnCount
 })
 
 // 每列距离顶部的距离

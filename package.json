@@ -1,12 +1,13 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "lhlyu",
   "repository": {
     "type": "git",
     "url": "https://github.com/lhlyu/vue-virtual-waterfall.git"
   },
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "fmt": "prettier --write .",

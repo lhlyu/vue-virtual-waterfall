@@ -14,13 +14,13 @@
 - 局部引用
 
 ```ts
-import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
+import {VirtualWaterfall} from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - 全局引用
 
 ```ts
-import VueVirtualWaterfall from '@lhlyu/vue-virtual-waterfall' 
+import VueVirtualWaterfall from '@lhlyu/vue-virtual-waterfall'
 
 app.use(VueVirtualWaterfall)
 ```
@@ -28,6 +28,7 @@ app.use(VueVirtualWaterfall)
 - 使用
 
 ```vue
+
 <template>
   <VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight" :loading="loading" @load-more="loadMoreData">
     <template #default="{ item }: { item: ItemOption }">
@@ -51,6 +52,8 @@ app.use(VueVirtualWaterfall)
 | preloadScreenCount | number                                   | 1                                   | 预加载屏数量          |
 | bottomDistance     | number                                   | 2000                                | 距离底部多少时触发加载更多事件 |
 | itemMinWidth       | number                                   | 250                                 | 每个item最小宽度      |
+| maxColumnCount     | number                                   |                                     | 允许的最大列数，默认没有限制  |
+| minColumnCount     | number                                   | 2                                   | 允许的最小列数         |
 | loading            | boolean                                  | false                               | 是否正在加载数据        |
 | items              | any[]                                    | []                                  | 数据              |
 | calcItemHeight     | (item: any, itemWidth: number) => number | (item: any, itemWidth: number) => 0 | 计算item高度的方法     |
