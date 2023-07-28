@@ -78,7 +78,7 @@ app.use(VueVirtualWaterfall)
 
 ## 性能
 
-- [链接](https://pagespeed.web.dev/analysis/https-waterfall-uvu-pub/pfifhaxdaa?form_factor=desktop)
+- [链接](https://pagespeed.web.dev/analysis/https-waterfall-tatakai-top/4k2zfz71vl?form_factor=desktop)
 
 ## 参考
 
