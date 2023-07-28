@@ -41,7 +41,7 @@ const loadMoreData = async () => {
         return
     }
     data.loading = true
-    const resp = await fetch(`https://far-chicken-71.deno.dev/image/${data.page}/${data.size}`)
+    const resp = await fetch(`https://mock.tatakai.top/image/${data.page}/${data.size}`)
     const list = await resp.json()
     data.items.push(...list)
     data.page += 1
