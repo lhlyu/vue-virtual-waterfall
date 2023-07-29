@@ -68,8 +68,9 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     minColumnCount: 2,
     loading: false,
     items: () => [],
-    calcItemHeight: (item: any, itemWidth: number) => 0
+    calcItemHeight: (item: any, itemWidth: number) => 250
 })
+
 
 const slot = defineSlots<{
     default(props: { item: any; index: number }): any
@@ -105,8 +106,8 @@ useInfiniteScroll(
 const content = ref<HTMLDivElement>()
 const { width } = useElementSize(content)
 const { top } = useElementBounding(content)
-const contentWidth = useThrottle(width, 200)
-const contentTop = useThrottle(top, 200)
+const contentWidth = useThrottle(width, 500)
+const contentTop = useThrottle(top, 125)
 // 计算列数
 const columnCount = computed<number>(() => {
     if (!contentWidth.value) {
@@ -131,7 +132,7 @@ const itemWidth = computed<number>(() => {
     if (!contentWidth.value || columnCount.value <= 0) {
         return 0
     }
-    return (contentWidth.value - (columnCount.value - 1) * props.gap) / columnCount.value
+    return Math.floor((contentWidth.value - (columnCount.value - 1) * props.gap) / columnCount.value)
 })
 
 interface SpaceOption {
@@ -144,16 +145,16 @@ interface SpaceOption {
 
 // 计算每个item占据的空间
 const itemSpaces = computed<SpaceOption[]>(() => {
-    if (!contentWidth.value) {
+    if (!columnCount.value) {
         return []
     }
     columnsTop.value = new Array(columnCount.value).fill(0)
     const length = props.items.length
-    const spaces = []
+    const spaces = new Array(length)
     // 为了高性能采用for-i
     for (let i = 0; i < length; i++) {
         const columnIndex = getColumnIndex()
-
+        // 计算元素的高度
         const height = props.calcItemHeight(props.items[i], itemWidth.value)
 
         const space: SpaceOption = {
@@ -166,8 +167,7 @@ const itemSpaces = computed<SpaceOption[]>(() => {
 
         // 累加当前列的高度
         columnsTop.value[columnIndex] += height + props.gap
-
-        spaces.push(space)
+        spaces[i] = space
     }
     return spaces
 })
@@ -178,11 +178,14 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     if (!length) {
         return []
     }
-
+    const top = -contentTop.value
+    const preloadScreenCount = props.preloadScreenCount
+    // 避免多次访问
+    const innerHeight = window.innerHeight
     // 顶部的范围: 向上预加载preloadScreenCount个屏幕，Y轴上部
-    const topLimit = -contentTop.value - props.preloadScreenCount * window.innerHeight
+    const topLimit = top - preloadScreenCount * innerHeight
     // 底部的范围: 向下预加载preloadScreenCount个屏幕
-    const bottomLimit = -contentTop.value + (props.preloadScreenCount + 1) * window.innerHeight
+    const bottomLimit = top + (preloadScreenCount + 1) * innerHeight
     const list = []
     for (let i = 0; i < length; i++) {
         // AND 运算比 OR 运算快
@@ -202,8 +205,7 @@ const getColumnIndex = (): number => {
 defineExpose({
     backTop() {
         container.value?.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+            top: 0
         })
     }
 })
@@ -214,7 +216,6 @@ defineExpose({
     width: 100%;
     height: 100%;
     overflow: auto;
-    scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
 
@@ -231,7 +232,7 @@ defineExpose({
 
         .box {
             position: absolute;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s linear;
             content-visibility: auto;
         }
     }

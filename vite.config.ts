@@ -3,22 +3,35 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from 'vite-plugin-dts'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite';
+import { ArcoResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
     let base = '/'
-    const plugins = [vue(), vueJsx(), cssInjectedByJsPlugin()]
+    let plugins = [
+        vue(),
+        AutoImport({
+            resolvers: [ArcoResolver()],
+        }),
+        Components({
+            resolvers: [
+                ArcoResolver({
+                    sideEffect: true
+                })
+            ]
+        }),
+    ]
     let build: Record<string, any> = {
         target: 'es2015',
         cssTarget: 'chrome61'
     }
 
     if (mode === 'npm') {
-        plugins.push(
-            dts({
-                entryRoot: 'src/vue-virtual-waterfall'
-            })
-        )
+        plugins = [vue(), cssInjectedByJsPlugin(), dts({
+            entryRoot: 'src/vue-virtual-waterfall'
+        })]
         build = {
             target: 'es2015',
             cssTarget: 'chrome61',
