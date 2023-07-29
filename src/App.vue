@@ -1,6 +1,7 @@
 <template>
     <main>
-        <a-split style="height: 100%; width: 100%" v-model:size="size" min="360px" max="0.85">
+        <Example v-if="isMobile"></Example>
+        <a-split v-else style="height: 100%; width: 100%" v-model:size="size" min="360px" :max="max">
             <template #first>
                 <Example></Example>
             </template>
@@ -61,10 +62,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, provide } from 'vue'
+import { ref, onMounted, reactive, provide, onUnmounted } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
 import Example from './example.vue'
 
-const size = ref(0.85)
+const size = ref(0.8)
+const max = ref(0.8)
 
 const cfg = reactive<CfgOption>({
     gap: 15,
@@ -78,8 +81,24 @@ provide('cfg', cfg)
 
 const appHeight = ref('100vh')
 
+const isMobile = ref(false)
+
+const calcAppWidth = () => {
+    if (window.innerWidth > 1000) {
+        isMobile.value = false
+    } else {
+        isMobile.value = true
+    }
+}
+
 onMounted(() => {
     appHeight.value = window.innerHeight + 'px'
+    calcAppWidth()
+    window.addEventListener('resize', useDebounceFn(calcAppWidth, 200))
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', useDebounceFn(calcAppWidth, 200))
 })
 </script>
 
