@@ -1,15 +1,6 @@
 <template>
-    <VirtualWaterfall
-        :gap="cfg.gap"
-        :min-column-count="cfg.minColumnCount"
-        :max-column-count="cfg.maxColumnCount === '自动' ? undefined : +cfg.maxColumnCount"
-        :item-min-width="cfg.itemMinWidth"
-        :items="data.items"
-        :loading="data.loading"
-        :calc-item-height="calcItemHeight"
-        ref="vw"
-        @load-more="loadMoreData">
-        <template #default="{ item } : { item: ItemOption}">
+    <VirtualWaterfall :gap="cfg.gap" :min-column-count="cfg.minColumnCount" :max-column-count="cfg.maxColumnCount === '自动' ? undefined : +cfg.maxColumnCount" :item-min-width="cfg.itemMinWidth" :items="data.items" :loading="data.loading" :calc-item-height="calcItemHeight" ref="vw" @load-more="loadMoreData">
+        <template #default="{ item }: { item: ItemOption }">
             <Card :id="item.id" :img="item.img" :color="item.dominant" :has="loadedItemIds.has(item.id)" @loaded="loaded"></Card>
         </template>
     </VirtualWaterfall>
@@ -20,7 +11,6 @@
 import { onBeforeMount, onMounted, ref, reactive, inject } from 'vue'
 import { VirtualWaterfall } from './vue-virtual-waterfall'
 import Card from './card.vue'
-
 
 const cfg = inject<CfgOption>('cfg')
 
@@ -76,13 +66,13 @@ const calcItemHeight = (item: ItemOption, itemWidth: number): number => {
         case '1:1':
             return itemWidth
         case '2:3':
-            return itemWidth / 2 * 3
+            return (itemWidth / 2) * 3
         case '3:4':
-            return itemWidth / 3 * 4
+            return (itemWidth / 3) * 4
         case '4:5':
-            return itemWidth / 4 * 5
+            return (itemWidth / 4) * 5
         case '9:16':
-            return itemWidth / 9 * 16
+            return (itemWidth / 9) * 16
     }
     return item.height * (itemWidth / item.width)
 }

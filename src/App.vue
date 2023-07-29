@@ -1,6 +1,6 @@
 <template>
     <main>
-        <a-split style="height: 100%; width: 100%;" v-model:size="size" min="360px" max="0.85">
+        <a-split style="height: 100%; width: 100%" v-model:size="size" min="360px" max="0.85">
             <template #first>
                 <Example></Example>
             </template>
@@ -61,8 +61,8 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted, reactive, provide} from "vue"
-import Example from "./example.vue";
+import { ref, onMounted, reactive, provide } from 'vue'
+import Example from './example.vue'
 
 const size = ref(0.85)
 
@@ -89,8 +89,8 @@ body {
     padding: 0;
 
     main {
-        height: v-bind(appHeight);
         width: 100%;
+        height: v-bind(appHeight);
 
         aside {
             box-sizing: border-box;
