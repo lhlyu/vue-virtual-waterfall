@@ -4,8 +4,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from 'vite-plugin-dts'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite';
-import { ArcoResolver } from 'unplugin-vue-components/resolvers';
+import Components from 'unplugin-vue-components/vite'
+import { ArcoResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
     let plugins = [
         vue(),
         AutoImport({
-            resolvers: [ArcoResolver()],
+            resolvers: [ArcoResolver()]
         }),
         Components({
             resolvers: [
@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
                     sideEffect: true
                 })
             ]
-        }),
+        })
     ]
     let build: Record<string, any> = {
         target: 'es2015',
@@ -29,9 +29,13 @@ export default defineConfig(({ mode }) => {
     }
 
     if (mode === 'npm') {
-        plugins = [vue(), cssInjectedByJsPlugin(), dts({
-            entryRoot: 'src/vue-virtual-waterfall'
-        })]
+        plugins = [
+            vue(),
+            cssInjectedByJsPlugin(),
+            dts({
+                entryRoot: 'src/vue-virtual-waterfall'
+            })
+        ]
         build = {
             target: 'es2015',
             cssTarget: 'chrome61',

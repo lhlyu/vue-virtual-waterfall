@@ -1,4 +1,3 @@
-
 declare interface CfgOption {
     gap: number
     maxColumnCount: string

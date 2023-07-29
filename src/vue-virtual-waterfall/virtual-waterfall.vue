@@ -71,7 +71,6 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     calcItemHeight: (item: any, itemWidth: number) => 250
 })
 
-
 const slot = defineSlots<{
     default(props: { item: any; index: number }): any
 }>()
