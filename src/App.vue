@@ -1,72 +1,80 @@
 <template>
     <main>
-        <VirtualWaterfall :items="data.items" :calcItemHeight="calcItemHeight" :loading="data.loading" :content-max-width="1000" ref="vw" @load-more="loadMoreData">
-            <template #default="{ item }: { item: ItemOption }">
-                <Card :id="item.id" :img="item.img" :color="item.dominant" :has="loadedItemIds.has(item.id)" @loaded="loaded"></Card>
+        <a-split style="height: 100%; width: 100%;" v-model:size="size" min="360px" max="0.85">
+            <template #first>
+                <Example></Example>
             </template>
-        </VirtualWaterfall>
+            <template #second>
+                <aside>
+                    <a-form :model="cfg" layout="vertical">
+                        <a-form-item field="gap" label="间隔(px)">
+                            <a-input-number v-model="cfg.gap" :min="0" :max="100" />
+                        </a-form-item>
+                        <a-form-item field="itemMinWidth" label="元素理论最小宽度(px)">
+                            <a-input-number v-model="cfg.itemMinWidth" :min="0" :max="1000" />
+                        </a-form-item>
+                        <a-form-item field="minColumnCount" label="最小列数(不大于最大列数)">
+                            <a-select v-model="cfg.minColumnCount">
+                                <a-option>1</a-option>
+                                <a-option>2</a-option>
+                                <a-option>3</a-option>
+                                <a-option>4</a-option>
+                                <a-option>5</a-option>
+                                <a-option>6</a-option>
+                                <a-option>7</a-option>
+                                <a-option>8</a-option>
+                                <a-option>9</a-option>
+                                <a-option>10</a-option>
+                            </a-select>
+                        </a-form-item>
+                        <a-form-item field="maxColumnCount" label="最大列数">
+                            <a-select v-model="cfg.maxColumnCount">
+                                <a-option>自动</a-option>
+                                <a-option>1</a-option>
+                                <a-option>2</a-option>
+                                <a-option>3</a-option>
+                                <a-option>4</a-option>
+                                <a-option>5</a-option>
+                                <a-option>6</a-option>
+                                <a-option>7</a-option>
+                                <a-option>8</a-option>
+                                <a-option>9</a-option>
+                                <a-option>10</a-option>
+                            </a-select>
+                        </a-form-item>
+                        <a-form-item field="itemHeight" label="元素高度">
+                            <a-select v-model="cfg.itemHeight">
+                                <a-option value="自动">自动</a-option>
+                                <a-option value="250">默认(250px)</a-option>
+                                <a-option value="1:1">1:1</a-option>
+                                <a-option value="2:3">2:3</a-option>
+                                <a-option value="3:4">3:4</a-option>
+                                <a-option value="4:5">4:5</a-option>
+                                <a-option value="9:16">9:16</a-option>
+                            </a-select>
+                        </a-form-item>
+                    </a-form>
+                </aside>
+            </template>
+        </a-split>
     </main>
-    <div class="backtop" @click="backTop">▲</div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, reactive } from 'vue'
-import { VirtualWaterfall } from './vue-virtual-waterfall'
-import Card from './card.vue'
+import {ref, onMounted, reactive, provide} from "vue"
+import Example from "./example.vue";
 
-interface ItemOption {
-    id: string
-    height: number
-    width: number
-    img: string
-    dominant: number[]
-    palette: number[][]
-}
+const size = ref(0.85)
 
-const data = reactive({
-    items: [] as ItemOption[],
-    page: 1,
-    size: 80,
-    loading: false
+const cfg = reactive<CfgOption>({
+    gap: 15,
+    maxColumnCount: '自动',
+    minColumnCount: 2,
+    itemMinWidth: 250,
+    itemHeight: '自动'
 })
 
-const loadedItemIds = new Set<string>()
-
-const loaded = (id: string) => {
-    loadedItemIds.add(id)
-}
-
-const loadMoreData = async () => {
-    if (data.loading) {
-        return
-    }
-    data.loading = true
-    const resp = await fetch(`https://mock.tatakai.top/image/${data.page}/${data.size}`)
-    const list = await resp.json()
-    data.items.push(...list)
-    data.page += 1
-    if (list.length < data.size) {
-        return
-    }
-    data.loading = false
-}
-
-onBeforeMount(async () => {
-    await loadMoreData()
-})
-
-// 计算高度的方法
-const calcItemHeight = (item: ItemOption, itemWidth: number): number => {
-    // 按比例
-    return item.height * (itemWidth / item.width)
-}
-
-const vw = ref()
-
-// 返回顶部
-const backTop = () => {
-    vw.value?.backTop()
-}
+provide('cfg', cfg)
 
 const appHeight = ref('100vh')
 
@@ -80,34 +88,14 @@ body {
     margin: 0;
     padding: 0;
 
-    #app {
-        main {
-            width: 100%;
-            height: v-bind(appHeight);
-        }
+    main {
+        height: v-bind(appHeight);
+        width: 100%;
 
-        .backtop {
-            position: fixed;
-            right: 40px;
-            bottom: 40px;
-            z-index: 99;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        aside {
             box-sizing: border-box;
-            width: 40px;
-            height: 40px;
-            color: rgba(#e84393, 0.4);
-            font-size: 1.4rem;
-            background: rgba(#fd79a8, 0.4);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s linear;
-
-            &:hover {
-                color: rgba(#e84393, 1);
-                background: rgba(#fd79a8, 0.9);
-            }
+            padding: 20px;
+            user-select: none;
         }
     }
 }
