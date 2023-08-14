@@ -32,13 +32,13 @@ app.use(VueVirtualWaterfall)
 ```vue
 
 <template>
-  <VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight" :loading="loading" @load-more="loadMoreData">
-    <template #default="{ item }: { item: ItemOption }">
-      <div class="card">
-        <img :src="item.img"/>
-      </div>
-    </template>
-  </VirtualWaterfall>
+	<VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight" :loading="loading" @load-more="loadMoreData">
+		<template #default="{ item }: { item: ItemOption }">
+			<div class="card">
+				<img :src="item.img"/>
+			</div>
+		</template>
+	</VirtualWaterfall>
 </template>
 ```
 

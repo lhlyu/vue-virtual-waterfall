@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useElementBounding, useThrottle, useElementSize, useInfiniteScroll } from '@vueuse/core'
 
 defineOptions({
@@ -143,15 +143,32 @@ interface SpaceOption {
 }
 
 // 计算每个item占据的空间
-const itemSpaces = computed<SpaceOption[]>(() => {
+const itemSpaces = ref<SpaceOption[]>([])
+
+watchEffect(() => {
     if (!columnCount.value) {
-        return []
+        itemSpaces.value = []
+        return
     }
-    columnsTop.value = new Array(columnCount.value).fill(0)
     const length = props.items.length
     const spaces = new Array(length)
+
+    let start = 0
+    // 是否启用缓存
+    const cache = length > itemSpaces.value.length
+    if (cache) {
+        start = itemSpaces.value.length
+    } else {
+        columnsTop.value = new Array(columnCount.value).fill(0)
+    }
+
     // 为了高性能采用for-i
     for (let i = 0; i < length; i++) {
+        if (cache && i < start) {
+            spaces[i] = itemSpaces.value[i]
+            continue
+        }
+
         const columnIndex = getColumnIndex()
         // 计算元素的高度
         const height = props.calcItemHeight(props.items[i], itemWidth.value)
@@ -168,7 +185,7 @@ const itemSpaces = computed<SpaceOption[]>(() => {
         columnsTop.value[columnIndex] += height + props.gap
         spaces[i] = space
     }
-    return spaces
+    itemSpaces.value = spaces
 })
 
 // 需要渲染的items

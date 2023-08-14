@@ -48,7 +48,8 @@ const loadMoreData = async () => {
     for (let i = 0; i < list.length; i++) {
         list[i].text = Mock.Random.cparagraph(0, 3)
     }
-    data.items.push(...list)
+    // 这种方式更高效
+    data.items = [...data.items, ...list]
     data.page += 1
     if (list.length < data.size) {
         return
