@@ -54,6 +54,9 @@
                                 <a-option value="9:16">9:16</a-option>
                             </a-select>
                         </a-form-item>
+                        <a-form-item field="showText" label="是否展示文本">
+                            <a-switch v-model="cfg.showText" />
+                        </a-form-item>
                     </a-form>
                 </aside>
             </template>
@@ -74,7 +77,8 @@ const cfg = reactive<CfgOption>({
     maxColumnCount: '自动',
     minColumnCount: 2,
     itemMinWidth: 250,
-    itemHeight: '自动'
+    itemHeight: '自动',
+    showText: true
 })
 
 provide('cfg', cfg)
@@ -86,9 +90,9 @@ const isMobile = ref(false)
 const calcAppWidth = () => {
     if (window.innerWidth > 1000) {
         isMobile.value = false
-    } else {
-        isMobile.value = true
+        return
     }
+    isMobile.value = true
 }
 
 onMounted(() => {

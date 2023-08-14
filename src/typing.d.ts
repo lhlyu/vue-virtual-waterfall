@@ -4,4 +4,6 @@ declare interface CfgOption {
     minColumnCount: number
     itemMinWidth: number
     itemHeight: string
+    // 展示文本
+    showText: boolean
 }

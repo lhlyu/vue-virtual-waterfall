@@ -1,9 +1,12 @@
 <template>
-    <div class="card" :style="`background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});`">
-        <div class="img" ref="dom">
+    <div class="card">
+        <div class="img" ref="dom" :style="`background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});`">
             <Transition>
                 <img v-if="loaded" :src="img" :alt="id" />
             </Transition>
+        </div>
+        <div class="text" v-if="text.length">
+            {{ text }}
         </div>
     </div>
 </template>
@@ -28,6 +31,10 @@ const props = defineProps({
     color: {
         type: Array,
         default: () => [255, 255, 255]
+    },
+    text: {
+        type: String,
+        default: ''
     }
 })
 
@@ -37,7 +44,7 @@ const emit = defineEmits(['loaded'])
 
 const dom = ref<HTMLDivElement>()
 
-const { stop } = useIntersectionObserver(dom, ([{ isIntersecting }], observerElement) => {
+const { stop } = useIntersectionObserver(dom, ([{ isIntersecting }]) => {
     if (props.has) {
         stop()
         return
@@ -68,24 +75,37 @@ const handlerLoad = () => {
 <style scoped lang="scss">
 .card {
     position: relative;
+    display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #dddddd;
     border-radius: 10px;
 
     .img {
+        flex: 1;
         width: 100%;
-        height: 100%;
+        height: 0;
         background: transparent;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
     }
 
-    img {
+    .text {
+        flex-shrink: 0;
+        box-sizing: border-box;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        overflow: hidden;
+        height: fit-content;
+        padding: 10px;
+        line-height: 1.7;
+        word-wrap: break-word;
     }
 }
 .v-enter-active,

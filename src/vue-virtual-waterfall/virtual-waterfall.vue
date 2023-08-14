@@ -231,7 +231,6 @@ defineExpose({
 
         .box {
             position: absolute;
-            transition: all 0.4s linear;
             content-visibility: auto;
         }
     }
