@@ -28,6 +28,7 @@
   "files": [
     "dist",
     "README.md",
+    "README.zh.md",
     "LICENSE",
     "package.json"
   ],
