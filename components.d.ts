@@ -6,13 +6,13 @@
 export {}
 
 declare module 'vue' {
-    export interface GlobalComponents {
-        AForm: (typeof import('@arco-design/web-vue'))['Form']
-        AFormItem: (typeof import('@arco-design/web-vue'))['FormItem']
-        AInputNumber: (typeof import('@arco-design/web-vue'))['InputNumber']
-        AOption: (typeof import('@arco-design/web-vue'))['Option']
-        ASelect: (typeof import('@arco-design/web-vue'))['Select']
-        ASplit: (typeof import('@arco-design/web-vue'))['Split']
-        ASwitch: (typeof import('@arco-design/web-vue'))['Switch']
-    }
+  export interface GlobalComponents {
+    AForm: typeof import('@arco-design/web-vue')['Form']
+    AFormItem: typeof import('@arco-design/web-vue')['FormItem']
+    AInputNumber: typeof import('@arco-design/web-vue')['InputNumber']
+    AOption: typeof import('@arco-design/web-vue')['Option']
+    ASelect: typeof import('@arco-design/web-vue')['Select']
+    ASplit: typeof import('@arco-design/web-vue')['Split']
+    ASwitch: typeof import('@arco-design/web-vue')['Switch']
+  }
 }

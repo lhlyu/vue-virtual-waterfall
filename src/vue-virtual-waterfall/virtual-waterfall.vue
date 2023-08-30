@@ -12,7 +12,7 @@
             <div
                 class="box"
                 v-for="(data, index) in itemRenderList"
-                :key="data.item[key] ?? index"
+                :key="data.item[rowKey] ?? index"
                 :style="{
                     width: `${itemWidth}px`,
                     height: `${data.height}px`,
@@ -35,7 +35,7 @@ defineOptions({
 })
 
 interface VirtualWaterfallOption {
-    key?: string
+    rowKey?: string
     // item间隔
     gap?: number
     // 预加载屏数量
@@ -59,7 +59,7 @@ interface VirtualWaterfallOption {
 }
 
 const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
-    key: 'id',
+    rowKey: 'id',
     gap: 15,
     preloadScreenCount: 1,
     bottomDistance: 2000,

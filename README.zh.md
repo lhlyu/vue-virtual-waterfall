@@ -48,7 +48,7 @@ app.use(VueVirtualWaterfall)
 
 | 字段                 | 类型                                       | 默认值                                   | 说明              |
 |--------------------|------------------------------------------|---------------------------------------|-----------------|
-| key                | string                                   | 'id'                                  | v-for需要用到key    |
+| rowKey             | string                                   | 'id'                                  | v-for需要用到key    |
 | gap                | number                                   | 15                                    | 每个item之间的间隔     |
 | contentMaxWidth    | string or number                         | '100%'                                | 内容最大宽度          |
 | preloadScreenCount | number                                   | 1                                     | 预加载屏数量          |

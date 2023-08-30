@@ -48,7 +48,7 @@ app.use(VueVirtualWaterfall)
 
 | Field              | Type                                     | Default Value                         | Description                                     |
 |--------------------|------------------------------------------|---------------------------------------|-------------------------------------------------|
-| key                | string                                   | 'id'                                  | Key used for v-for loop                         |
+| rowKey             | string                                   | 'id'                                  | Key used for v-for loop                         |
 | gap                | number                                   | 15                                    | Gap between each item                           |
 | contentMaxWidth    | string or number                         | '100%'                                | Maximum width of the content                    |
 | preloadScreenCount | number                                   | 1                                     | Number of screens to preload                    |
