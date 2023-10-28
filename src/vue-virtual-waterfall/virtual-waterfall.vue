@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue'
+import {computed, onMounted, ref, watchEffect} from 'vue'
 import { useElementBounding, useThrottle, useElementSize, useInfiniteScroll } from '@vueuse/core'
 
 defineOptions({
@@ -107,6 +107,15 @@ const { width } = useElementSize(content)
 const { top } = useElementBounding(content)
 const contentWidth = useThrottle(width, 500)
 const contentTop = useThrottle(top, 125)
+
+onMounted(() => {
+    // 这里是为了解决这个问题:
+    // https://github.com/lhlyu/vue-virtual-waterfall/issues/5
+    if (contentWidth.value === 0) {
+        contentWidth.value = Number.parseInt(window.getComputedStyle(content.value).width)
+    }
+})
+
 // 计算列数
 const columnCount = computed<number>(() => {
     if (!contentWidth.value) {

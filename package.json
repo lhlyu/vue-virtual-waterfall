@@ -1,7 +1,7 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": "lhlyu",
   "repository": {
     "type": "git",
@@ -53,7 +53,7 @@
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.5.0",
     "vite-plugin-css-injected-by-js": "^3.3.0",
-    "vite-plugin-dts": "^3.6.1",
-    "vue-tsc": "^1.8.21"
+    "vite-plugin-dts": "^3.6.2",
+    "vue-tsc": "^1.8.22"
   }
 }
