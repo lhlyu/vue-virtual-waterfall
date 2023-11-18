@@ -16,7 +16,7 @@
 - Local Import
 
 ```ts
-import {VirtualWaterfall} from '@lhlyu/vue-virtual-waterfall'
+import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - Global Import

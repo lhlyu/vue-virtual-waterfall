@@ -16,7 +16,7 @@
 - 局部引用
 
 ```ts
-import {VirtualWaterfall} from '@lhlyu/vue-virtual-waterfall'
+import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - 全局引用
