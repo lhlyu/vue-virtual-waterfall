@@ -28,7 +28,7 @@ interface ItemOption {
 const data = reactive({
     items: [] as ItemOption[],
     page: 1,
-    size: 80,
+    size: 50,
     loading: false
 })
 
@@ -66,7 +66,7 @@ const calcItemHeight = (item: ItemOption, itemWidth: number): number => {
     let height = 0
     // 如果存在文本则添加一点高度
     if (item.text.length && cfg.showText) {
-        height = 100
+        height = 150
     }
     // 按比例
     switch (cfg.itemHeight) {

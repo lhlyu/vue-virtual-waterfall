@@ -46,37 +46,38 @@ app.use(VueVirtualWaterfall)
 
 - Properties
 
-| Field              | Type                                     | Default Value                         | Description                                     |
-|--------------------|------------------------------------------|---------------------------------------|-------------------------------------------------|
-| rowKey             | string                                   | 'id'                                  | Key used for v-for loop                         |
-| gap                | number                                   | 15                                    | Gap between each item                           |
-| contentMaxWidth    | string or number                         | '100%'                                | Maximum width of the content                    |
-| preloadScreenCount | number                                   | 1                                     | Number of screens to preload                    |
-| bottomDistance     | number                                   | 2000                                  | Distance from bottom to trigger load more event |
-| itemMinWidth       | number                                   | 250                                   | Minimum width of each item                      |
-| maxColumnCount     | number                                   |                                       | Maximum number of columns, no limit by default  |
-| minColumnCount     | number                                   | 2                                     | Minimum number of columns                       |
-| loading            | boolean                                  | false                                 | Whether data is loading                         |
-| items              | any[]                                    | []                                    | Data                                            |
-| calcItemHeight     | (item: any, itemWidth: number) => number | (item: any, itemWidth: number) => 250 | Method to calculate item height                 |
+| Field              | Type                                       | Default Value                           | Description                                     |
+|--------------------|--------------------------------------------|-----------------------------------------|-------------------------------------------------|
+| height             | string                                     | '100vh'                                 | Container height                                |
+| rowKey             | string                                     | 'id'                                    | Key used for v-for loop                         |
+| gap                | number                                     | 15                                      | Gap between each item                           |
+| contentMaxWidth    | string or number                           | '100%'                                  | Maximum width of the content                    |
+| preloadScreenCount | number                                     | 1                                       | Number of screens to preload                    |
+| bottomDistance     | number                                     | 250                                     | Distance from bottom to trigger load more event |
+| itemMinWidth       | number                                     | 250                                     | Minimum width of each item                      |
+| maxColumnCount     | number                                     |                                         | Maximum number of columns, no limit by default  |
+| minColumnCount     | number                                     | 2                                       | Minimum number of columns                       |
+| loading            | boolean                                    | false                                   | Whether data is loading                         |
+| items              | any[]                                      | []                                      | Data                                            |
+| calcItemHeight     | `(item: any, itemWidth: number) => number` | `(item: any, itemWidth: number) => 250` | Method to calculate item height                 |
 
 - Slots
 
-| Name    | Type                         | Description        |
-|---------|------------------------------|--------------------|
-| default | { item: any, index: number } | Customized content |
+| Name    | Type                           | Description        |
+|---------|--------------------------------|--------------------|
+| default | `{ item: any, index: number }` | Customized content |
 
 - Events
 
-| Event     | Type       | Description     |
-|-----------|------------|-----------------|
-| load-more | () => void | Load more event |
+| Event     | Type         | Description     |
+|-----------|--------------|-----------------|
+| load-more | `() => void` | Load more event |
 
 - Exposed Methods
 
-| Method  | Type       | Description   |
-|---------|------------|---------------|
-| backTop | () => void | Scroll to top |
+| Method  | Type         | Description   |
+|---------|--------------|---------------|
+| backTop | `() => void` | Scroll to top |
 
 ## Performance
 
@@ -91,5 +92,8 @@ app.use(VueVirtualWaterfall)
 - [vue-masonry-css](https://github.com/paulcollett/vue-masonry-css)
 - [Optimization of Waterfall Virtual List](https://juejin.cn/post/7166071557284954142)
 - [PixivCollection](https://github.com/orilights/PixivCollection)
+- [v3-waterfall](https://github.com/gk-shi/v3-waterfall)
+- [scroll](https://juejin.cn/post/6844903493677875214?from=search-suggest)
+- [scroll-event](https://ayase.moe/2018/11/20/scroll-event/)
 
 - [Cache Settings](https://developer.chrome.com/docs/lighthouse/performance/uses-long-cache-ttl/?utm_source=lighthouse&utm_medium=lr)

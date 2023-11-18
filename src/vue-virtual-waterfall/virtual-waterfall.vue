@@ -1,5 +1,10 @@
 <template>
-    <div ref="container" class="container">
+    <div
+        ref="container"
+        class="container"
+        :style="{
+            height: height
+        }">
         <div
             ref="content"
             class="content"
@@ -7,8 +12,7 @@
                 maxWidth: `${getValue(contentMaxWidth, '100%')}`,
                 height: `${Math.max(...columnsTop) + props.gap}px`,
                 padding: `${gap}px`
-            }"
-        >
+            }">
             <div
                 class="box"
                 v-for="(data, index) in itemRenderList"
@@ -18,8 +22,7 @@
                     height: `${data.height}px`,
                     transform: `translate(${data.left}px, ${data.top}px)`,
                     containIntrinsicSize: `${itemWidth}px ${data.height}px`
-                }"
-            >
+                }">
                 <slot :item="data.item" :index="index"></slot>
             </div>
         </div>
@@ -27,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref, watchEffect} from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { useElementBounding, useThrottle, useElementSize, useInfiniteScroll } from '@vueuse/core'
 
 defineOptions({
@@ -35,6 +38,8 @@ defineOptions({
 })
 
 interface VirtualWaterfallOption {
+    // 容器的高度
+    height?: string
     rowKey?: string
     // item间隔
     gap?: number
@@ -59,10 +64,11 @@ interface VirtualWaterfallOption {
 }
 
 const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
+    height: '100vh',
     rowKey: 'id',
     gap: 15,
     preloadScreenCount: 1,
-    bottomDistance: 2000,
+    bottomDistance: 250,
     contentMaxWidth: '100%',
     itemMinWidth: 250,
     minColumnCount: 2,
@@ -99,7 +105,7 @@ useInfiniteScroll(
         }
         emit('load-more')
     },
-    { distance: props.bottomDistance }
+    { distance: props.bottomDistance, direction: 'bottom' }
 )
 
 const content = ref<HTMLDivElement>()
@@ -180,18 +186,18 @@ watchEffect(() => {
 
         const columnIndex = getColumnIndex()
         // 计算元素的高度
-        const height = props.calcItemHeight(props.items[i], itemWidth.value)
+        const h = props.calcItemHeight(props.items[i], itemWidth.value)
 
         const space: SpaceOption = {
             item: props.items[i],
             column: columnIndex,
             top: columnsTop.value[columnIndex],
             left: (itemWidth.value + props.gap) * columnIndex,
-            height: height
+            height: h
         }
 
         // 累加当前列的高度
-        columnsTop.value[columnIndex] += height + props.gap
+        columnsTop.value[columnIndex] += h + props.gap
         spaces[i] = space
     }
     itemSpaces.value = spaces
@@ -238,9 +244,10 @@ defineExpose({
 
 <style lang="scss" scoped>
 .container {
+    box-sizing: border-box;
     width: 100%;
-    height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    visibility: visible;
     scrollbar-width: none;
     -ms-overflow-style: none;
 

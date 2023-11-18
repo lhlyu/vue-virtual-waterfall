@@ -4,10 +4,12 @@
   "semi": false,
   "singleQuote": true,
   "bracketSpacing": true,
-  "jsxBracketSameLine": true,
+  "bracketSameLine": true,
   "printWidth": 320,
   "trailingComma": "none",
   "arrowParens": "avoid",
+  "vueIndentScriptAndStyle": false,
+  "singleAttributePerLine": false,
   "plugins": [
     "prettier-plugin-rational-order"
   ]
