@@ -1,14 +1,18 @@
 import { onBeforeMount, ref, reactive } from 'vue'
 
+
+// const proxy_base_url = "https://proxy.pixivel.moe/"
+const proxy_base_url = "https://px3.rainchan.win/"
+
 const handlerUrl = (url: string): string => {
     url = url.replace('_p0.', '_p0_master1200.')
     url = url.replace('.png', '.jpg')
-    return 'https://proxy.pixivel.moe/c/540x540_70/img-master/' + url
+    return proxy_base_url + 'c/540x540_70/img-master/' + url
 }
 
 const handlerAvatar = (url: string): string => {
     url = url.replace('.', '_50.')
-    return 'https://proxy.pixivel.moe/' + url
+    return proxy_base_url + url
 }
 
 const useWaterfall = () => {
