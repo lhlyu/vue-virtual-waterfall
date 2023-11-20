@@ -7,7 +7,7 @@
 ## Examples
 
 - [Example](https://waterfall.tatakai.top)
-- [Example Source Code](./src/App.vue)
+- [Example Source Code](./src/example/Example.vue)
 
 ## Usage
 

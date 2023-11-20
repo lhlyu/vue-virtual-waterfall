@@ -1,9 +1,10 @@
-declare interface CfgOption {
-    gap: number
-    maxColumnCount: string
-    minColumnCount: number
-    itemMinWidth: number
-    itemHeight: string
-    // 展示文本
-    showText: boolean
+declare interface ItemOption {
+    id: number
+    title: string
+    url: string
+    width: number
+    height: number
+    avatar: string
+    user: string
+    views: number
 }

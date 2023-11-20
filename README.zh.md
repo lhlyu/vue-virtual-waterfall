@@ -7,7 +7,7 @@
 ## 示例
 
 - [例子](https://waterfall.tatakai.top)
-- [例子源码](./src/App.vue)
+- [例子源码](./src/example/Example.vue)
 
 ## 使用
 
