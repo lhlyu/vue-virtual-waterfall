@@ -38,6 +38,7 @@ onBeforeMount(() => {
         }
 
         image.onerror = error => {
+            console.log(error)
             loaded.value = true
             resolve(true)
         }
