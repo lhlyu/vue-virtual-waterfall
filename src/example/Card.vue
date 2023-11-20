@@ -1,9 +1,7 @@
 <template>
     <article class="card" :data-id="item.id">
         <div class="cover">
-            <Transition>
-                <img v-if="loaded" :src="item.url" alt="图片" />
-            </Transition>
+            <img :src="item.url" alt="图片" />
         </div>
         <div class="body" v-if="!onlyImage">
             <h3>{{ item.title }}</h3>
@@ -26,26 +24,26 @@ const props = defineProps<{
     onlyImage: boolean
 }>()
 
-const loaded = ref(false)
-
-onBeforeMount(() => {
-    new Promise((resolve, reject) => {
-        const image = new Image()
-
-        image.onload = () => {
-            loaded.value = true
-            resolve(true)
-        }
-
-        image.onerror = error => {
-            console.error(error)
-            loaded.value = true
-            resolve(true)
-        }
-
-        image.src = props.item.url
-    })
-})
+// const loaded = ref(false)
+//
+// onBeforeMount(() => {
+//     new Promise((resolve, reject) => {
+//         const image = new Image()
+//
+//         image.onload = () => {
+//             loaded.value = true
+//             resolve(true)
+//         }
+//
+//         image.onerror = error => {
+//             console.error(error)
+//             loaded.value = true
+//             resolve(true)
+//         }
+//
+//         image.src = props.item.url
+//     })
+// })
 </script>
 
 <style scoped lang="scss">
