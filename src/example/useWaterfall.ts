@@ -26,7 +26,7 @@ const useWaterfall = () => {
         gap: 15,
         bottomDistance: 250,
         itemMinWidth: 250,
-        minColumnCount: 1,
+        minColumnCount: 2,
         maxColumnCount: 10,
         // 是否只展示图片，这是自定义加的一个属性
         onlyImage: false
