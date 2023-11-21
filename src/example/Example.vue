@@ -21,13 +21,13 @@
             <div class="option">
                 <TinyForm label-position="top">
                     <TinyFormItem label="间隔 [0:100]">
-	                    <TinyNumeric unit="px" :min="0" :max="100" v-model="waterfallOption.gap"></TinyNumeric>
+                        <TinyNumeric unit="px" :min="0" :max="100" v-model="waterfallOption.gap"></TinyNumeric>
                     </TinyFormItem>
                     <TinyFormItem label="每个元素最小宽度 [100:600]">
-	                    <TinyNumeric unit="px" :min="100" :max="600" v-model="waterfallOption.itemMinWidth"></TinyNumeric>
+                        <TinyNumeric unit="px" :min="100" :max="600" v-model="waterfallOption.itemMinWidth"></TinyNumeric>
                     </TinyFormItem>
                     <TinyFormItem label="距离底部多少时加载更多 [0:10000]">
-	                    <TinyNumeric unit="px" :min="0" :max="10000" v-model="waterfallOption.bottomDistance"></TinyNumeric>
+                        <TinyNumeric unit="px" :min="0" :max="10000" v-model="waterfallOption.bottomDistance"></TinyNumeric>
                     </TinyFormItem>
                     <TinyFormItem label="最小列数 [1:max]">
                         <TinyNumeric unit="列" :min="1" :max="waterfallOption.maxColumnCount" v-model="waterfallOption.minColumnCount"></TinyNumeric>

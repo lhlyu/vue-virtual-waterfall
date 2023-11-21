@@ -1,8 +1,8 @@
-import { onBeforeMount, ref, reactive } from 'vue'
-
+import { onBeforeMount, ref, reactive, render, h } from 'vue'
+import Card from './Card.vue'
 
 // const proxy_base_url = "https://proxy.pixivel.moe/"
-const proxy_base_url = "https://px3.rainchan.win/"
+const proxy_base_url = 'https://px3.rainchan.win/'
 
 const handlerUrl = (url: string): string => {
     url = url.replace('_p0.', '_p0_master1200.')
@@ -15,8 +15,31 @@ const handlerAvatar = (url: string): string => {
     return proxy_base_url + url
 }
 
-const useWaterfall = () => {
+// 计算真实高度，这里只计算除了图片的高度
+function getRealHeight(item: ItemOption, realWidth: number) {
+    const dom = document.createElement('div')
 
+    render(
+        h(Card, {
+            item: item,
+            width: realWidth + 'px',
+            noImage: true
+        }),
+        dom
+    )
+
+    document.body.appendChild(dom)
+
+    // 获取高度
+    const height: number = dom.clientHeight
+
+    // 移除新容器
+    document.body.removeChild(dom)
+    // 返回高度
+    return height
+}
+
+const useWaterfall = () => {
     // 给瀑布流组件加个ref，下面返回顶部函数需要用到
     const vm = ref()
 
@@ -38,9 +61,11 @@ const useWaterfall = () => {
 
     // 瀑布流元素高度的计算函数
     const calcItemHeight = (item: ItemOption, itemWidth: number) => {
-        let height = 120
-        if (waterfallOption.onlyImage) {
-            height = 0
+        let height = 0
+        // 当包含图文时，需要单独计算文字部分的高度
+        // 文字部分的高度 + 图片的高度 = 真实高度
+        if (!waterfallOption.onlyImage) {
+            height = getRealHeight(item, itemWidth)
         }
         return item.height * (itemWidth / item.width) + height
     }

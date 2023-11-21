@@ -1,6 +1,6 @@
 <template>
     <article class="card" :data-id="item.id">
-        <div class="cover">
+        <div class="cover" v-if="!noImage">
             <Transition>
                 <img v-if="loaded" :src="item.url" alt="图片" />
             </Transition>
@@ -21,30 +21,42 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 
-const props = defineProps<{
-    item: ItemOption
-    onlyImage: boolean
-}>()
+const props = withDefaults(
+    defineProps<{
+        item: ItemOption
+        onlyImage?: boolean
+        noImage?: boolean
+        width?: string
+    }>(),
+    {
+        item: () => {},
+        onlyImage: false,
+        noImage: false,
+        width: '100%'
+    }
+)
 
 const loaded = ref(false)
 
 onBeforeMount(() => {
-    new Promise((resolve, reject) => {
-        const image = new Image()
+    if (!props.noImage) {
+        new Promise((resolve, reject) => {
+            const image = new Image()
 
-        image.onload = () => {
-            loaded.value = true
-            resolve(true)
-        }
+            image.onload = () => {
+                loaded.value = true
+                resolve(true)
+            }
 
-        image.onerror = error => {
-            console.error(error)
-            loaded.value = true
-            resolve(true)
-        }
+            image.onerror = error => {
+                console.error(error)
+                loaded.value = true
+                resolve(true)
+            }
 
-        image.src = props.item.url
-    })
+            image.src = props.item.url
+        })
+    }
 })
 </script>
 
@@ -52,7 +64,7 @@ onBeforeMount(() => {
 .card {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: v-bind(width);
     height: 100%;
     overflow: hidden;
     background: white;
