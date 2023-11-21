@@ -29,7 +29,6 @@ const props = withDefaults(
         width?: string
     }>(),
     {
-        item: () => {},
         onlyImage: false,
         noImage: false,
         width: '100%'
