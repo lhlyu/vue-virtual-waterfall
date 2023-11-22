@@ -26,7 +26,7 @@ const useSplit = () => {
     })
 
     onUnmounted(() => {
-        window.removeEventListener('resize', useDebounceFn(calcAppWidth, 200))
+        window.removeEventListener('resize', useDebounceFn(calcAppWidth, 125))
     })
 
     return {

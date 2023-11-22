@@ -95,5 +95,5 @@ app.use(VueVirtualWaterfall)
 - [v3-waterfall](https://github.com/gk-shi/v3-waterfall)
 - [scroll](https://juejin.cn/post/6844903493677875214?from=search-suggest)
 - [scroll-event](https://ayase.moe/2018/11/20/scroll-event/)
-
+- [rolling optimization](https://www.cnblogs.com/coco1s/p/5499469.html)
 - [Cache Settings](https://developer.chrome.com/docs/lighthouse/performance/uses-long-cache-ttl/?utm_source=lighthouse&utm_medium=lr)

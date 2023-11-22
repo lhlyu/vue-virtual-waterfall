@@ -111,7 +111,7 @@ useInfiniteScroll(
 const content = ref<HTMLDivElement>()
 const { width } = useElementSize(content)
 const { top } = useElementBounding(content)
-const contentWidth = useThrottle(width, 500)
+const contentWidth = useThrottle(width, 250)
 const contentTop = useThrottle(top, 125)
 
 onMounted(() => {
@@ -169,7 +169,7 @@ watchEffect(() => {
     const spaces = new Array(length)
 
     let start = 0
-    // 是否启用缓存
+    // 是否启用缓存：只有当新增元素时，只需要计算新增元素的信息
     const cache = length > itemSpaces.value.length
     if (cache) {
         start = itemSpaces.value.length
@@ -203,7 +203,7 @@ watchEffect(() => {
     itemSpaces.value = spaces
 })
 
-// 需要渲染的items
+// 虚拟列表逻辑：需要渲染的items
 const itemRenderList = computed<SpaceOption[]>(() => {
     const length = itemSpaces.value.length
     if (!length) {
@@ -212,7 +212,7 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     const top = -contentTop.value
     const preloadScreenCount = props.preloadScreenCount
     // 避免多次访问
-    const innerHeight = window.innerHeight
+    const innerHeight = container.value.clientHeight
     // 顶部的范围: 向上预加载preloadScreenCount个屏幕，Y轴上部
     const topLimit = top - preloadScreenCount * innerHeight
     // 底部的范围: 向下预加载preloadScreenCount个屏幕
@@ -232,11 +232,12 @@ const getColumnIndex = (): number => {
     return columnsTop.value.indexOf(Math.min(...columnsTop.value))
 }
 
-// 滚动到顶部
+// 暴露的方法: 滚动到顶部
 defineExpose({
     backTop() {
         container.value?.scrollTo({
-            top: 0
+            top: 0,
+            behavior: 'instant'
         })
     }
 })
@@ -250,6 +251,7 @@ defineExpose({
     visibility: visible;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
         display: none;

@@ -13,5 +13,6 @@ body {
     margin: 0;
     padding: 0;
     background: #f1f2f6;
+    user-select: none;
 }
 </style>

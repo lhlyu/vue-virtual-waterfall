@@ -136,7 +136,7 @@ onBeforeMount(() => {
 .v-enter-active,
 .v-leave-active {
     opacity: 1;
-    transition: all 1s ease-in-out;
+    transition: all 0.8s linear;
     will-change: opacity;
 }
 
