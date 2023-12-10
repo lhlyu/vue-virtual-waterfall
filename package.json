@@ -1,7 +1,7 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
   "description": "vue3 virtual waterfall component",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "author": "lhlyu",
   "repository": {
     "type": "git",
@@ -33,32 +33,32 @@
     "package.json"
   ],
   "dependencies": {
-    "@vueuse/core": "^10.6.1"
+    "@vueuse/core": "^10.7.0"
   },
   "devDependencies": {
-    "@opentiny/vue-button": "^3.11.0",
-    "@opentiny/vue-form": "^3.11.1",
-    "@opentiny/vue-form-item": "^3.11.0",
-    "@opentiny/vue-icon": "^3.11.0",
-    "@opentiny/vue-numeric": "^3.11.0",
-    "@opentiny/vue-split": "^3.11.0",
-    "@opentiny/vue-switch": "^3.11.0",
+    "@opentiny/vue-button": "^3.12.0",
+    "@opentiny/vue-form": "^3.12.0",
+    "@opentiny/vue-form-item": "^3.12.0",
+    "@opentiny/vue-icon": "^3.12.0",
+    "@opentiny/vue-numeric": "^3.12.0",
+    "@opentiny/vue-split": "^3.12.0",
+    "@opentiny/vue-switch": "^3.12.0",
     "@types/mockjs": "^1.0.10",
-    "@types/node": "^20.9.4",
-    "@vitejs/plugin-vue": "^4.5.0",
+    "@types/node": "^20.10.4",
+    "@vitejs/plugin-vue": "^4.5.2",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.1",
     "mockjs": "^1.1.0",
-    "postcss": "^8.4.31",
+    "postcss": "^8.4.32",
     "prettier": "^3.1.0",
     "prettier-plugin-rational-order": "^1.0.3",
     "sass": "^1.69.5",
-    "typescript": "^5.3.2",
-    "vite": "^5.0.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7",
     "vite-plugin-css-injected-by-js": "^3.3.0",
-    "vite-plugin-dts": "^3.6.3",
-    "vue": "^3.3.8",
-    "vue-tsc": "^1.8.22"
+    "vite-plugin-dts": "^3.6.4",
+    "vue": "^3.3.11",
+    "vue-tsc": "^1.8.25"
   }
 }

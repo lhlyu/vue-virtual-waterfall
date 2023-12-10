@@ -16,7 +16,7 @@
 - Local Import
 
 ```ts
-import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
+import {VirtualWaterfall} from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - Global Import
@@ -48,6 +48,7 @@ app.use(VueVirtualWaterfall)
 
 | Field              | Type                                       | Default Value                           | Description                                     |
 |--------------------|--------------------------------------------|-----------------------------------------|-------------------------------------------------|
+| virtual            | boolean                                    | true                                    | Enable virtual list                             |
 | height             | string                                     | '100vh'                                 | Container height                                |
 | rowKey             | string                                     | 'id'                                    | Key used for v-for loop                         |
 | gap                | number                                     | 15                                      | Gap between each item                           |

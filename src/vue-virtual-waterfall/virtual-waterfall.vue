@@ -38,6 +38,8 @@ defineOptions({
 })
 
 interface VirtualWaterfallOption {
+    // 是否启用虚拟列表
+    virtual?: boolean
     // 容器的高度
     height?: string
     rowKey?: string
@@ -64,6 +66,7 @@ interface VirtualWaterfallOption {
 }
 
 const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
+    virtual: true,
     height: '100vh',
     rowKey: 'id',
     gap: 15,
@@ -208,6 +211,9 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     const length = itemSpaces.value.length
     if (!length) {
         return []
+    }
+    if (!props.virtual) {
+        return itemSpaces.value
     }
     const top = -contentTop.value
     const preloadScreenCount = props.preloadScreenCount

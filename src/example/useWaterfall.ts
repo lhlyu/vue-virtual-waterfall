@@ -50,6 +50,7 @@ const useWaterfall = () => {
     // 瀑布流的一些属性
     const waterfallOption = reactive({
         loading: false,
+        virtual: true,
         gap: 15,
         bottomDistance: 250,
         itemMinWidth: 250,

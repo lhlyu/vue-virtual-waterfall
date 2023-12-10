@@ -3,6 +3,7 @@
         <template #left>
             <VirtualWaterfall
                 ref="vm"
+                :virtual="waterfallOption.virtual"
                 :loading="waterfallOption.loading"
                 :gap="waterfallOption.gap"
                 :bottom-distance="waterfallOption.bottomDistance"
@@ -37,6 +38,9 @@
                     </TinyFormItem>
                     <TinyFormItem label="仅展示图片">
                         <TinySwitch v-model="waterfallOption.onlyImage"></TinySwitch>
+                    </TinyFormItem>
+                    <TinyFormItem label="虚拟列表">
+                        <TinySwitch v-model="waterfallOption.virtual"></TinySwitch>
                     </TinyFormItem>
                     <TinyFormItem label="数据统计">
                         <p>当前页码: {{ data.page }} / {{ data.max }}</p>
