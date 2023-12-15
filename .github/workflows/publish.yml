@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          ref: develop
 
       - name: 安装Pnpm
         uses: pnpm/action-setup@v2
