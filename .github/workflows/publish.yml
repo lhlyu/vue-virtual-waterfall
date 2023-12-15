@@ -50,7 +50,7 @@ jobs:
           echo "prerelease: ${{ env.prerelease }}"
 
       - name: 打个标签
-      - uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1
         with:
           tag: "v${{ env.version }}"
           draft: false
