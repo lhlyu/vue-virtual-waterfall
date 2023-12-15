@@ -1,10 +1,10 @@
 # vue-virtual-waterfall
 
-> vue3 virtual waterfall component
+> A Vue 3 virtual waterfall component
 
-[中文文档](./README.zh.md)
+[Chinese Documentation](./README.md)
 
-## Examples
+## Example
 
 - [Example](https://waterfall.tatakai.top)
 - [Example Source Code](./src/example/Example.vue)
@@ -13,13 +13,13 @@
 
 > pnpm add @lhlyu/vue-virtual-waterfall
 
-- Local Import
+- Local import
 
 ```ts
 import {VirtualWaterfall} from '@lhlyu/vue-virtual-waterfall'
 ```
 
-- Global Import
+- Global import
 
 ```ts
 import VueVirtualWaterfall from '@lhlyu/vue-virtual-waterfall'
@@ -32,7 +32,7 @@ app.use(VueVirtualWaterfall)
 ```vue
 
 <template>
-	<VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight" :loading="loading" @load-more="loadMoreData">
+	<VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight">
 		<template #default="{ item }: { item: ItemOption }">
 			<div class="card">
 				<img :src="item.img"/>
@@ -46,55 +46,20 @@ app.use(VueVirtualWaterfall)
 
 - Properties
 
-| Field              | Type                                       | Default Value                           | Description                                     |
-|--------------------|--------------------------------------------|-----------------------------------------|-------------------------------------------------|
-| virtual            | boolean                                    | true                                    | Enable virtual list                             |
-| height             | string                                     | '100vh'                                 | Container height                                |
-| rowKey             | string                                     | 'id'                                    | Key used for v-for loop                         |
-| gap                | number                                     | 15                                      | Gap between each item                           |
-| contentMaxWidth    | string or number                           | '100%'                                  | Maximum width of the content                    |
-| preloadScreenCount | number                                     | 1                                       | Number of screens to preload                    |
-| bottomDistance     | number                                     | 250                                     | Distance from bottom to trigger load more event |
-| itemMinWidth       | number                                     | 250                                     | Minimum width of each item                      |
-| maxColumnCount     | number                                     |                                         | Maximum number of columns, no limit by default  |
-| minColumnCount     | number                                     | 2                                       | Minimum number of columns                       |
-| loading            | boolean                                    | false                                   | Whether data is loading                         |
-| items              | any[]                                      | []                                      | Data                                            |
-| calcItemHeight     | `(item: any, itemWidth: number) => number` | `(item: any, itemWidth: number) => 250` | Method to calculate item height                 |
+| Field              | Type                                       | Default                                 | Description                           |
+|--------------------|--------------------------------------------|-----------------------------------------|---------------------------------------|
+| virtual            | boolean                                    | true                                    | Enable virtual list                   |
+| rowKey             | string                                     | 'id'                                    | Key for v-for                         |
+| gap                | number                                     | 15                                      | Gap between each item                 |
+| preloadScreenCount | `[number, number]`                         | `[1, 0]`                                | Preload screen count `[above, below]` |
+| itemMinWidth       | number                                     | 220                                     | Minimum width for each item           |
+| maxColumnCount     | number                                     | 10                                      | Maximum number of columns             |
+| minColumnCount     | number                                     | 2                                       | Minimum number of columns             |
+| items              | any[]                                      | []                                      | Data                                  |
+| calcItemHeight     | `(item: any, itemWidth: number) => number` | `(item: any, itemWidth: number) => 250` | Method to calculate item height       |
 
 - Slots
 
-| Name    | Type                           | Description        |
-|---------|--------------------------------|--------------------|
-| default | `{ item: any, index: number }` | Customized content |
-
-- Events
-
-| Event     | Type         | Description     |
-|-----------|--------------|-----------------|
-| load-more | `() => void` | Load more event |
-
-- Exposed Methods
-
-| Method  | Type         | Description   |
-|---------|--------------|---------------|
-| backTop | `() => void` | Scroll to top |
-
-## Performance
-
-- [Link](https://pagespeed.web.dev/analysis/https-waterfall-tatakai-top/4k2zfz71vl?form_factor=desktop)
-
-## References
-
-- [vue-waterfall-easy](https://github.com/lfyfly/vue-waterfall-easy)
-- [lite-virtual-list](https://github.com/wensiyuanseven/lite-virtual-list)
-- [vue3-waterfall-plugin](https://github.com/heikaimu/vue3-waterfall-plugin)
-- [vue-waterfall](https://github.com/MopTym/vue-waterfall)
-- [vue-masonry-css](https://github.com/paulcollett/vue-masonry-css)
-- [Optimization of Waterfall Virtual List](https://juejin.cn/post/7166071557284954142)
-- [PixivCollection](https://github.com/orilights/PixivCollection)
-- [v3-waterfall](https://github.com/gk-shi/v3-waterfall)
-- [scroll](https://juejin.cn/post/6844903493677875214?from=search-suggest)
-- [scroll-event](https://ayase.moe/2018/11/20/scroll-event/)
-- [rolling optimization](https://www.cnblogs.com/coco1s/p/5499469.html)
-- [Cache Settings](https://developer.chrome.com/docs/lighthouse/performance/uses-long-cache-ttl/?utm_source=lighthouse&utm_medium=lr)
+| Event   | Type                           | Description            |
+|---------|--------------------------------|------------------------|
+| default | `{ item: any, index: number }` | Custom default content |

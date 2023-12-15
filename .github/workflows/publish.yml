@@ -3,47 +3,59 @@ name: Publish Package
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     environment: Release
     steps:
-      - name: Checkout
+      - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: 安装Pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      - name: Install deps
+      - name: 安装依赖
         run: pnpm i --no-frozen-lockfile --shamefully-hoist
 
-      - name: Use Node.js
+      - name: 设置Node的版本
         uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: 'https://registry.npmjs.org/'
           cache: 'pnpm'
 
-      - name: Build
+      - name: 构建代码
         run: pnpm build:npm
 
-      - name: publish
+      - name: 发布版本
         run: pnpm pub
         env:
           NODE_AUTH_TOKEN: '${{secrets.NPM_AUTH_TOKEN}}'
 
-      - run: |
+      - name: 获取当前的版本号
+        run: |
           echo "version=$(grep -o '"version": *"[^"]*"' package.json | awk -F'"' '{print $4}')" >> "$GITHUB_ENV"
 
-      - run: |
-          echo "version: ${{ env.version }}"
+      - name: 是否是预发布
+        run: |
+          echo "prerelease=$([[ ${{ env.version }} == *-* ]] && echo 'true' || echo 'false')" >> "$GITHUB_ENV"
 
+      - name: 打印信息
+        run: |
+          echo "version: ${{ env.version }}"
+          echo "prerelease: ${{ env.prerelease }}"
+
+      - name: 打个标签
       - uses: ncipollo/release-action@v1
         with:
           tag: "v${{ env.version }}"
-          draft: true
+          draft: false
+          prerelease: ${{ env.prerelease }}
+          allowUpdates: true
+          generateReleaseNotes: true
+          body: "Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/v${{ env.version }}/CHANGELOG.md) for details."
           token: ${{ secrets.TOKEN }}

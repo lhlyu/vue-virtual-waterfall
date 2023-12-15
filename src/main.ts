@@ -6,4 +6,4 @@ const app = createApp(App)
 
 app.config.performance = true
 
-app.mount('#app')
+app.mount('body')

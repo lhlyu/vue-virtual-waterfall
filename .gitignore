@@ -24,4 +24,8 @@ dist-ssr
 *.sw?
 dist
 
+# build时，莫名其妙会出现这两个文件，疑似vite漏洞
+vite.config.d.ts
+vite.config.js
+
 pnpm-lock.yaml

@@ -1,15 +1,31 @@
 <template>
-    <article class="card" :data-id="item.id">
-        <div class="cover" v-if="!noImage">
+    <article
+        class="card"
+        :data-id="item.id"
+    >
+        <div
+            class="cover"
+            v-if="!noImage"
+        >
             <Transition>
-                <img v-if="loaded" :src="item.url" alt="图片" />
+                <img
+                    v-if="loaded"
+                    :src="item.url"
+                    alt="图片"
+                />
             </Transition>
         </div>
-        <div class="body" v-if="!onlyImage">
+        <div
+            class="body"
+            v-if="!onlyImage"
+        >
             <h3>{{ item.title }}</h3>
             <div class="author">
                 <div class="avatar">
-                    <img :src="item.avatar" :alt="item.user" />
+                    <img
+                        :src="item.avatar"
+                        :alt="item.user"
+                    />
                     <span>{{ item.user }}</span>
                 </div>
                 <div class="views">❤️ {{ item.views > 999 ? '999+' : item.views }}</div>
@@ -36,9 +52,11 @@ const props = withDefaults(
 )
 
 const loaded = ref(false)
+const height = ref('auto')
 
 onBeforeMount(() => {
     if (!props.noImage) {
+        height.value = '100%'
         new Promise((resolve, reject) => {
             const image = new Image()
 
@@ -48,7 +66,7 @@ onBeforeMount(() => {
             }
 
             image.onerror = error => {
-                console.error(error)
+                console.error(props.item.url, error)
                 loaded.value = true
                 resolve(true)
             }
@@ -64,7 +82,7 @@ onBeforeMount(() => {
     display: flex;
     flex-direction: column;
     width: v-bind(width);
-    height: 100%;
+    height: v-bind(height);
     overflow: hidden;
     background: white;
     border: 1px solid #e3e8f7;
@@ -136,7 +154,7 @@ onBeforeMount(() => {
 .v-enter-active,
 .v-leave-active {
     opacity: 1;
-    transition: all 0.8s linear;
+    transition: all 0.4s linear;
     will-change: opacity;
 }
 

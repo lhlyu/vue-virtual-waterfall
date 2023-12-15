@@ -1,5 +1,6 @@
-import { onBeforeMount, ref, reactive, render, h } from 'vue'
+import { ref, reactive, render, h, nextTick, watch } from 'vue'
 import Card from './Card.vue'
+import { useScroll } from '@vueuse/core'
 
 // const proxy_base_url = "https://proxy.pixivel.moe/"
 const proxy_base_url = 'https://px3.rainchan.win/'
@@ -31,7 +32,7 @@ function getRealHeight(item: ItemOption, realWidth: number) {
     document.body.appendChild(dom)
 
     // 获取高度
-    const height: number = dom.clientHeight
+    const height: number = dom.firstElementChild.clientHeight
 
     // 移除新容器
     document.body.removeChild(dom)
@@ -40,24 +41,25 @@ function getRealHeight(item: ItemOption, realWidth: number) {
 }
 
 const useWaterfall = () => {
-    // 给瀑布流组件加个ref，下面返回顶部函数需要用到
-    const vm = ref()
-
     const backTop = () => {
-        vm.value?.backTop()
+        window.scrollTo({
+            top: 0,
+            behavior: 'instant'
+        })
     }
 
     // 瀑布流的一些属性
     const waterfallOption = reactive({
         loading: false,
+        bottomDistance: 0,
+        // 是否只展示图片，这是自定义加的一个属性
+        onlyImage: false,
+        preloadScreenCount: [1, 0] as [number, number],
         virtual: true,
         gap: 15,
-        bottomDistance: 250,
-        itemMinWidth: 250,
+        itemMinWidth: 220,
         minColumnCount: 2,
-        maxColumnCount: 10,
-        // 是否只展示图片，这是自定义加的一个属性
-        onlyImage: false
+        maxColumnCount: 10
     })
 
     // 瀑布流元素高度的计算函数
@@ -118,16 +120,33 @@ const useWaterfall = () => {
         waterfallOption.loading = false
     }
 
-    onBeforeMount(async () => {
-        await loadData()
+    // 下面是使用useScroll实现加载更多
+    // 注意：useInfiniteScroll对于target是window时不生效，useScroll的适用范围更大
+    const { arrivedState, measure } = useScroll(window, {
+        offset: {
+            bottom: waterfallOption.bottomDistance
+        }
+    })
+    const promise = ref<any>()
+    const checkAndLoad = () => {
+        measure()
+        if (arrivedState['bottom']) {
+            if (!promise.value) {
+                promise.value = Promise.all([loadData(), new Promise(resolve => setTimeout(resolve, 100))]).finally(() => {
+                    promise.value = null
+                    nextTick(() => checkAndLoad())
+                })
+            }
+        }
+    }
+    watch(() => arrivedState['bottom'], checkAndLoad, {
+        immediate: true
     })
 
     return {
-        vm,
         backTop,
         waterfallOption,
         data,
-        loadData,
         calcItemHeight
     }
 }

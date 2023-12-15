@@ -1,8 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from 'vite-plugin-dts'
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -16,7 +14,6 @@ export default defineConfig(({ mode }) => {
     if (mode === 'npm') {
         plugins = [
             vue(),
-            cssInjectedByJsPlugin(),
             dts({
                 entryRoot: 'src/vue-virtual-waterfall'
             })
@@ -46,9 +43,6 @@ export default defineConfig(({ mode }) => {
     return {
         base,
         plugins,
-        build,
-        define: {
-            'process.env': { ...process.env }
-        }
+        build
     }
 })
