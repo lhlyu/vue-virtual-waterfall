@@ -42,6 +42,10 @@ app.use(VueVirtualWaterfall)
 </template>
 ```
 
+- 在`Nuxt3`中使用
+
+[例子](https://stackblitz.com/edit/waterfall-nuxt)
+
 ## 文档
 
 - 属性

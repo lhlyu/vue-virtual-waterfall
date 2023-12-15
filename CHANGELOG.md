@@ -1,6 +1,10 @@
 ## 1.0.0
 
-### Breaking Changes
+### Breaking Changes (破坏性更新)
+
+Compared to the old version, the new version will no longer implement the logic for scrolling to load more. The container encapsulating the waterfall flow is left for users to choose.
+
+与旧版本相比，新版本将不再实现滚动加载更多内容的逻辑，包装瀑布流的容器交给用户选择。
 
 ## [Older](https://github.com/lhlyu/vue-virtual-waterfall/tree/v0.0.16)
 

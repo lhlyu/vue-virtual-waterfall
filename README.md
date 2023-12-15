@@ -2,7 +2,7 @@
 
 > A Vue 3 virtual waterfall component
 
-[Chinese Documentation](./README.md)
+[中文文档](./README.md)
 
 ## Example
 
@@ -41,6 +41,10 @@ app.use(VueVirtualWaterfall)
 	</VirtualWaterfall>
 </template>
 ```
+
+- Nuxt3 Usage
+
+[demo](https://stackblitz.com/edit/waterfall-nuxt)
 
 ## Documentation
 
