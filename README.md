@@ -2,7 +2,7 @@
 
 > A Vue 3 virtual waterfall component
 
-[中文文档](./README.md)
+[中文文档](./README.zh.md)
 
 ## Example
 
