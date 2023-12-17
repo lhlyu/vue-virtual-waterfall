@@ -55,7 +55,8 @@ const useWaterfall = () => {
         bottomDistance: 0,
         // 是否只展示图片，这是自定义加的一个属性
         onlyImage: false,
-        preloadScreenCount: [1, 0] as [number, number],
+        topPreloadScreenCount: 1,
+        bottomPreloadScreenCount: 0,
         virtual: true,
         gap: 15,
         itemMinWidth: 220,

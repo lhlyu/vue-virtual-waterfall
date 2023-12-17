@@ -3,7 +3,7 @@
     <VirtualWaterfall
         :virtual="waterfallOption.virtual"
         :gap="waterfallOption.gap"
-        :preload-screen-count="waterfallOption.preloadScreenCount"
+        :preload-screen-count="[waterfallOption.topPreloadScreenCount, waterfallOption.bottomPreloadScreenCount]"
         :item-min-width="waterfallOption.itemMinWidth"
         :max-column-count="waterfallOption.maxColumnCount"
         :min-column-count="waterfallOption.minColumnCount"
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">最小列数 <code>[0:{{ waterfallOption.maxColumnCount }}]</code></label>
+                <label class="form-label fs-6">最小列数 <code>[0:{{ waterfallOption.maxColumnCount }}]</code>，最大列数 <code>[{{ waterfallOption.minColumnCount }}:10]</code></label>
                 <div class="input-group input-group-sm">
                     <input
                         type="number"
@@ -90,11 +90,6 @@
                         id="basic-addon1"
                         >列</span
                     >
-                </div>
-            </div>
-            <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">最大列数 <code>[{{ waterfallOption.minColumnCount }}:10]</code></label>
-                <div class="input-group input-group-sm">
                     <input
                         type="number"
                         class="form-control"
@@ -106,8 +101,29 @@
                     <span
                         class="input-group-text"
                         id="basic-addon1"
-                        >列</span
+                    >列</span
                     >
+                </div>
+            </div>
+            <div class="form-group form-group-sm mb-2">
+                <label class="form-label fs-6">(顶部/底部)预加载屏 <code>[0:5]</code></label>
+                <div class="input-group input-group-sm">
+                    <input
+                        type="number"
+                        class="form-control"
+                        v-model="waterfallOption.topPreloadScreenCount"
+                        min="0"
+                        max="5"
+                        step="1"
+                    />
+                    <input
+                        type="number"
+                        class="form-control"
+                        v-model="waterfallOption.bottomPreloadScreenCount"
+                        min="0"
+                        max="5"
+                        step="1"
+                    />
                 </div>
             </div>
             <div class="form-group form-group-sm form-check form-switch mb-1">
