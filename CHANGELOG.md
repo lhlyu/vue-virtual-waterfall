@@ -1,3 +1,9 @@
+## 1.0.1
+
+### fix
+
+- virtual list bug | 虚拟列表漏洞
+
 ## 1.0.0
 
 ### Breaking Changes (破坏性更新)

@@ -60,7 +60,7 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     virtual: true,
     rowKey: 'id',
     gap: 15,
-    preloadScreenCount: () => [1, 0],
+    preloadScreenCount: () => [0, 0],
     itemMinWidth: 220,
     maxColumnCount: 10,
     minColumnCount: 2,
@@ -120,6 +120,7 @@ interface SpaceOption {
     column: number
     top: number
     left: number
+    bottom: number
     height: number
 }
 
@@ -154,13 +155,14 @@ watchEffect(() => {
         const columnIndex = getColumnIndex()
         // 计算元素的高度
         const h = props.calcItemHeight(props.items[i], itemWidth.value)
-
+        const top = columnsTop.value[columnIndex]
         const space: SpaceOption = {
             index: i,
             item: props.items[i],
             column: columnIndex,
-            top: columnsTop.value[columnIndex],
+            top: top,
             left: (itemWidth.value + props.gap) * columnIndex + props.gap,
+            bottom: top + h,
             height: h
         }
 
@@ -180,11 +182,16 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     if (!props.virtual) {
         return itemSpaces.value
     }
-    const tp = -contentTop.value
+
+    // 父节点距离顶部的距离
+    const parentTop = content.value.parentElement.offsetTop
+
+    const tp = -contentTop.value + parentTop
 
     const [topPreloadScreenCount, bottomPreloadScreenCount] = props.preloadScreenCount
     // 避免多次访问
     const innerHeight = content.value.parentElement.clientHeight
+
     // 顶部的范围: 向上预加载preloadScreenCount个屏幕，Y轴上部
     const topLimit = tp - topPreloadScreenCount * innerHeight
     // 底部的范围: 向下预加载preloadScreenCount个屏幕
@@ -192,21 +199,12 @@ const itemRenderList = computed<SpaceOption[]>(() => {
 
     const list = []
 
-    // 判断是否已经筛选到了数据
-    let open = false
-
     for (let i = 0; i < length; i++) {
-        // AND 运算比 OR 运算快
-        if (itemSpaces.value[i].top > topLimit && itemSpaces.value[i].top < bottomLimit) {
-            open = true
+        if ((itemSpaces.value[i].top >= topLimit || itemSpaces.value[i].bottom >= topLimit) && (itemSpaces.value[i].top <= bottomLimit || itemSpaces.value[i].bottom <= bottomLimit)) {
             list.push(itemSpaces.value[i])
-            continue
-        }
-        // 后面的不用再遍历了
-        if (open) {
-            break
         }
     }
+
     return list
 })
 

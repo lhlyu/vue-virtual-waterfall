@@ -55,7 +55,7 @@ const useWaterfall = () => {
         bottomDistance: 0,
         // 是否只展示图片，这是自定义加的一个属性
         onlyImage: false,
-        topPreloadScreenCount: 1,
+        topPreloadScreenCount: 0,
         bottomPreloadScreenCount: 0,
         virtual: true,
         gap: 15,
@@ -78,7 +78,7 @@ const useWaterfall = () => {
     // 需要展示数据的属性
     const data = reactive({
         page: 0,
-        size: 40,
+        size: 30,
         total: 0,
         max: 0,
         list: [] as ItemOption[],
@@ -134,9 +134,10 @@ const useWaterfall = () => {
         measure()
         if (arrivedState['bottom']) {
             if (!promise.value) {
-                promise.value = Promise.all([loadData(), new Promise(resolve => setTimeout(resolve, 100))]).finally(() => {
+                promise.value = Promise.all([loadData(), new Promise(resolve => setTimeout(resolve, 100))]).finally(async () => {
                     promise.value = null
-                    nextTick(() => checkAndLoad())
+                    await nextTick()
+                    checkAndLoad()
                 })
             }
         }

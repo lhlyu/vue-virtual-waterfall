@@ -55,7 +55,7 @@ app.use(VueVirtualWaterfall)
 | virtual            | boolean                                    | true                                    | Enable virtual list                   |
 | rowKey             | string                                     | 'id'                                    | Key for v-for                         |
 | gap                | number                                     | 15                                      | Gap between each item                 |
-| preloadScreenCount | `[number, number]`                         | `[1, 0]`                                | Preload screen count `[above, below]` |
+| preloadScreenCount | `[number, number]`                         | `[0, 0]`                                | Preload screen count `[above, below]` |
 | itemMinWidth       | number                                     | 220                                     | Minimum width for each item           |
 | maxColumnCount     | number                                     | 10                                      | Maximum number of columns             |
 | minColumnCount     | number                                     | 2                                       | Minimum number of columns             |

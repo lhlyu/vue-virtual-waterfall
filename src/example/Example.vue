@@ -75,7 +75,9 @@
                 </div>
             </div>
             <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">最小列数 <code>[0:{{ waterfallOption.maxColumnCount }}]</code>，最大列数 <code>[{{ waterfallOption.minColumnCount }}:10]</code></label>
+                <label class="form-label fs-6"
+                    >最小列数 <code>[0:{{ waterfallOption.maxColumnCount }}]</code>，最大列数 <code>[{{ waterfallOption.minColumnCount }}:10]</code></label
+                >
                 <div class="input-group input-group-sm">
                     <input
                         type="number"
@@ -101,7 +103,7 @@
                     <span
                         class="input-group-text"
                         id="basic-addon1"
-                    >列</span
+                        >列</span
                     >
                 </div>
             </div>
@@ -144,6 +146,7 @@
             </div>
             <div class="form-group form-group-sm mb-2">
                 <label class="form-label fs-6">数据展示</label>
+                <p>每页条数: {{ data.size }}</p>
                 <p>当前页码: {{ data.page }} / {{ data.max }}</p>
                 <p>已加载量: {{ data.list.length }} / {{ data.total }}</p>
                 <p>等待加载: {{ waterfallOption.loading }}</p>
