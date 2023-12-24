@@ -34,8 +34,9 @@
                     <span
                         class="input-group-text"
                         id="basic-addon1"
-                        >px</span
                     >
+                        px
+                    </span>
                 </div>
             </div>
             <div class="form-group form-group-sm mb-2">
@@ -57,7 +58,7 @@
                 </div>
             </div>
             <div class="form-group form-group-sm mb-2">
-                <label class="form-label fs-6">距离底部多少时加载更多 <code>[0:1000]</code></label>
+                <label class="form-label fs-6">距离底部多少加载更多 <code>[0:10000]</code></label>
                 <div class="input-group input-group-sm">
                     <input
                         type="number"
@@ -183,6 +184,8 @@ body {
     padding-top: 72px;
     background: #f1f2f6;
     user-select: none;
+    scroll-behavior: smooth;
+    overflow: auto;
 }
 header {
     position: fixed;

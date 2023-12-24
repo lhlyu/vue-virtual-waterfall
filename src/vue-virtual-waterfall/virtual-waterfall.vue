@@ -193,19 +193,37 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     const innerHeight = content.value.parentElement.clientHeight
 
     // 顶部的范围: 向上预加载preloadScreenCount个屏幕，Y轴上部
-    const topLimit = tp - topPreloadScreenCount * innerHeight
+    const minLimit = tp - topPreloadScreenCount * innerHeight
     // 底部的范围: 向下预加载preloadScreenCount个屏幕
-    const bottomLimit = tp + (bottomPreloadScreenCount + 1) * innerHeight
-
-    const list = []
+    const maxLimit = tp + (bottomPreloadScreenCount + 1) * innerHeight
+    
+    let start = 0
+    let end = 0
+    let open = true
+    
 
     for (let i = 0; i < length; i++) {
-        if ((itemSpaces.value[i].top >= topLimit || itemSpaces.value[i].bottom >= topLimit) && (itemSpaces.value[i].top <= bottomLimit || itemSpaces.value[i].bottom <= bottomLimit)) {
-            list.push(itemSpaces.value[i])
+        const t = itemSpaces.value[i].top
+        const b = itemSpaces.value[i].bottom
+        // 这里的逻辑是：
+        // 只要元素部分出现在容器里就算作可见，因此有三段判断:
+        // 1. 元素的上边界在容器内
+        // 2. 元素的下边界在容器内
+        // 3. 元素覆盖了整个容器
+        if(
+            (t >= minLimit && t <= maxLimit) ||
+            (b >= minLimit && b <= maxLimit) ||
+            (t < minLimit && b > maxLimit)
+        ) {
+            if (open) {
+                start = i
+                open = false
+            }
+            end = i
         }
     }
-
-    return list
+    // 测试发现slice方法很快
+    return itemSpaces.value.slice(start, end + 1)
 })
 
 // 获取当前元素应该处于哪一列

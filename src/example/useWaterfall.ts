@@ -87,6 +87,9 @@ const useWaterfall = () => {
 
     // 加载更多数据的函数
     const loadData = async () => {
+        if (waterfallOption.loading) {
+            return
+        }
         waterfallOption.loading = true
         if (data.end) {
             waterfallOption.loading = false
