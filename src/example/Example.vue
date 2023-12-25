@@ -184,8 +184,6 @@ body {
     padding-top: 72px;
     background: #f1f2f6;
     user-select: none;
-    scroll-behavior: smooth;
-    overflow: auto;
 }
 header {
     position: fixed;

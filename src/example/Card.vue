@@ -69,7 +69,7 @@ const height = ref('auto')
 onBeforeMount(() => {
     if (!props.noImage) {
         height.value = '100%'
-        new Promise((resolve) => {
+        new Promise(resolve => {
             const image = new Image()
             image.src = props.item.url
             if (image.complete) {
@@ -105,14 +105,14 @@ onBeforeMount(() => {
     border-radius: 10px;
 
     .cover {
+        display: flex;
         flex: 1;
         flex-shrink: 0;
-        display: flex;
-        justify-content: center;
         align-items: center;
-        background-color: #e3e8f7;
+        justify-content: center;
         width: 100%;
         height: 100%;
+        background-color: #e3e8f7;
 
         img {
             display: block;

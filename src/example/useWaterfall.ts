@@ -1,6 +1,5 @@
-import { ref, reactive, render, h, nextTick, watch } from 'vue'
+import { reactive, render, h, onMounted } from 'vue'
 import Card from './Card.vue'
-import { useScroll } from '@vueuse/core'
 
 // const proxy_base_url = "https://proxy.pixivel.moe/"
 // const proxy_base_url = 'https://px3.rainchan.win/'
@@ -87,12 +86,7 @@ const useWaterfall = () => {
 
     // 加载更多数据的函数
     const loadData = async () => {
-        if (waterfallOption.loading) {
-            return
-        }
-        waterfallOption.loading = true
         if (data.end) {
-            waterfallOption.loading = false
             return
         }
         data.page += 1
@@ -100,7 +94,6 @@ const useWaterfall = () => {
         const result = await response.json()
         if (!result.list.length) {
             data.end = true
-            waterfallOption.loading = false
             return
         }
         data.total = result.total
@@ -122,31 +115,32 @@ const useWaterfall = () => {
         }
 
         data.list = [...data.list, ...list]
-        waterfallOption.loading = false
     }
 
-    // 下面是使用useScroll实现加载更多
-    // 注意：useInfiniteScroll对于target是window时不生效，useScroll的适用范围更大
-    const { arrivedState, measure } = useScroll(window, {
-        offset: {
-            bottom: waterfallOption.bottomDistance
+    // 检查是否加载更多
+    const checkScrollPosition = async () => {
+        if (waterfallOption.loading) {
+            return
         }
-    })
-    const promise = ref<any>()
-    const checkAndLoad = () => {
-        measure()
-        if (arrivedState['bottom']) {
-            if (!promise.value) {
-                promise.value = Promise.all([loadData(), new Promise(resolve => setTimeout(resolve, 100))]).finally(async () => {
-                    promise.value = null
-                    await nextTick()
-                    checkAndLoad()
-                })
-            }
+
+        const scrollHeight = document.documentElement.scrollHeight
+        const scrollTop = document.documentElement.scrollTop
+        const clientHeight = document.documentElement.clientHeight
+
+        const distanceFromBottom = scrollHeight - scrollTop - clientHeight
+
+        // 不大于最小底部距离就加载更多
+        if (distanceFromBottom <= waterfallOption.bottomDistance) {
+            waterfallOption.loading = true
+            await loadData()
+            waterfallOption.loading = false
         }
+
+        requestAnimationFrame(checkScrollPosition)
     }
-    watch(() => arrivedState['bottom'], checkAndLoad, {
-        immediate: true
+
+    onMounted(async () => {
+        await checkScrollPosition()
     })
 
     return {
