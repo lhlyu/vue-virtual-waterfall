@@ -50,7 +50,7 @@ app.use(VueVirtualWaterfall)
 
 ### Attention!!!
 
-**The `VirtualWaterfall` component wants to implement a virtual list, and the container that wraps it must indicate a fixed height. The scrolling event needs to be bound to this container. If this component is hung under the body, the height of the body also needs to be specified. The scrolling event can be bound to the `window`**
+**The `VirtualWaterfall` component wants to implement a virtual list, and the container that wraps it must indicate a fixed height. The scrolling event can be bound to this container. If this component is hung under the body, the height of the body also needs to be specified. The scrolling event can be bound to the `window`**
 
 ## Documentation
 

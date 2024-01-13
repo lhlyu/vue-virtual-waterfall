@@ -50,7 +50,7 @@ app.use(VueVirtualWaterfall)
 
 ### 注意!!!
 
-**`VirtualWaterfall`组件想要实现虚拟列表，包裹它的容器必须指明固定的高度，滚动事件需要绑定在这个容器上，如果这个组件挂在到body下，同样需要指明body的高度，滚动事件可以绑定在`window`上**
+**`VirtualWaterfall`组件想要实现虚拟列表，包裹它的容器必须指明固定的高度，滚动事件可以绑定在这个容器上，如果这个组件挂在到body下，同样需要指明body的高度，滚动事件可以绑定在`window`上**
 
 ## 文档
 
