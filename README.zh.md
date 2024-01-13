@@ -2,6 +2,8 @@
 
 > 一款vue3虚拟瀑布流组件
 
+![npm](https://img.shields.io/npm/v/%40lhlyu%2Fvue-virtual-waterfall)
+
 [English Doc](./README.md)
 
 ## 示例
@@ -45,6 +47,10 @@ app.use(VueVirtualWaterfall)
 - 在`Nuxt3`中使用
 
 [例子](https://stackblitz.com/edit/waterfall-nuxt)
+
+### 注意!!!
+
+**`VirtualWaterfall`组件想要实现虚拟列表，包裹它的容器必须指明固定的高度，滚动事件需要绑定在这个容器上，如果这个组件挂在到body下，同样需要指明body的高度，滚动事件可以绑定在`window`上**
 
 ## 文档
 

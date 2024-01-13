@@ -201,10 +201,10 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     let end = 0
     let open = true
     
-
     for (let i = 0; i < length; i++) {
-        const t = itemSpaces.value[i].top
-        const b = itemSpaces.value[i].bottom
+        const v = itemSpaces.value[i]
+        const t = v.top
+        const b = v.bottom
         // 这里的逻辑是：
         // 只要元素部分出现在容器里就算作可见，因此有三段判断:
         // 1. 元素的上边界在容器内

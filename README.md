@@ -2,6 +2,8 @@
 
 > A Vue 3 virtual waterfall component
 
+![npm](https://img.shields.io/npm/v/%40lhlyu%2Fvue-virtual-waterfall)
+
 [中文文档](./README.zh.md)
 
 ## Example
@@ -45,6 +47,10 @@ app.use(VueVirtualWaterfall)
 - Nuxt3 Usage
 
 [demo](https://stackblitz.com/edit/waterfall-nuxt)
+
+### Attention!!!
+
+**The `VirtualWaterfall` component wants to implement a virtual list, and the container that wraps it must indicate a fixed height. The scrolling event needs to be bound to this container. If this component is hung under the body, the height of the body also needs to be specified. The scrolling event can be bound to the `window`**
 
 ## Documentation
 
