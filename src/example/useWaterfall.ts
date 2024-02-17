@@ -1,9 +1,9 @@
 import { reactive, render, h, onMounted } from 'vue'
 import Card from './Card.vue'
 
-// const proxy_base_url = "https://proxy.pixivel.moe/"
+const proxy_base_url = "https://proxy.pixivel.moe/"
 // const proxy_base_url = 'https://px3.rainchan.win/'
-const proxy_base_url = 'https://pixiv.tatakai.top/'
+// const proxy_base_url = 'https://pixiv.tatakai.top/'
 
 const handlerUrl = (url: string): string => {
     url = url.replace('_p0.', '_p0_master1200.')
