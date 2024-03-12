@@ -1,9 +1,11 @@
 import { reactive, render, h, onMounted } from 'vue'
 import Card from './Card.vue'
 
-const proxy_base_url = "https://proxy.pixivel.moe/"
-// const proxy_base_url = 'https://px3.rainchan.win/'
+// 下面第一个代理地址官方不让用，第二个消耗自己的流量扛不住
+// 实在不行自己搭个：https://mirai.mamoe.net/topic/1322/rs-pixiv-%E6%98%93%E4%BA%8E%E6%90%AD%E5%BB%BA%E7%9A%84pixiv%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1
+// const proxy_base_url = "https://proxy.pixivel.moe/" // 不让用
 // const proxy_base_url = 'https://pixiv.tatakai.top/'
+const proxy_base_url = "https://px.s.rainchan.win/"
 
 const handlerUrl = (url: string): string => {
     url = url.replace('_p0.', '_p0_master1200.')
