@@ -5,7 +5,7 @@
             position: 'relative',
             willChange: 'height',
             height: `${Math.max(...columnsTop)}px`,
-            padding: `${padding}px`
+            padding: `${isNumber(padding) ? padding + 'px' : padding}`
         }"
     >
         <div
@@ -44,7 +44,7 @@ interface VirtualWaterfallOption {
     // item间隔
     gap?: number
     // 容器内边距
-    padding?: number
+    padding?: number | string
     // 预加载屏数量 [top, bottom]
     preloadScreenCount?: [number, number]
     // item最小宽度
@@ -88,6 +88,10 @@ onMounted(() => {
         contentWidth.value = Number.parseInt(window.getComputedStyle(content.value).width)
     }
 })
+
+function isNumber(value) {
+    return Object.prototype.toString.call(value) === '[object Number]';
+}
 
 // 计算列数
 const columnCount = computed<number>(() => {

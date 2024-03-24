@@ -1,3 +1,9 @@
+## 1.0.4
+
+### feature
+
+- update padding type | 修改`padding`类型
+
 ## 1.0.3
 
 ### feature
