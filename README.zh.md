@@ -18,7 +18,7 @@
 - 局部引用
 
 ```ts
-import {VirtualWaterfall} from '@lhlyu/vue-virtual-waterfall'
+import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - 全局引用
@@ -34,13 +34,13 @@ app.use(VueVirtualWaterfall)
 ```vue
 
 <template>
-	<VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight">
-		<template #default="{ item }: { item: ItemOption }">
-			<div class="card">
-				<img :src="item.img"/>
-			</div>
-		</template>
-	</VirtualWaterfall>
+    <VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight">
+        <template #default="{ item }: { item: ItemOption }">
+            <div class="card">
+                <img :src="item.img" />
+            </div>
+        </template>
+    </VirtualWaterfall>
 </template>
 ```
 
@@ -50,7 +50,9 @@ app.use(VueVirtualWaterfall)
 
 ### 注意!!!
 
-**`VirtualWaterfall`组件想要实现虚拟列表，包裹它的容器必须指明固定的高度，滚动事件可以绑定在这个容器上，如果这个组件挂在到body下，同样需要指明body的高度，滚动事件可以绑定在`window`上**
+**`VirtualWaterfall`
+组件想要实现虚拟列表，包裹它的容器必须指明固定的高度，滚动事件可以绑定在这个容器上，如果这个组件挂在到body下，同样需要指明body的高度，滚动事件可以绑定在`window`
+上**
 
 ## 文档
 
@@ -61,6 +63,7 @@ app.use(VueVirtualWaterfall)
 | virtual            | boolean                                    | true                                    | 是否启用虚拟列表                  |
 | rowKey             | string                                     | 'id'                                    | v-for需要用到key              |
 | gap                | number                                     | 15                                      | 每个item之间的间隔               |
+| padding            | number                                     | 15                                      | 容器内边距                     |
 | preloadScreenCount | `[number, number]`                         | `[0:0]`                                 | 预加载屏数量`[上面预加载屏数，下面预加载屏数]` |
 | itemMinWidth       | number                                     | 220                                     | 每个item最小宽度                |
 | maxColumnCount     | number                                     | 10                                      | 允许的最大列数                   |

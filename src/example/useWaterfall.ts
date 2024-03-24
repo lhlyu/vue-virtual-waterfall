@@ -60,6 +60,7 @@ const useWaterfall = () => {
         bottomPreloadScreenCount: 0,
         virtual: true,
         gap: 15,
+        padding: 15,
         itemMinWidth: 220,
         minColumnCount: 2,
         maxColumnCount: 10

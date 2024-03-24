@@ -4,7 +4,8 @@
         :style="{
             position: 'relative',
             willChange: 'height',
-            height: `${Math.max(...columnsTop)}px`
+            height: `${Math.max(...columnsTop)}px`,
+            padding: `${padding}px`
         }"
     >
         <div
@@ -42,6 +43,8 @@ interface VirtualWaterfallOption {
     rowKey?: string
     // item间隔
     gap?: number
+    // 容器内边距
+    padding?: number
     // 预加载屏数量 [top, bottom]
     preloadScreenCount?: [number, number]
     // item最小宽度
@@ -60,6 +63,7 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     virtual: true,
     rowKey: 'id',
     gap: 15,
+    padding: 15,
     preloadScreenCount: () => [0, 0],
     itemMinWidth: 220,
     maxColumnCount: 10,
@@ -90,7 +94,7 @@ const columnCount = computed<number>(() => {
     if (!contentWidth.value) {
         return 0
     }
-    const cWidth = contentWidth.value - props.gap * 2
+    const cWidth = contentWidth.value
     if (cWidth >= props.itemMinWidth * 2) {
         const count = Math.floor(cWidth / props.itemMinWidth)
         if (props.maxColumnCount && count > props.maxColumnCount) {
@@ -102,16 +106,17 @@ const columnCount = computed<number>(() => {
 })
 
 // 每列距离顶部的距离
-const columnsTop = ref(new Array(columnCount.value).fill(props.gap))
+const columnsTop = ref(new Array(columnCount.value).fill(0))
 
 // 计算每个item占据的宽度: (容器宽度 - 间隔) / 列数
 const itemWidth = computed<number>(() => {
     if (!contentWidth.value || columnCount.value <= 0) {
         return 0
     }
-    // 列之间的间隔 和 左右两侧的间隔
-    const gap = (columnCount.value - 1) * props.gap + props.gap * 2
-    return Math.floor((contentWidth.value - gap) / columnCount.value)
+    // 列之间的间隔
+    const gap = (columnCount.value - 1) * props.gap
+    
+    return Math.ceil((contentWidth.value - gap) / columnCount.value)
 })
 
 interface SpaceOption {
@@ -142,7 +147,7 @@ watchEffect(() => {
     if (cache) {
         start = itemSpaces.value.length
     } else {
-        columnsTop.value = new Array(columnCount.value).fill(props.gap)
+        columnsTop.value = new Array(columnCount.value).fill(0)
     }
 
     // 为了高性能采用for-i
@@ -156,12 +161,14 @@ watchEffect(() => {
         // 计算元素的高度
         const h = props.calcItemHeight(props.items[i], itemWidth.value)
         const top = columnsTop.value[columnIndex]
+        const left = (itemWidth.value + props.gap) * columnIndex
+        
         const space: SpaceOption = {
             index: i,
             item: props.items[i],
             column: columnIndex,
             top: top,
-            left: (itemWidth.value + props.gap) * columnIndex + props.gap,
+            left: left,
             bottom: top + h,
             height: h
         }

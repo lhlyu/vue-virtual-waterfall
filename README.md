@@ -18,7 +18,7 @@
 - Local import
 
 ```ts
-import {VirtualWaterfall} from '@lhlyu/vue-virtual-waterfall'
+import { VirtualWaterfall } from '@lhlyu/vue-virtual-waterfall'
 ```
 
 - Global import
@@ -34,13 +34,13 @@ app.use(VueVirtualWaterfall)
 ```vue
 
 <template>
-	<VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight">
-		<template #default="{ item }: { item: ItemOption }">
-			<div class="card">
-				<img :src="item.img"/>
-			</div>
-		</template>
-	</VirtualWaterfall>
+    <VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight">
+        <template #default="{ item }: { item: ItemOption }">
+            <div class="card">
+                <img :src="item.img" />
+            </div>
+        </template>
+    </VirtualWaterfall>
 </template>
 ```
 
@@ -50,7 +50,9 @@ app.use(VueVirtualWaterfall)
 
 ### Attention!!!
 
-**The `VirtualWaterfall` component wants to implement a virtual list, and the container that wraps it must indicate a fixed height. The scrolling event can be bound to this container. If this component is hung under the body, the height of the body also needs to be specified. The scrolling event can be bound to the `window`**
+**The `VirtualWaterfall` component wants to implement a virtual list, and the container that wraps it must indicate a
+fixed height. The scrolling event can be bound to this container. If this component is hung under the body, the height
+of the body also needs to be specified. The scrolling event can be bound to the `window`**
 
 ## Documentation
 
@@ -61,6 +63,7 @@ app.use(VueVirtualWaterfall)
 | virtual            | boolean                                    | true                                    | Enable virtual list                   |
 | rowKey             | string                                     | 'id'                                    | Key for v-for                         |
 | gap                | number                                     | 15                                      | Gap between each item                 |
+| padding            | number                                     | 15                                      | Container's padding                   |
 | preloadScreenCount | `[number, number]`                         | `[0, 0]`                                | Preload screen count `[above, below]` |
 | itemMinWidth       | number                                     | 220                                     | Minimum width for each item           |
 | maxColumnCount     | number                                     | 10                                      | Maximum number of columns             |

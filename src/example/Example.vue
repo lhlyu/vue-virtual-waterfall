@@ -3,6 +3,7 @@
     <VirtualWaterfall
         :virtual="waterfallOption.virtual"
         :gap="waterfallOption.gap"
+        :padding="waterfallOption.padding"
         :preload-screen-count="[waterfallOption.topPreloadScreenCount, waterfallOption.bottomPreloadScreenCount]"
         :item-min-width="waterfallOption.itemMinWidth"
         :max-column-count="waterfallOption.maxColumnCount"
@@ -27,6 +28,25 @@
                         type="number"
                         class="form-control"
                         v-model="waterfallOption.gap"
+                        min="0"
+                        max="100"
+                        step="1"
+                    />
+                    <span
+                        class="input-group-text"
+                        id="basic-addon1"
+                    >
+                        px
+                    </span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm mb-2">
+                <label class="form-label fs-6">填充 <code>[0:100]</code></label>
+                <div class="input-group input-group-sm">
+                    <input
+                        type="number"
+                        class="form-control"
+                        v-model="waterfallOption.padding"
                         min="0"
                         max="100"
                         step="1"
