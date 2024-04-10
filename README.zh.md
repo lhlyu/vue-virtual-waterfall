@@ -63,7 +63,7 @@ app.use(VueVirtualWaterfall)
 | virtual            | boolean                                    | true                                    | 是否启用虚拟列表                  |
 | rowKey             | string                                     | 'id'                                    | v-for需要用到key              |
 | gap                | number                                     | 15                                      | 每个item之间的间隔               |
-| padding            | number or string                           | 15 or '15px 20px'                       | 容器内边距                     |
+| padding            | number or string                           | 15 or '15px 15px'                       | 容器内边距                     |
 | preloadScreenCount | `[number, number]`                         | `[0:0]`                                 | 预加载屏数量`[上面预加载屏数，下面预加载屏数]` |
 | itemMinWidth       | number                                     | 220                                     | 每个item最小宽度                |
 | maxColumnCount     | number                                     | 10                                      | 允许的最大列数                   |

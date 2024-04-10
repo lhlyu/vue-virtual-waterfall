@@ -208,9 +208,7 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     // 底部的范围: 向下预加载preloadScreenCount个屏幕
     const maxLimit = tp + (bottomPreloadScreenCount + 1) * innerHeight
     
-    let start = 0
-    let end = 0
-    let open = true
+    const items = []
     
     for (let i = 0; i < length; i++) {
         const v = itemSpaces.value[i]
@@ -226,15 +224,10 @@ const itemRenderList = computed<SpaceOption[]>(() => {
             (b >= minLimit && b <= maxLimit) ||
             (t < minLimit && b > maxLimit)
         ) {
-            if (open) {
-                start = i
-                open = false
-            }
-            end = i
+            items.push(v)
         }
     }
-    // 测试发现slice方法很快
-    return itemSpaces.value.slice(start, end + 1)
+    return items
 })
 
 // 获取当前元素应该处于哪一列
