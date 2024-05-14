@@ -39,15 +39,15 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.19",
-    "cssnano": "^6.1.2",
+    "cssnano": "^7.0.1",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-rational-order": "^1.0.3",
-    "sass": "^1.74.1",
+    "sass": "^1.77.1",
     "typescript": "^5.4.5",
-    "vite": "^5.2.8",
-    "vite-plugin-dts": "^3.8.1",
-    "vue": "^3.4.21",
-    "vue-tsc": "^2.0.12"
+    "vite": "^5.2.11",
+    "vite-plugin-dts": "^3.9.1",
+    "vue": "^3.4.27",
+    "vue-tsc": "^2.0.17"
   }
 }
