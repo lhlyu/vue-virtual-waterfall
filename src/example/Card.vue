@@ -3,6 +3,23 @@
         class="card"
         :data-id="item.id"
     >
+        
+        <div
+            class="body"
+            v-if="!onlyImage"
+        >
+            <h3>{{ item.title }}</h3>
+            <div class="author">
+                <div class="avatar">
+                    <img
+                        :src="item.avatar"
+                        :alt="item.user"
+                    />
+                    <span>{{ item.user }}</span>
+                </div>
+                <div class="views">❤️ {{ item.views > 999 ? '999+' : item.views }}</div>
+            </div>
+        </div>
         <div
             class="cover"
             v-if="!noImage"
@@ -26,22 +43,6 @@
                     </g>
                 </svg>
             </Transition>
-        </div>
-        <div
-            class="body"
-            v-if="!onlyImage"
-        >
-            <h3>{{ item.title }}</h3>
-            <div class="author">
-                <div class="avatar">
-                    <img
-                        :src="item.avatar"
-                        :alt="item.user"
-                    />
-                    <span>{{ item.user }}</span>
-                </div>
-                <div class="views">❤️ {{ item.views > 999 ? '999+' : item.views }}</div>
-            </div>
         </div>
     </article>
 </template>
@@ -96,7 +97,7 @@ onBeforeMount(() => {
 <style scoped lang="scss">
 .card {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: v-bind(width);
     height: v-bind(height);
     overflow: hidden;
