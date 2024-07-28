@@ -72,7 +72,7 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     calcItemHeight: (item: any, itemWidth: number) => 250
 })
 
-const slot = defineSlots<{
+defineSlots<{
     default(props: { item: any; index: number }): any
 }>()
 
@@ -146,7 +146,7 @@ watchEffect(() => {
     const spaces = new Array(length)
 
     let start = 0
-    // 是否启用缓存：只有当新增元素时，只需要计算新增元素的信息
+    // 是否启用缓存：只有当新增元素时，需要计算新增元素的信息
     const cache = itemSpaces.value.length && length > itemSpaces.value.length
     if (cache) {
         start = itemSpaces.value.length

@@ -1,3 +1,15 @@
+## 1.0.6
+
+### chore
+
+- update dependencies | 更新依赖
+
+## 1.0.5
+
+### fix 
+
+- virtual list bug | 虚拟列表漏洞
+
 ## 1.0.4
 
 ### feature
