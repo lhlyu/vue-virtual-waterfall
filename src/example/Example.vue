@@ -1,5 +1,10 @@
 <template>
-    <header>Vue瀑布流</header>
+    <header>
+        <strong>Vue瀑布流</strong>
+        <small>
+            <span class="badge text-bg-success">v{{ pkg.version }}</span>
+        </small>
+    </header>
     <VirtualWaterfall
         :virtual="waterfallOption.virtual"
         :gap="waterfallOption.gap"
@@ -184,6 +189,7 @@
 </template>
 
 <script setup lang="ts">
+import pkg from '../../package.json'
 import VirtualWaterfall from '../vue-virtual-waterfall/virtual-waterfall.vue'
 import Card from './Card.vue'
 import useApp from './useApp.ts'
@@ -215,9 +221,13 @@ header {
     justify-content: center;
     width: 100%;
     height: 72px;
-    font-size: 24px;
     background-color: white;
     border-bottom: 1px solid #f1f2f6;
+    
+    strong {
+        font-size: 24px;
+        margin-right: 8px;
+    }
 }
 aside {
     position: fixed;
