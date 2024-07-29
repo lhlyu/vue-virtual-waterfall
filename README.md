@@ -46,7 +46,7 @@ app.use(VueVirtualWaterfall)
 
 - Nuxt3 Usage
 
-[demo](https://stackblitz.com/edit/waterfall-nuxt)
+[demo](https://codesandbox.io/p/devbox/vue-virtual-waterfall-nuxt-demo-h7g569)
 
 ### Attention!!!
 

@@ -46,7 +46,7 @@ app.use(VueVirtualWaterfall)
 
 - 在`Nuxt3`中使用
 
-[例子](https://stackblitz.com/edit/waterfall-nuxt)
+[例子](https://codesandbox.io/p/devbox/vue-virtual-waterfall-nuxt-demo-h7g569)
 
 ### 注意!!!
 
