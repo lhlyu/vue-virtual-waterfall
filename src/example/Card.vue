@@ -3,7 +3,6 @@
         class="card"
         :data-id="item.id"
     >
-        
         <div
             class="body"
             v-if="!onlyImage"
