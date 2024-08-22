@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, ref, shallowRef, watchEffect } from 'vue'
 import { useElementBounding, useElementSize } from '@vueuse/core'
 
 defineOptions({
@@ -134,7 +134,7 @@ interface SpaceOption {
 }
 
 // 计算每个item占据的空间
-const itemSpaces = ref<SpaceOption[]>([])
+const itemSpaces = shallowRef<SpaceOption[]>([])
 
 watchEffect(() => {
     if (!columnCount.value) {
@@ -215,7 +215,7 @@ const itemRenderList = computed<SpaceOption[]>(() => {
         const t = v.top
         const b = v.bottom
         // 这里的逻辑是：
-        // 只要元素部分出现在容器里就算作可见，因此有三段判断:
+        // 只要元素部分出现在可视区域里就算作可见，因此有三段判断:
         // 1. 元素的上边界在容器内
         // 2. 元素的下边界在容器内
         // 3. 元素覆盖了整个容器

@@ -2,7 +2,7 @@
 
 ### chore
 
-- update dependencies | 更新依赖
+- upgrade dependencies | 升级依赖
 
 ## 1.0.5
 
