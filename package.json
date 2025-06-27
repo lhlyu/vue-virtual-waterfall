@@ -34,20 +34,20 @@
     "package.json"
   ],
   "dependencies": {
-    "@vueuse/core": "^13.4.0"
+    "@vueuse/core": "^11.0.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.0",
-    "autoprefixer": "^10.4.21",
-    "cssnano": "^7.0.7",
-    "postcss": "^8.5.6",
-    "prettier": "^3.6.2",
+    "@vitejs/plugin-vue": "^5.1.3",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.5",
+    "postcss": "^8.4.44",
+    "prettier": "^3.3.3",
     "prettier-plugin-rational-order": "^1.0.3",
-    "sass": "^1.89.2",
-    "typescript": "^5.8.3",
-    "vite": "^7.0.0",
-    "vite-plugin-dts": "4.5.4",
-    "vue": "^3.5.17",
-    "vue-tsc": "^2.2.10"
+    "sass": "^1.78.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.3",
+    "vite-plugin-dts": "4.1.0",
+    "vue": "^3.5.0",
+    "vue-tsc": "^2.1.4"
   }
 }
