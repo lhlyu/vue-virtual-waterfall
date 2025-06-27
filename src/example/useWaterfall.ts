@@ -76,7 +76,7 @@ const useWaterfall = () => {
             return
         }
         data.page += 1
-        const response = await fetch(`https://mock.tatakai.top/images?page=${data.page}&size=${data.size}&mode=simple`)
+        const response = await fetch(`https://mock.yuan.sh/images?page=${data.page}&size=${data.size}&mode=simple`)
         const result = await response.json()
         if (!result.list.length) {
             data.end = true
