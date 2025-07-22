@@ -16,7 +16,7 @@ jobs:
       - name: 安装Pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10
 
       - name: 安装依赖
         run: pnpm i --no-frozen-lockfile --shamefully-hoist
@@ -24,7 +24,7 @@ jobs:
       - name: 设置Node的版本
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           registry-url: 'https://registry.npmjs.org/'
           cache: 'pnpm'
 
