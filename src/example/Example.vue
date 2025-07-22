@@ -8,6 +8,7 @@
     <VirtualWaterfall
         :virtual="waterfallOption.virtual"
         :gap="waterfallOption.gap"
+        :enable-cache="waterfallOption.enableCache"
         :padding="waterfallOption.padding"
         :preload-screen-count="[waterfallOption.topPreloadScreenCount, waterfallOption.bottomPreloadScreenCount]"
         :item-min-width="waterfallOption.itemMinWidth"
@@ -160,6 +161,14 @@
                     class="form-check-input"
                     type="checkbox"
                     v-model="waterfallOption.virtual"
+                />
+            </div>
+            <div class="form-group form-group-sm form-check form-switch mb-1">
+                <label class="form-label fs-6">开启列表缓存</label>
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    v-model="waterfallOption.enableCache"
                 />
             </div>
             <div class="form-group form-group-sm form-check form-switch mb-2">
