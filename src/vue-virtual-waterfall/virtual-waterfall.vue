@@ -41,6 +41,8 @@ interface VirtualWaterfallOption {
     // 是否启用虚拟列表
     virtual?: boolean
     rowKey?: string
+    // 是否启用缓存, 默认启用
+    enableCache?: boolean
     // item间隔
     gap?: number
     // 容器内边距
@@ -62,6 +64,7 @@ interface VirtualWaterfallOption {
 const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     virtual: true,
     rowKey: 'id',
+    enableCache: true,
     gap: 15,
     padding: 15,
     preloadScreenCount: () => [0, 0],
@@ -137,17 +140,19 @@ interface SpaceOption {
 const itemSpaces = shallowRef<SpaceOption[]>([])
 
 watchEffect(() => {
-    if (!columnCount.value) {
+  
+    const length = props.items.length
+    
+    if (!columnCount.value || !length) {
         itemSpaces.value = []
         return
     }
-
-    const length = props.items.length
+    
     const spaces = new Array(length)
 
     let start = 0
     // 是否启用缓存：只有当新增元素时，需要计算新增元素的信息
-    const cache = itemSpaces.value.length && length > itemSpaces.value.length
+    const cache = props.enableCache && itemSpaces.value.length && length > itemSpaces.value.length
     if (cache) {
         start = itemSpaces.value.length
     } else {

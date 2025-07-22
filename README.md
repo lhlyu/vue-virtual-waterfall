@@ -62,6 +62,7 @@ of the body also needs to be specified. The scrolling event can be bound to the 
 |--------------------|--------------------------------------------|-----------------------------------------|---------------------------------------|
 | virtual            | boolean                                    | true                                    | Enable virtual list                   |
 | rowKey             | string                                     | 'id'                                    | Key for v-for                         |
+| enableCache        | boolean                                    | true                                    | enable cache                          |
 | gap                | number                                     | 15                                      | Gap between each item                 |
 | padding            | number or string                           | 15 or '15px 15px'                       | Container's padding                   |
 | preloadScreenCount | `[number, number]`                         | `[0, 0]`                                | Preload screen count `[above, below]` |

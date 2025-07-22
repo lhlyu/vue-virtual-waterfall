@@ -1,9 +1,11 @@
-import { reactive, render, h, onMounted } from 'vue'
+import { reactive, render, h, onMounted, onUnmounted } from 'vue'
 import Card from './Card.vue'
+
+// 创建一个可复用的 DOM 容器
+let measureDom: HTMLDivElement;
 
 // 计算真实高度，这里只计算除了图片的高度
 function getRealHeight(item: ItemOption, realWidth: number) {
-    const dom = document.createElement('div')
 
     render(
         h(Card, {
@@ -11,16 +13,11 @@ function getRealHeight(item: ItemOption, realWidth: number) {
             width: realWidth + 'px',
             noImage: true
         }),
-        dom
+        measureDom
     )
 
-    document.body.appendChild(dom)
-
     // 获取高度
-    const height: number = dom.firstElementChild.clientHeight
-
-    // 移除新容器
-    document.body.removeChild(dom)
+    const height: number = measureDom.firstElementChild!.clientHeight
     // 返回高度
     return height
 }
@@ -42,6 +39,7 @@ const useWaterfall = () => {
         topPreloadScreenCount: 0,
         bottomPreloadScreenCount: 0,
         virtual: true,
+        enableCache: true,
         gap: 15,
         padding: 15,
         itemMinWidth: 220,
@@ -110,9 +108,16 @@ const useWaterfall = () => {
     }
 
     onMounted(async () => {
+        measureDom = document.createElement('div');
+        // 将其设置为不可见，避免影响布局或用户体验
+        measureDom.style.cssText = 'position: absolute; visibility: hidden; pointer-events: none;';
+        document.body.appendChild(measureDom); // 在应用启动时添加到 body 一次
         await checkScrollPosition()
     })
 
+    onUnmounted(() => {
+        document.body.removeChild(measureDom);
+    })
     return {
         backTop,
         waterfallOption,

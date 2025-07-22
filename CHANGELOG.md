@@ -1,3 +1,9 @@
+## 1.0.7
+
+### feature
+
+- add a `enableCache` parameter | 新增一个`enableCache`参数
+
 ## 1.0.6
 
 ### chore
