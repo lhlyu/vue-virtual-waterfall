@@ -80,6 +80,6 @@ of the body also needs to be specified. The scrolling event can be bound to the 
 
 - Methods
 
-| Event          | Type                                                    | Description |
-|----------------|---------------------------------------------------------|-------------|
-| withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> | void)`      | Read Item Spaces Info |
+| Event          | Type                                                              | Description |
+|----------------|-------------------------------------------------------------------|-------------|
+| withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> \| void)` | Read Item Spaces Info |

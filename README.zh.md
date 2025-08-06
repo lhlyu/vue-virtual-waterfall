@@ -81,6 +81,6 @@ app.use(VueVirtualWaterfall)
 
 - 方法
 
-| Event          | Type                                                    | Description |
-|----------------|---------------------------------------------------------|-------------|
-| withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> | void)`      | 读取元素空间信息 |
+| Event          | Type                                                              | Description |
+|----------------|-------------------------------------------------------------------|-------------|
+| withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> \| void)` | 读取元素空间信息 |
