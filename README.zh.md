@@ -78,3 +78,9 @@ app.use(VueVirtualWaterfall)
 | 事件      | 类型                             | 说明      |
 |---------|--------------------------------|---------|
 | default | `{ item: any, index: number }` | 自定义默认内容 |
+
+- 方法
+
+| Event          | Type                                                    | Description |
+|----------------|---------------------------------------------------------|-------------|
+| withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> | void)`      | 读取元素空间信息 |

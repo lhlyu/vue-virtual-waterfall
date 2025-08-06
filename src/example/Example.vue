@@ -6,6 +6,7 @@
         </small>
     </header>
     <VirtualWaterfall
+        ref="vw"
         :virtual="waterfallOption.virtual"
         :gap="waterfallOption.gap"
         :enable-cache="waterfallOption.enableCache"

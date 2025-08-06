@@ -77,3 +77,9 @@ of the body also needs to be specified. The scrolling event can be bound to the 
 | Event   | Type                           | Description            |
 |---------|--------------------------------|------------------------|
 | default | `{ item: any, index: number }` | Custom default content |
+
+- Methods
+
+| Event          | Type                                                    | Description |
+|----------------|---------------------------------------------------------|-------------|
+| withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> | void)`      | Read Item Spaces Info |
