@@ -1,3 +1,9 @@
+## 1.0.8
+
+### feature
+
+- add method `withItemSpaces` | 新增一个方法`withItemSpaces`
+
 ## 1.0.7
 
 ### feature

@@ -1,5 +1,6 @@
-import { reactive, render, h, onMounted, onUnmounted } from 'vue'
+import { reactive, render, h, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import Card from './Card.vue'
+import type { VirtualWaterfall } from '../vue-virtual-waterfall'
 
 // 创建一个可复用的 DOM 容器
 let measureDom: HTMLDivElement;
@@ -23,10 +24,31 @@ function getRealHeight(item: ItemOption, realWidth: number) {
 }
 
 const useWaterfall = () => {
+
+    const vw = useTemplateRef<InstanceType<typeof VirtualWaterfall>>('vw')
+
     const backTop = () => {
         window.scrollTo({
             top: 0,
             behavior: 'instant'
+        })
+    }
+
+    // 滚动到指定元素的位置
+    const scrollTo = (id: number) => {
+        vw.value.withItemSpaces((spaces) => {
+            for (const space of spaces) {
+                // 找到你想滚动到的元素
+                if (space.item.id === id) {
+                    const top = space.top;
+                    // 执行滚动
+                    window.scrollTo({
+                        top: top,
+                        behavior: 'smooth'
+                    })
+                    return;
+                }
+            }
         })
     }
 
@@ -119,6 +141,7 @@ const useWaterfall = () => {
         document.body.removeChild(measureDom);
     })
     return {
+        vw,
         backTop,
         waterfallOption,
         data,
