@@ -4,7 +4,7 @@
         :style="{
             position: 'relative',
             willChange: 'height',
-            height: `${Math.max(...columnsTop)}px`,
+            height: `${maxColumnHeight}px`,
             padding: containerPadding,
         }"
     >
@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef, watchEffect, readonly } from 'vue'
+import { computed, onMounted, ref, shallowRef, watchEffect, readonly, triggerRef } from 'vue'
 import { useElementBounding, useElementSize } from '@vueuse/core'
 
 defineOptions({
@@ -113,7 +113,15 @@ const columnCount = computed<number>(() => {
 })
 
 // 每列距离顶部的距离
-const columnsTop = ref(Array.from({ length: columnCount.value }, () => 0))
+const columnsTop = shallowRef(Array.from({ length: columnCount.value }, () => 0))
+
+// 获取当前元素应该处于哪一列
+const getColumnIndex = (): number => {
+    return columnsTop.value.indexOf(Math.min(...columnsTop.value))
+}
+
+// 缓存最大列高度
+const maxColumnHeight = computed(() => Math.max(...columnsTop.value))
 
 // 计算每个item占据的宽度: (容器宽度 - 间隔) / 列数
 const itemWidth = computed<number>(() => {
@@ -203,6 +211,7 @@ watchEffect(() => {
         spaces[i] = space
     }
     itemSpaces.value = spaces
+    triggerRef(columnsTop)
 })
 
 // 虚拟列表逻辑：需要渲染的items
@@ -250,9 +259,4 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     }
     return items
 })
-
-// 获取当前元素应该处于哪一列
-const getColumnIndex = (): number => {
-    return columnsTop.value.indexOf(Math.min(...columnsTop.value))
-}
 </script>
