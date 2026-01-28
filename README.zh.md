@@ -2,7 +2,8 @@
 
 > 一款vue3虚拟瀑布流组件
 
-[![npm](https://img.shields.io/npm/v/%40lhlyu%2Fvue-virtual-waterfall)](https://www.npmjs.com/package/@lhlyu/vue-virtual-waterfall)
+[![npm](https://img.shields.io/npm/v/@lhlyu/vue-virtual-waterfall)](https://www.npmjs.com/package/@lhlyu/vue-virtual-waterfall)
+![Last Commit](https://img.shields.io/github/last-commit/lhlyu/vue-virtual-waterfall)
 
 [English Doc](./README.md)
 
