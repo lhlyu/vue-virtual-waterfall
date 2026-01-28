@@ -33,9 +33,11 @@ app.use(VueVirtualWaterfall)
 - 使用
 
 ```vue
-
 <template>
-    <VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight">
+    <VirtualWaterfall
+        :items="items"
+        :calcItemHeight="calcItemHeight"
+    >
         <template #default="{ item }: { item: ItemOption }">
             <div class="card">
                 <img :src="item.img" />
@@ -60,28 +62,28 @@ app.use(VueVirtualWaterfall)
 
 - 属性
 
-| 字段                 | 类型                                         | 默认值                                     | 说明                        |
-|--------------------|--------------------------------------------|-----------------------------------------|---------------------------|
-| virtual            | boolean                                    | true                                    | 是否启用虚拟列表                  |
-| rowKey             | string                                     | 'id'                                    | v-for需要用到key              |
-| enableCache        | boolean                                    | true                                    | 是否启用缓存                    |
-| gap                | number                                     | 15                                      | 每个item之间的间隔               |
-| padding            | number or string                           | 15 or '15px 15px'                       | 容器内边距                     |
+| 字段               | 类型                                       | 默认值                                  | 说明                                           |
+| ------------------ | ------------------------------------------ | --------------------------------------- | ---------------------------------------------- |
+| virtual            | boolean                                    | true                                    | 是否启用虚拟列表                               |
+| rowKey             | string                                     | 'id'                                    | v-for需要用到key                               |
+| enableCache        | boolean                                    | true                                    | 是否启用缓存                                   |
+| gap                | number                                     | 15                                      | 每个item之间的间隔                             |
+| padding            | number or string                           | 15 or '15px 15px'                       | 容器内边距                                     |
 | preloadScreenCount | `[number, number]`                         | `[0:0]`                                 | 预加载屏数量`[上面预加载屏数，下面预加载屏数]` |
-| itemMinWidth       | number                                     | 220                                     | 每个item最小宽度                |
-| maxColumnCount     | number                                     | 10                                      | 允许的最大列数                   |
-| minColumnCount     | number                                     | 2                                       | 允许的最小列数                   |
-| items              | any[]                                      | []                                      | 数据                        |
-| calcItemHeight     | `(item: any, itemWidth: number) => number` | `(item: any, itemWidth: number) => 250` | 计算item高度的方法               |
+| itemMinWidth       | number                                     | 220                                     | 每个item最小宽度                               |
+| maxColumnCount     | number                                     | 10                                      | 允许的最大列数                                 |
+| minColumnCount     | number                                     | 2                                       | 允许的最小列数                                 |
+| items              | any[]                                      | []                                      | 数据                                           |
+| calcItemHeight     | `(item: any, itemWidth: number) => number` | `(item: any, itemWidth: number) => 250` | 计算item高度的方法                             |
 
 - 插槽
 
-| 事件      | 类型                             | 说明      |
-|---------|--------------------------------|---------|
+| 事件    | 类型                           | 说明           |
+| ------- | ------------------------------ | -------------- |
 | default | `{ item: any, index: number }` | 自定义默认内容 |
 
 - 方法
 
-| Event          | Type                                                              | Description |
-|----------------|-------------------------------------------------------------------|-------------|
+| Event          | Type                                                              | Description      |
+| -------------- | ----------------------------------------------------------------- | ---------------- |
 | withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> \| void)` | 读取元素空间信息 |

@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
@@ -8,15 +8,15 @@ export default defineConfig(({ mode }) => {
     let plugins = [vue()]
     let build: Record<string, any> = {
         target: 'es2015',
-        cssTarget: 'chrome61'
+        cssTarget: 'chrome61',
     }
 
     if (mode === 'npm') {
         plugins = [
             vue(),
             dts({
-                entryRoot: 'src/vue-virtual-waterfall'
-            })
+                entryRoot: 'src/vue-virtual-waterfall',
+            }),
         ]
         build = {
             target: 'es2015',
@@ -26,23 +26,23 @@ export default defineConfig(({ mode }) => {
                 entry: 'src/vue-virtual-waterfall/index.ts',
                 formats: ['cjs', 'es', 'umd', 'iife'],
                 name: 'VueVirtualWaterfall',
-                fileName: 'index'
+                fileName: 'index',
             },
             rollupOptions: {
                 external: ['vue'],
                 output: {
                     globals: {
-                        vue: 'Vue'
+                        vue: 'Vue',
                     },
-                    exports: 'named'
-                }
-            }
+                    exports: 'named',
+                },
+            },
         }
     }
 
     return {
         base,
         plugins,
-        build
+        build,
     }
 })

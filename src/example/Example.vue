@@ -11,7 +11,10 @@
         :gap="waterfallOption.gap"
         :enable-cache="waterfallOption.enableCache"
         :padding="waterfallOption.padding"
-        :preload-screen-count="[waterfallOption.topPreloadScreenCount, waterfallOption.bottomPreloadScreenCount]"
+        :preload-screen-count="[
+            waterfallOption.topPreloadScreenCount,
+            waterfallOption.bottomPreloadScreenCount,
+        ]"
         :item-min-width="waterfallOption.itemMinWidth"
         :max-column-count="waterfallOption.maxColumnCount"
         :min-column-count="waterfallOption.minColumnCount"
@@ -104,7 +107,8 @@
             </div>
             <div class="form-group form-group-sm mb-2">
                 <label class="form-label fs-6"
-                    >最小列数 <code>[0:{{ waterfallOption.maxColumnCount }}]</code>，最大列数 <code>[{{ waterfallOption.minColumnCount }}:10]</code></label
+                    >最小列数 <code>[0:{{ waterfallOption.maxColumnCount }}]</code>，最大列数
+                    <code>[{{ waterfallOption.minColumnCount }}:10]</code></label
                 >
                 <div class="input-group input-group-sm">
                     <input
@@ -233,7 +237,7 @@ header {
     height: 72px;
     background-color: white;
     border-bottom: 1px solid #f1f2f6;
-    
+
     strong {
         font-size: 24px;
         margin-right: 8px;

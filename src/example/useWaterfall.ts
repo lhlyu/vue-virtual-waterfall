@@ -1,20 +1,20 @@
 import { reactive, render, h, onMounted, onUnmounted, useTemplateRef } from 'vue'
-import Card from './Card.vue'
+
 import type { VirtualWaterfall } from '../vue-virtual-waterfall'
+import Card from './Card.vue'
 
 // 创建一个可复用的 DOM 容器
-let measureDom: HTMLDivElement;
+let measureDom: HTMLDivElement
 
 // 计算真实高度，这里只计算除了图片的高度
 function getRealHeight(item: ItemOption, realWidth: number) {
-
     render(
         h(Card, {
             item: item,
             width: realWidth + 'px',
-            noImage: true
+            noImage: true,
         }),
-        measureDom
+        measureDom,
     )
 
     // 获取高度
@@ -24,29 +24,28 @@ function getRealHeight(item: ItemOption, realWidth: number) {
 }
 
 const useWaterfall = () => {
-
     const vw = useTemplateRef<InstanceType<typeof VirtualWaterfall>>('vw')
 
     const backTop = () => {
         window.scrollTo({
             top: 0,
-            behavior: 'instant'
+            behavior: 'instant',
         })
     }
 
     // 滚动到指定元素的位置
     const scrollTo = (id: number) => {
-        vw.value.withItemSpaces((spaces) => {
+        vw.value?.withItemSpaces((spaces) => {
             for (const space of spaces) {
                 // 找到你想滚动到的元素
                 if (space.item.id === id) {
-                    const top = space.top;
+                    const top = space.top
                     // 执行滚动
                     window.scrollTo({
                         top: top,
-                        behavior: 'smooth'
+                        behavior: 'smooth',
                     })
-                    return;
+                    return
                 }
             }
         })
@@ -66,7 +65,7 @@ const useWaterfall = () => {
         padding: 15,
         itemMinWidth: 220,
         minColumnCount: 2,
-        maxColumnCount: 10
+        maxColumnCount: 10,
     })
 
     // 瀑布流元素高度的计算函数
@@ -87,7 +86,7 @@ const useWaterfall = () => {
         total: 0,
         max: 0,
         list: [] as ItemOption[],
-        end: false
+        end: false,
     })
 
     // 加载更多数据的函数
@@ -96,7 +95,9 @@ const useWaterfall = () => {
             return
         }
         data.page += 1
-        const response = await fetch(`https://mock.yuan.sh/images?page=${data.page}&size=${data.size}&mode=simple`)
+        const response = await fetch(
+            `https://mock.yuan.sh/images?page=${data.page}&size=${data.size}&mode=simple`,
+        )
         const result = await response.json()
         if (!result.list.length) {
             data.end = true
@@ -130,22 +131,22 @@ const useWaterfall = () => {
     }
 
     onMounted(async () => {
-        measureDom = document.createElement('div');
+        measureDom = document.createElement('div')
         // 将其设置为不可见，避免影响布局或用户体验
-        measureDom.style.cssText = 'position: absolute; visibility: hidden; pointer-events: none;';
-        document.body.appendChild(measureDom); // 在应用启动时添加到 body 一次
+        measureDom.style.cssText = 'position: absolute; visibility: hidden; pointer-events: none;'
+        document.body.appendChild(measureDom) // 在应用启动时添加到 body 一次
         await checkScrollPosition()
     })
 
     onUnmounted(() => {
-        document.body.removeChild(measureDom);
+        document.body.removeChild(measureDom)
     })
     return {
         vw,
         backTop,
         waterfallOption,
         data,
-        calcItemHeight
+        calcItemHeight,
     }
 }
 

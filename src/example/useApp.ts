@@ -1,5 +1,5 @@
-import { onMounted, onUnmounted, ref } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const useApp = () => {
     const asideShow = ref(true)
@@ -24,7 +24,7 @@ const useApp = () => {
     })
 
     return {
-        asideShow
+        asideShow,
     }
 }
 

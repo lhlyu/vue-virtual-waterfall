@@ -26,7 +26,7 @@
 
 ## 1.0.5
 
-### fix 
+### fix
 
 - virtual list bug | 虚拟列表漏洞
 
@@ -63,4 +63,3 @@ Compared to the old version, the new version will no longer implement the logic 
 与旧版本相比，新版本将不再实现滚动加载更多内容的逻辑，包装瀑布流的容器交给用户选择。
 
 ## [Older](https://github.com/lhlyu/vue-virtual-waterfall/tree/v0.0.16)
-

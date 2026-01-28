@@ -33,9 +33,11 @@ app.use(VueVirtualWaterfall)
 - Usage
 
 ```vue
-
 <template>
-    <VirtualWaterfall :items="items" :calcItemHeight="calcItemHeight">
+    <VirtualWaterfall
+        :items="items"
+        :calcItemHeight="calcItemHeight"
+    >
         <template #default="{ item }: { item: ItemOption }">
             <div class="card">
                 <img :src="item.img" />
@@ -60,7 +62,7 @@ of the body also needs to be specified. The scrolling event can be bound to the 
 - Properties
 
 | Field              | Type                                       | Default                                 | Description                           |
-|--------------------|--------------------------------------------|-----------------------------------------|---------------------------------------|
+| ------------------ | ------------------------------------------ | --------------------------------------- | ------------------------------------- |
 | virtual            | boolean                                    | true                                    | Enable virtual list                   |
 | rowKey             | string                                     | 'id'                                    | Key for v-for                         |
 | enableCache        | boolean                                    | true                                    | enable cache                          |
@@ -76,11 +78,11 @@ of the body also needs to be specified. The scrolling event can be bound to the 
 - Slots
 
 | Event   | Type                           | Description            |
-|---------|--------------------------------|------------------------|
+| ------- | ------------------------------ | ---------------------- |
 | default | `{ item: any, index: number }` | Custom default content |
 
 - Methods
 
-| Event          | Type                                                              | Description |
-|----------------|-------------------------------------------------------------------|-------------|
+| Event          | Type                                                              | Description           |
+| -------------- | ----------------------------------------------------------------- | --------------------- |
 | withItemSpaces | `(cb: (spaces: readonly SpaceOption[]) => Promise<void> \| void)` | Read Item Spaces Info |

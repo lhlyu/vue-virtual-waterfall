@@ -58,5 +58,5 @@ jobs:
           prerelease: ${{ env.prerelease }}
           allowUpdates: true
           generateReleaseNotes: true
-          body: "Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/v${{ env.version }}/CHANGELOG.md) for details."
+          body: 'Please refer to [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/v${{ env.version }}/CHANGELOG.md) for details.'
           token: ${{ secrets.GITHUB_TOKEN }}
