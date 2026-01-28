@@ -3,20 +3,28 @@ name: Publish Package
 on:
   push:
     branches:
-      - no
+      - main
+
+permissions:
+  id-token: write
+  contents: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     environment: Release
-    permissions:
-      contents: write
 
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: 安装Pnpm
+      - name: 设置 Node.js 环境
+        uses: actions/setup-node@v6
+        with:
+          node-version: '25'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 安装 Pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 10
@@ -24,38 +32,28 @@ jobs:
       - name: 安装依赖
         run: pnpm i --no-frozen-lockfile --shamefully-hoist
 
-      - name: 设置Node的版本
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org/'
-          cache: 'pnpm'
-
       - name: 构建代码
         run: pnpm build:npm
 
-      - name: 发布版本
-        run: pnpm pub
-        env:
-          NODE_AUTH_TOKEN: '${{secrets.NPM_AUTH_TOKEN}}'
-
       - name: 获取当前的版本号
         run: |
-          echo "version=$(grep -o '"version": *"[^"]*"' package.json | awk -F'"' '{print $4}')" >> "$GITHUB_ENV"
-
-      - name: 是否是预发布
-        run: |
-          echo "prerelease=$([[ ${{ env.version }} == *-* ]] && echo 'true' || echo 'false')" >> "$GITHUB_ENV"
+          echo "version=$(jq -r '.version' package.json)" >> "$GITHUB_ENV"
+          echo "tag=$(jq -r '.version | (capture("-(?<tag>[^.]+)") // {}) | .tag // "latest"' package.json)" >> "$GITHUB_ENV"
+          echo "prerelease=$(jq -r '.version | test("-")' package.json)" >> "$GITHUB_ENV"
 
       - name: 打印信息
         run: |
           echo "version: ${{ env.version }}"
+          echo "tag: ${{ env.tag }}"
           echo "prerelease: ${{ env.prerelease }}"
+
+      - name: 发布版本
+        run: pnpm publish --no-git-checks --tag ${{ env.tag }} --access=public
 
       - name: 打个标签
         uses: ncipollo/release-action@v1
         with:
-          tag: "v${{ env.version }}"
+          tag: 'v${{ env.version }}'
           draft: false
           prerelease: ${{ env.prerelease }}
           allowUpdates: true

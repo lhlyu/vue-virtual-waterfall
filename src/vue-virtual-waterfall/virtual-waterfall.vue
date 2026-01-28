@@ -5,7 +5,7 @@
             position: 'relative',
             willChange: 'height',
             height: `${Math.max(...columnsTop)}px`,
-            padding: `${isNumber(padding) ? padding + 'px' : padding}`
+            padding: containerPadding
         }"
     >
         <div
@@ -92,9 +92,9 @@ onMounted(() => {
     }
 })
 
-function isNumber(value: any) {
-    return Object.prototype.toString.call(value) === '[object Number]';
-}
+const containerPadding = computed(() =>
+    typeof props.padding === 'number' ? `${props.padding}px` : props.padding
+)
 
 // 计算列数
 const columnCount = computed<number>(() => {

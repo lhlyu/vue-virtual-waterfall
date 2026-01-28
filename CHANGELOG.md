@@ -1,3 +1,11 @@
+## 1.0.9
+
+### chore
+
+- upgrade dependencies | 升级依赖
+- update README | 更新README
+- optimize padding calculation in virtual-waterfall.vue | 优化virtual-waterfall.vue中的padding计算逻辑
+
 ## 1.0.8
 
 ### feature
@@ -55,6 +63,4 @@ Compared to the old version, the new version will no longer implement the logic 
 与旧版本相比，新版本将不再实现滚动加载更多内容的逻辑，包装瀑布流的容器交给用户选择。
 
 ## [Older](https://github.com/lhlyu/vue-virtual-waterfall/tree/v0.0.16)
-
-
 

@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
             copyPublicDir: false,
             lib: {
                 entry: 'src/vue-virtual-waterfall/index.ts',
-                formats: ['cjs', 'es', 'umd'],
+                formats: ['cjs', 'es', 'umd', 'iife'],
                 name: 'VueVirtualWaterfall',
                 fileName: 'index'
             },
