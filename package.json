@@ -1,31 +1,16 @@
 {
   "name": "@lhlyu/vue-virtual-waterfall",
+  "version": "1.0.9-beta.1",
   "description": "vue3 virtual waterfall component",
-  "version": "1.0.9-beta.0",
-  "author": "lhlyu",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lhlyu/vue-virtual-waterfall.git"
-  },
-  "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "fmt": "prettier --write .",
-    "dev": "vite --host",
-    "build": "vue-tsc && vite build",
-    "build:npm": "vue-tsc && vite build --mode npm",
-    "preview": "vite preview",
-    "pub": "bash scripts/publish.sh"
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
   "keywords": [
-    "vue3",
-    "waterfall",
+    "component",
     "virtual-list",
-    "component"
+    "vue3",
+    "waterfall"
   ],
+  "license": "MIT",
+  "author": "lhlyu",
+  "repository": "https://github.com/lhlyu/vue-virtual-waterfall.git",
   "files": [
     "dist",
     "README.md",
@@ -33,16 +18,27 @@
     "LICENSE",
     "package.json"
   ],
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "fmt": "oxfmt",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "dev": "vite --host",
+    "build": "vue-tsc && vite build",
+    "build:npm": "vue-tsc && vite build --mode npm",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@vueuse/core": "^14.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.3",
-    "autoprefixer": "^10.4.23",
-    "cssnano": "^7.1.2",
-    "postcss": "^8.5.6",
-    "prettier": "^3.8.1",
-    "prettier-plugin-rational-order": "^1.0.3",
+    "@vue/tsconfig": "^0.8.1",
+    "oxfmt": "^0.27.0",
+    "oxlint": "^1.42.0",
     "sass": "^1.97.3",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",

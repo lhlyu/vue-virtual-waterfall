@@ -5,7 +5,7 @@
             position: 'relative',
             willChange: 'height',
             height: `${Math.max(...columnsTop)}px`,
-            padding: containerPadding
+            padding: containerPadding,
         }"
     >
         <div
@@ -17,7 +17,7 @@
                 width: `${itemWidth}px`,
                 height: `${data.height}px`,
                 transform: `translate(${data.left}px, ${data.top}px)`,
-                containIntrinsicSize: `${itemWidth}px ${data.height}px`
+                containIntrinsicSize: `${itemWidth}px ${data.height}px`,
             }"
             :data-index="data.index"
         >
@@ -34,7 +34,7 @@ import { computed, onMounted, ref, shallowRef, watchEffect, readonly } from 'vue
 import { useElementBounding, useElementSize } from '@vueuse/core'
 
 defineOptions({
-    name: 'VirtualWaterfall'
+    name: 'VirtualWaterfall',
 })
 
 interface VirtualWaterfallOption {
@@ -72,7 +72,7 @@ const props = withDefaults(defineProps<VirtualWaterfallOption>(), {
     maxColumnCount: 10,
     minColumnCount: 2,
     items: () => [],
-    calcItemHeight: (item: any, itemWidth: number) => 250
+    calcItemHeight: (item: any, itemWidth: number) => 250,
 })
 
 defineSlots<{
@@ -87,13 +87,13 @@ const { top: contentTop } = useElementBounding(content)
 onMounted(() => {
     // 这里是为了解决这个问题:
     // https://github.com/lhlyu/vue-virtual-waterfall/issues/5
-    if (contentWidth.value === 0) {
+    if (contentWidth.value === 0 && content.value) {
         contentWidth.value = Number.parseInt(window.getComputedStyle(content.value).width)
     }
 })
 
 const containerPadding = computed(() =>
-    typeof props.padding === 'number' ? `${props.padding}px` : props.padding
+    typeof props.padding === 'number' ? `${props.padding}px` : props.padding,
 )
 
 // 计算列数
@@ -113,7 +113,7 @@ const columnCount = computed<number>(() => {
 })
 
 // 每列距离顶部的距离
-const columnsTop = ref(new Array(columnCount.value).fill(0))
+const columnsTop = ref(Array.from({ length: columnCount.value }, () => 0))
 
 // 计算每个item占据的宽度: (容器宽度 - 间隔) / 列数
 const itemWidth = computed<number>(() => {
@@ -122,7 +122,7 @@ const itemWidth = computed<number>(() => {
     }
     // 列之间的间隔
     const gap = (columnCount.value - 1) * props.gap
-    
+
     return Math.ceil((contentWidth.value - gap) / columnCount.value)
 })
 
@@ -153,19 +153,18 @@ const withItemSpaces = (cb: (spaces: readonly SpaceOption[]) => Promise<void> | 
 }
 
 defineExpose({
-    withItemSpaces
+    withItemSpaces,
 })
 
 watchEffect(() => {
-  
     const length = props.items.length
-    
+
     if (!columnCount.value || !length) {
         itemSpaces.value = []
         return
     }
-    
-    const spaces = new Array(length)
+
+    const spaces = Array.from({ length }) as SpaceOption[]
 
     let start = 0
     // 是否启用缓存：只有当新增元素时，需要计算新增元素的信息
@@ -173,22 +172,22 @@ watchEffect(() => {
     if (cache) {
         start = itemSpaces.value.length
     } else {
-        columnsTop.value = new Array(columnCount.value).fill(0)
+        columnsTop.value = Array.from({ length: columnCount.value }, () => 0)
     }
 
     // 为了高性能采用for-i
     for (let i = 0; i < length; i++) {
         if (cache && i < start) {
-            spaces[i] = itemSpaces.value[i]
+            spaces[i] = itemSpaces.value[i]!
             continue
         }
 
         const columnIndex = getColumnIndex()
         // 计算元素的高度
         const h = props.calcItemHeight(props.items[i], itemWidth.value)
-        const top = columnsTop.value[columnIndex]
+        const top = columnsTop.value[columnIndex] ?? 0
         const left = (itemWidth.value + props.gap) * columnIndex
-        
+
         const space: SpaceOption = {
             index: i,
             item: props.items[i],
@@ -196,11 +195,11 @@ watchEffect(() => {
             top: top,
             left: left,
             bottom: top + h,
-            height: h
+            height: h,
         }
 
         // 累加当前列的高度
-        columnsTop.value[columnIndex] += h + props.gap
+        columnsTop.value[columnIndex]! += h + props.gap
         spaces[i] = space
     }
     itemSpaces.value = spaces
@@ -217,23 +216,23 @@ const itemRenderList = computed<SpaceOption[]>(() => {
     }
 
     // 父节点距离顶部的距离
-    const parentTop = content.value.parentElement.offsetTop
+    const parentTop = content.value?.parentElement?.offsetTop ?? 0
 
     const tp = -contentTop.value + parentTop
 
     const [topPreloadScreenCount, bottomPreloadScreenCount] = props.preloadScreenCount
     // 避免多次访问
-    const innerHeight = content.value.parentElement.clientHeight
+    const innerHeight = content.value?.parentElement?.clientHeight ?? 0
 
     // 顶部的范围: 向上预加载preloadScreenCount个屏幕，Y轴上部
     const minLimit = tp - topPreloadScreenCount * innerHeight
     // 底部的范围: 向下预加载preloadScreenCount个屏幕
     const maxLimit = tp + (bottomPreloadScreenCount + 1) * innerHeight
-    
+
     const items = []
-    
+
     for (let i = 0; i < length; i++) {
-        const v = itemSpaces.value[i]
+        const v = itemSpaces.value[i]!
         const t = v.top
         const b = v.bottom
         // 这里的逻辑是：
@@ -241,7 +240,7 @@ const itemRenderList = computed<SpaceOption[]>(() => {
         // 1. 元素的上边界在容器内
         // 2. 元素的下边界在容器内
         // 3. 元素覆盖了整个容器
-        if(
+        if (
             (t >= minLimit && t <= maxLimit) ||
             (b >= minLimit && b <= maxLimit) ||
             (t < minLimit && b > maxLimit)

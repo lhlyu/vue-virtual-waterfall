@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true,
+  "singleAttributePerLine": true,
+  "overrides": [
+    {
+      "files": ["*.json", "*.yaml", "*.yml"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ],
+  "experimentalSortImports": {
+    "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
+    "newlinesBetween": true
+  }
+}
