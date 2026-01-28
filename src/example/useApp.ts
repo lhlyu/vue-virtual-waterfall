@@ -3,7 +3,8 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 const useApp = () => {
     const asideShow = ref(true)
-    const setAppStyle = () => {
+
+    const debouncedSetAppStyle = useDebounceFn(() => {
         document.body.style.height = window.innerHeight + 'px'
         if (window.innerWidth > 640) {
             asideShow.value = true
@@ -12,15 +13,15 @@ const useApp = () => {
         }
         asideShow.value = false
         document.body.style.paddingRight = '0'
-    }
+    }, 125)
 
     onMounted(() => {
-        setAppStyle()
-        window.addEventListener('resize', useDebounceFn(setAppStyle, 125))
+        debouncedSetAppStyle()
+        window.addEventListener('resize', debouncedSetAppStyle)
     })
 
     onUnmounted(() => {
-        window.removeEventListener('resize', useDebounceFn(setAppStyle, 125))
+        window.removeEventListener('resize', debouncedSetAppStyle)
     })
 
     return {
