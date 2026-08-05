@@ -1,28 +1,27 @@
 <template>
     <article
-        class="card"
+        class="waterfall-card"
         :data-id="item.id"
     >
         <div
-            class="body"
+            class="waterfall-card-body"
             v-if="!onlyImage"
         >
-            <h3>{{ item.title }}</h3>
-            <div class="author">
-                <div class="avatar">
+            <h3 class="waterfall-card-title">{{ item.title }}</h3>
+            <div class="waterfall-card-author">
+                <div class="waterfall-card-avatar">
                     <img
                         :src="item.avatar"
                         :alt="item.user"
                     />
                     <span>{{ item.user }}</span>
                 </div>
-                <div class="views">❤️ {{ item.views > 999 ? '999+' : item.views }}</div>
+                <div class="waterfall-card-views">
+                    ❤️ {{ item.views > 999 ? '999+' : item.views }}
+                </div>
             </div>
         </div>
-        <div
-            class="cover"
-            v-if="!noImage"
-        >
+        <div class="waterfall-card-cover">
             <Transition>
                 <img
                     v-if="loaded"
@@ -104,138 +103,33 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue'
 
-const props = withDefaults(
-    defineProps<{
-        item: ItemOption
-        onlyImage?: boolean
-        noImage?: boolean
-        width?: string
-    }>(),
-    {
-        onlyImage: false,
-        noImage: false,
-        width: '100%',
-    },
-)
+const props = defineProps<{
+    item: ItemOption
+    onlyImage?: boolean
+}>()
 
 const loaded = ref(false)
-const height = ref('auto')
 
 onBeforeMount(() => {
-    if (!props.noImage) {
-        height.value = '100%'
-        new Promise((resolve) => {
-            const image = new Image()
-            image.src = props.item.url
-            if (image.complete) {
-                loaded.value = true
-                resolve(true)
-                return
-            }
+    const image = new Image()
 
-            image.onload = () => {
-                loaded.value = true
-                resolve(true)
-            }
+    const complete = () => {
+        loaded.value = true
+    }
 
-            image.onerror = (error) => {
-                console.error(props.item.url, error)
-                loaded.value = true
-                resolve(true)
-            }
-        })
+    image.addEventListener('load', complete, { once: true })
+    image.addEventListener(
+        'error',
+        (error) => {
+            console.error(props.item.url, error)
+            complete()
+        },
+        { once: true },
+    )
+    image.src = props.item.url
+
+    if (image.complete) {
+        complete()
     }
 })
 </script>
-
-<style scoped lang="scss">
-.card {
-    display: flex;
-    flex-direction: column-reverse;
-    width: v-bind(width);
-    height: v-bind(height);
-    overflow: hidden;
-    background: white;
-    border: 1px solid #e3e8f7;
-    border-radius: 10px;
-
-    .cover {
-        display: flex;
-        flex: 1;
-        flex-shrink: 0;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        background-color: #e3e8f7;
-
-        img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
-
-    .body {
-        flex-shrink: 0;
-        box-sizing: border-box;
-        height: fit-content;
-        padding: 12px;
-
-        h3 {
-            margin: 0;
-            padding: 0;
-            font-weight: bolder;
-            font-size: 14px;
-        }
-
-        .author {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 8px;
-
-            .avatar {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-
-                img {
-                    width: 20px;
-                    height: 20px;
-                    object-fit: cover;
-                    border-radius: 50%;
-                }
-
-                span {
-                    margin-left: 4px;
-                    overflow: hidden;
-                    color: #333333;
-                    font-size: 12px;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                }
-            }
-
-            .views {
-                color: #333333;
-                font-size: 12px;
-            }
-        }
-    }
-}
-.v-enter-active,
-.v-leave-active {
-    opacity: 1;
-    transition: all 0.4s linear;
-    will-change: opacity;
-}
-
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
-    will-change: opacity;
-}
-</style>

@@ -1,0 +1,343 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    padding-top: 72px;
+    padding-right: 300px;
+    color: #212529;
+    background: #f1f2f6;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    user-select: none;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+code {
+    color: #d63384;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+    font-size: 0.875em;
+}
+
+.example-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 72px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f1f2f6;
+}
+
+.example-title {
+    margin-right: 8px;
+    font-size: 24px;
+}
+
+.version-badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    color: #ffffff;
+    background-color: #198754;
+    border-radius: 6px;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: baseline;
+}
+
+.settings-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 300px;
+    height: 100%;
+    padding-top: 72px;
+    background-color: #ffffff;
+    border-left: 1px solid #f1f2f6;
+}
+
+.settings-form {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.setting-field {
+    margin-bottom: 8px;
+}
+
+.setting-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.setting-input-group {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.setting-input,
+.setting-input-suffix {
+    min-height: 31px;
+    border: 1px solid #dee2e6;
+    border-radius: 0;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.setting-input {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    padding: 4px 8px;
+    color: #212529;
+    background-color: #ffffff;
+    outline: none;
+}
+
+.setting-input:focus {
+    z-index: 1;
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 3px rgb(13 110 253 / 25%);
+}
+
+.setting-input-suffix {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    color: #212529;
+    background-color: #e9ecef;
+    white-space: nowrap;
+}
+
+.setting-input-group > * + * {
+    margin-left: -1px;
+}
+
+.setting-input-group > :first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.setting-input-group > :last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.setting-switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 28px;
+    margin-bottom: 4px;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.setting-switch-last {
+    margin-bottom: 8px;
+}
+
+.switch-control {
+    position: relative;
+    flex: 0 0 auto;
+    width: 32px;
+    height: 18px;
+}
+
+.switch-control input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.switch-track {
+    position: absolute;
+    inset: 0;
+    background-color: #ffffff;
+    border: 1px solid #adb5bd;
+    border-radius: 9px;
+    transition:
+        background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
+}
+
+.switch-track::before {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    background-color: #6c757d;
+    border-radius: 50%;
+    content: '';
+    transition:
+        transform 0.15s ease-in-out,
+        background-color 0.15s ease-in-out;
+}
+
+.switch-control input:checked + .switch-track {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.switch-control input:checked + .switch-track::before {
+    background-color: #ffffff;
+    transform: translateX(14px);
+}
+
+.switch-control input:focus-visible + .switch-track {
+    box-shadow: 0 0 0 3px rgb(13 110 253 / 25%);
+}
+
+.data-summary p {
+    line-height: 24px;
+}
+
+.back-top-button {
+    display: inline-block;
+    padding: 4px 8px;
+    color: #ffffff;
+    background-color: #0d6efd;
+    border: 1px solid #0d6efd;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.back-top-button:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.back-top-button:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px rgb(49 132 253 / 50%);
+}
+
+.waterfall-card {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: #212529;
+    overflow-wrap: break-word;
+    background: #ffffff;
+    border: 1px solid #e3e8f7;
+    border-radius: 10px;
+}
+
+.waterfall-card-cover {
+    display: flex;
+    flex: 1;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    background-color: #e3e8f7;
+}
+
+.waterfall-card-cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.waterfall-card-body {
+    flex-shrink: 0;
+    height: fit-content;
+    padding: 12px;
+}
+
+.waterfall-card-title {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.waterfall-card-author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.waterfall-card-avatar {
+    display: flex;
+    min-width: 0;
+    flex-direction: row;
+    align-items: center;
+}
+
+.waterfall-card-avatar img {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.waterfall-card-avatar span {
+    margin-left: 4px;
+    overflow: hidden;
+    color: #333333;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.waterfall-card-views {
+    flex: 0 0 auto;
+    color: #333333;
+    font-size: 12px;
+}
+
+.v-enter-active,
+.v-leave-active {
+    opacity: 1;
+    transition: opacity 0.4s linear;
+    will-change: opacity;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+    will-change: opacity;
+}
+
+@media (width <= 640px) {
+    body {
+        padding-right: 0;
+    }
+
+    .settings-panel {
+        display: none;
+    }
+}
