@@ -32,11 +32,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@chenglou/pretext": "^0.0.8",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/tsconfig": "^0.9.1",
     "oxfmt": "^0.62.0",
     "oxlint": "^1.77.0",
-    "sass": "^1.102.0",
     "typescript": "^7.0.2",
     "vite": "^8.2.0",
     "vite-plugin-dts": "5.0.3",
