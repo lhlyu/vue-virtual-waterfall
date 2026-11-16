@@ -32,15 +32,15 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@chenglou/pretext": "^0.0.8",
-    "@vitejs/plugin-vue": "^6.0.8",
+    "@chenglou/pretext": "^1.0.0",
+    "@vitejs/plugin-vue": "^6.0.11",
     "@vue/tsconfig": "^0.9.1",
-    "oxfmt": "^0.62.0",
-    "oxlint": "^1.77.0",
-    "typescript": "^7.0.2",
-    "vite": "^8.2.0",
-    "vite-plugin-dts": "5.0.3",
-    "vue": "^3.5.40",
-    "vue-tsc": "^3.3.9"
+    "oxfmt": "^0.78.0",
+    "oxlint": "^1.93.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.8",
+    "vite-plugin-dts": "5.1.2",
+    "vue": "^3.5.45",
+    "vue-tsc": "^3.3.14"
   }
 }
