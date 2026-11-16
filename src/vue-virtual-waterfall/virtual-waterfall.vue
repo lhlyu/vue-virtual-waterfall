@@ -30,8 +30,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef, watchEffect, readonly, triggerRef } from 'vue'
-import { useElementBounding, useElementSize } from '@vueuse/core'
+import {
+    computed,
+    onMounted,
+    onUnmounted,
+    ref,
+    shallowRef,
+    watchEffect,
+    readonly,
+    triggerRef,
+} from 'vue'
 
 defineOptions({
     name: 'VirtualWaterfall',
@@ -80,16 +88,39 @@ defineSlots<{
 }>()
 
 const content = ref<HTMLDivElement>()
+const contentWidth = ref(0)
+const contentTop = ref(0)
 
-const { width: contentWidth } = useElementSize(content)
-const { top: contentTop } = useElementBounding(content)
+let observer: ResizeObserver | undefined
+
+const updateContentRect = () => {
+    if (!content.value) {
+        contentWidth.value = 0
+        contentTop.value = 0
+        return
+    }
+    const rect = content.value.getBoundingClientRect()
+    contentWidth.value = rect.width
+    contentTop.value = rect.top
+}
 
 onMounted(() => {
+    updateContentRect()
     // 这里是为了解决这个问题:
     // https://github.com/lhlyu/vue-virtual-waterfall/issues/5
     if (contentWidth.value === 0 && content.value) {
         contentWidth.value = Number.parseInt(window.getComputedStyle(content.value).width)
     }
+    observer = new ResizeObserver(updateContentRect)
+    observer.observe(content.value!)
+    window.addEventListener('scroll', updateContentRect, true)
+    window.addEventListener('resize', updateContentRect)
+})
+
+onUnmounted(() => {
+    observer?.disconnect()
+    window.removeEventListener('scroll', updateContentRect, true)
+    window.removeEventListener('resize', updateContentRect)
 })
 
 const containerPadding = computed(() =>

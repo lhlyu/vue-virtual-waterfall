@@ -1,9 +1,6 @@
 import { createApp } from 'vue'
 
-import App from './App.vue'
+import Example from './example/Example.vue'
+import './example/style.css'
 
-const app = createApp(App)
-
-app.config.performance = true
-
-app.mount('body')
+createApp(Example).mount('body')

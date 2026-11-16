@@ -1,61 +1,38 @@
-import { reactive, render, h, onMounted, onUnmounted, useTemplateRef } from 'vue'
+import { layout, prepare, type PreparedText } from '@chenglou/pretext'
+import { onMounted, onUnmounted, reactive } from 'vue'
 
-import type { VirtualWaterfall } from '../vue-virtual-waterfall'
-import Card from './Card.vue'
+// 这些尺寸需要与 style.css 中的卡片正文样式保持一致。
+const CARD_TITLE_FONT = '700 14px "Helvetica Neue", Helvetica, Arial, sans-serif'
+const CARD_TITLE_LINE_HEIGHT = 16.8
+const CARD_TEXT_HORIZONTAL_INSET = 26
+const CARD_BODY_FIXED_HEIGHT = 52
 
-// 创建一个可复用的 DOM 容器
-let measureDom: HTMLDivElement
-
-// 计算真实高度，这里只计算除了图片的高度
-function getRealHeight(item: ItemOption, realWidth: number) {
-    render(
-        h(Card, {
-            item: item,
-            width: realWidth + 'px',
-            noImage: true,
-        }),
-        measureDom,
-    )
-
-    // 获取高度
-    const height: number = measureDom.firstElementChild!.clientHeight
-    // 返回高度
-    return height
+const backTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'instant',
+    })
 }
 
 const useWaterfall = () => {
-    const vw = useTemplateRef<InstanceType<typeof VirtualWaterfall>>('vw')
+    const preparedTitleCache = new Map<string, PreparedText>()
 
-    const backTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'instant',
-        })
+    const getTextHeight = (item: ItemOption, itemWidth: number) => {
+        let preparedTitle = preparedTitleCache.get(item.title)
+        if (!preparedTitle) {
+            preparedTitle = prepare(item.title, CARD_TITLE_FONT)
+            preparedTitleCache.set(item.title, preparedTitle)
+        }
+
+        const textWidth = Math.max(1, itemWidth - CARD_TEXT_HORIZONTAL_INSET)
+        return (
+            layout(preparedTitle, textWidth, CARD_TITLE_LINE_HEIGHT).height + CARD_BODY_FIXED_HEIGHT
+        )
     }
 
-    // 滚动到指定元素的位置
-    const scrollTo = (id: number) => {
-        vw.value?.withItemSpaces((spaces) => {
-            for (const space of spaces) {
-                // 找到你想滚动到的元素
-                if (space.item.id === id) {
-                    const top = space.top
-                    // 执行滚动
-                    window.scrollTo({
-                        top: top,
-                        behavior: 'smooth',
-                    })
-                    return
-                }
-            }
-        })
-    }
-
-    // 瀑布流的一些属性
     const waterfallOption = reactive({
         loading: false,
         bottomDistance: 0,
-        // 是否只展示图片，这是自定义加的一个属性
         onlyImage: false,
         topPreloadScreenCount: 0,
         bottomPreloadScreenCount: 0,
@@ -68,18 +45,13 @@ const useWaterfall = () => {
         maxColumnCount: 10,
     })
 
-    // 瀑布流元素高度的计算函数
     const calcItemHeight = (item: ItemOption, itemWidth: number) => {
-        let height = 0
-        // 当包含图文时，需要单独计算文字部分的高度
-        // 文字部分的高度 + 图片的高度 = 真实高度
-        if (!waterfallOption.onlyImage) {
-            height = getRealHeight(item, itemWidth)
-        }
-        return item.height * (itemWidth / item.width) + height
+        const imageHeight = item.height * (itemWidth / item.width)
+        return waterfallOption.onlyImage
+            ? imageHeight
+            : imageHeight + getTextHeight(item, itemWidth)
     }
 
-    // 需要展示数据的属性
     const data = reactive({
         page: 0,
         size: 30,
@@ -89,28 +61,24 @@ const useWaterfall = () => {
         end: false,
     })
 
-    // 加载更多数据的函数
     const loadData = async () => {
-        if (data.end) {
-            return
-        }
-        data.page += 1
+        const nextPage = data.page + 1
         const response = await fetch(
-            `https://mock.yuan.sh/images?page=${data.page}&size=${data.size}&mode=simple`,
+            `https://mock.yuan.sh/images?page=${nextPage}&size=${data.size}&mode=simple`,
         )
         const result = await response.json()
         if (!result.list.length) {
             data.end = true
             return
         }
+        data.page = nextPage
         data.total = result.total
         data.max = result.max
-        data.list = [...data.list, ...result.list]
+        data.list.push(...result.list)
     }
 
-    // 检查是否加载更多
     const checkScrollPosition = async () => {
-        if (waterfallOption.loading) {
+        if (waterfallOption.loading || data.end) {
             return
         }
 
@@ -120,29 +88,28 @@ const useWaterfall = () => {
 
         const distanceFromBottom = scrollHeight - scrollTop - clientHeight
 
-        // 不大于最小底部距离就加载更多
         if (distanceFromBottom <= waterfallOption.bottomDistance) {
             waterfallOption.loading = true
-            await loadData()
-            waterfallOption.loading = false
+            try {
+                await loadData()
+            } catch (error) {
+                console.error('加载数据失败', error)
+            } finally {
+                waterfallOption.loading = false
+            }
         }
-
-        requestAnimationFrame(checkScrollPosition)
     }
 
-    onMounted(async () => {
-        measureDom = document.createElement('div')
-        // 将其设置为不可见，避免影响布局或用户体验
-        measureDom.style.cssText = 'position: absolute; visibility: hidden; pointer-events: none;'
-        document.body.appendChild(measureDom) // 在应用启动时添加到 body 一次
-        await checkScrollPosition()
+    onMounted(() => {
+        void checkScrollPosition()
+        window.addEventListener('scroll', checkScrollPosition, { passive: true })
     })
 
     onUnmounted(() => {
-        document.body.removeChild(measureDom)
+        window.removeEventListener('scroll', checkScrollPosition)
+        preparedTitleCache.clear()
     })
     return {
-        vw,
         backTop,
         waterfallOption,
         data,

@@ -15,6 +15,8 @@ export default defineConfig(({ mode }) => {
         plugins = [
             vue(),
             dts({
+                tsconfigPath: './tsconfig.app.json',
+                include: ['src/vue-virtual-waterfall/**/*.ts', 'src/vue-virtual-waterfall/**/*.vue'],
                 entryRoot: 'src/vue-virtual-waterfall',
             }),
         ]
